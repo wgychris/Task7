@@ -11,7 +11,7 @@
 		<input type="submit" name="sell" value="Sell"><br/>	
 	</form>
 	<table>
-		<c:forEach var = "cusInfo" items = "${cusinfos]">
+		<c:forEach var = "cusInfo" items = "${cusinfos}">
 			<tr>
 				<td>
 					<!-- <form action="#remove.do" method="post">

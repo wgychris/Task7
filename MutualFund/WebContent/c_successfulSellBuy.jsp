@@ -8,7 +8,7 @@
 	<h1>Successfully ${type} FundId: ${fundId} Shares: ${shares} Amount: ${amount}</h1>	
 	<!-- Customer Information -->
 	<table>
-		<c:forEach var = "cusInfo" items = "${cusinfos]">
+		<c:forEach var = "cusInfo" items = "${cusinfos}">
 			<tr>
 				<td>
 					<!-- <form action="#remove.do" method="post">
