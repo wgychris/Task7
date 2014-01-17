@@ -8,11 +8,15 @@
 <div class="page-header">
 	<h1>Sell Fund</h1>
 </div>
-	<form method="post" action="#sell.do">
-		<label>Fund Ticker</label> <input type="text" name="fundTicker"><br/>
-		<label>Shares</label> <input type="text" name="shares"><br/>
-		<input type="submit" name="sell" value="Sell"><br/>	
-	</form>
+	<div style="position:relative;float:left">
+		<form method="post" action="#sell.do">
+			<label>Fund Ticker</label> <br/>
+			<input type="text" class="form-control" name="fundTicker" ><br/>
+			<label>Shares</label> <br/>
+			<input type="text" class="form-control" name="shares" ><br/>
+			<input type="submit" name="sell" value="Sell" class="btn btn-lg btn-primary btn-block"><br/>	
+		</form>
+	</div>
 	<table>
 		<c:forEach var = "cusInfo" items = "${cusinfos}">
 			<tr>
