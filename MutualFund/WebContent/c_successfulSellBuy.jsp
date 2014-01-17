@@ -5,6 +5,9 @@
 
 <jsp:include page="error-list.jsp" />
 <div style="position:relative;">
+<div class="page-header">
+		<h1>Confimation Page</h1>
+	</div>
 	<h1>Successfully ${type} FundId: ${fundId} Shares: ${shares} Amount: ${amount}</h1>	
 	<!-- Customer Information -->
 	<table>

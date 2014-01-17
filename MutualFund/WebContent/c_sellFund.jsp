@@ -5,6 +5,9 @@
 
 <jsp:include page="error-list.jsp" />
 <div style="position:relative;">
+<div class="page-header">
+	<h1>Sell Fund</h1>
+</div>
 	<form method="post" action="#sell.do">
 		<label>Fund Ticker</label> <input type="text" name="fundTicker"><br/>
 		<label>Shares</label> <input type="text" name="shares"><br/>
