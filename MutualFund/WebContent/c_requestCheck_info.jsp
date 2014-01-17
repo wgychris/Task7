@@ -4,7 +4,7 @@
 <jsp:include page="error-list.jsp" />
 <div>
 
-	<h2>Request Check</h2>
+	<h1>Request Check</h1>
 	<h3>Check Information</h3>
 	<form action="#" method="POST">
 		<table>
