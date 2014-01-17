@@ -1,4 +1,4 @@
-<jsp:include page="template-top.jsp" />
+<jsp:include page="template-top2.jsp" />
 
 <div class="page-header">
   <h1>Create Employee Account:</h1>
