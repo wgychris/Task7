@@ -30,19 +30,21 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">Menu</a>
                 </li>
-                <li><a href="#">Dashboard</a>
+                <li><a href="#">Change Password</a>
                 </li>
-                <li><a href="#">Shortcuts</a>
+                <li><a href="#">View Account</a>
                 </li>
-                <li><a href="#">Overview</a>
+                <li><a href="#">Buy Fund</a>
                 </li>
-                <li><a href="#">Events</a>
+                <li><a href="#">Sell Fund</a>
                 </li>
-                <li><a href="#">About</a>
+                <li><a href="#">Request Check</a>
                 </li>
-                <li><a href="#">Services</a>
+                <li><a href="#">Transaction History</a>
                 </li>
-                <li><a href="#">Contact</a>
+                <li><a href="#">Research Fund</a>
+                </li>
+                <li><a href="#">Logout</a>
                 </li>
             </ul>
         </div>
