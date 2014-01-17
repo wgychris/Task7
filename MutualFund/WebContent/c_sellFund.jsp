@@ -5,9 +5,9 @@
 
 <jsp:include page="error-list.jsp" />
 <div style="position:relative;">
-<div class="page-header">
-	<h1>Sell Fund</h1>
-</div>
+	<div class="page-header">
+		<h1>Sell Fund</h1>
+	</div>
 	<div style="position:relative;float:left">
 		<form method="post" action="#sell.do">
 			<label>Fund Ticker</label> <br/>
@@ -17,21 +17,23 @@
 			<input type="submit" name="sell" value="Sell" class="btn btn-lg btn-primary btn-block"><br/>	
 		</form>
 	</div>
-	<table>
-		<c:forEach var = "cusInfo" items = "${cusinfos}">
+	<table class="table table-hover">
+		
 			<tr>
-				<td>
-					<!-- <form action="#remove.do" method="post">
-						
-					</form> -->
-					${cusInfo.fundId}
-				</td>
-				<td>${cusInfo.shares}</td>
-				<td>${cusInfo.amount}</td>
-				<td>${cusInfo.price}</td>
-				<td>${cusInfo.status}</td>
+				<td>#fund ID${cusInfo.fundId}</td>
+				<td>#shares${cusInfo.shares}</td>
+				<td>#amount${cusInfo.amount}</td>
+				<td>#price${cusInfo.price}</td>
+				<td>#status${cusInfo.status}</td>
 			</tr>
-		</c:forEach>
+			<tr>
+				<td>123</td>
+				<td>20</td>
+				<td>pending</td>
+				<td>800.00</td>
+				<td>pending</td>
+			</tr>
+		
 	</table>
 	
 
