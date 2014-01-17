@@ -20,7 +20,7 @@
 	<table class="table table-hover">
 		
 			<tr>
-				<td>#fund ID${cusInfo.fundId}</td>
+				<td>#fund Ticker${cusInfo.fundTicker}</td>
 				<td>#shares${cusInfo.shares}</td>
 				<td>#amount${cusInfo.amount}</td>
 				<td>#price${cusInfo.price}</td>
