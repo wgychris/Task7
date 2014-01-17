@@ -9,7 +9,7 @@
 	<div class="page-header">
 		<h1>Buy Fund</h1>
 	</div>
-	<div id="left" style="position:relative;float:left">
+	<div id="left" style="position:relative;float:left;">
 		<form method="post" action="#buy.do">
 			<label>Fund Ticker </label> <input type="text" name="fundTicker" class="form-control"> <br/>
 			<label>Dollar Amount $ </label> <input type="text" name="amountId" class="form-control" > <br/>
@@ -17,7 +17,7 @@
 		</form>
 	</div>
 	
-	<div id="right" style="position:relative;float:right">
+	<div id="right" style="position:relative;float:left;margin-left:100px;">
 		<label id="cashbalance">Cash Balance : </label><br/>
 		<label>$ </label> XXXX${customr.cash}
 	</div>
