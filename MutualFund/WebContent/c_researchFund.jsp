@@ -1,4 +1,4 @@
-<!-- Yusi Zhang Jan 16 Version 1.0 -->
+<!-- Daisy Wang Jan 16 Version 1.0 -->
 <jsp:include page="template-top.jsp" />
 
 <style type="text/css">
@@ -63,18 +63,33 @@
 </style>
 <div id="tfheader">
 	<form id="tfnewsearch" method="get" action="http://www.google.com">
-		<input type="text" class="tftextinput" name="q" size="21"
+		Research Fund : <input type="text" class="tftextinput" name="q" size="21"
 			maxlength="120"><input type="submit" value="search"
 			class="tfbutton">
 	</form>
 	<div class="tfclear"></div>
 </div>
 <div id="tfheader2">
-<table cellpadding="30">
+<table class="table table-hover"">
 		<tr>
 			<td>Date              </td>
 			<td>Closing Price    </td>
 			<td>Action   </td>
+		</tr>
+		<tr>
+			<td>1/1/2013              </td>
+			<td>$20.00    </td>
+			<td><button type="button" class="btn btn-primary">Buy</button>   </td>
+		</tr>
+		<tr>
+			<td>1/2/2013              </td>
+			<td>$14.00    </td>
+			<td><button type="button" class="btn btn-primary">Buy</button>   </td>
+		</tr>
+		<tr>
+			<td>1/3/2013              </td>
+			<td>$26.00    </td>
+			<td><button type="button" class="btn btn-primary">Buy</button>   </td>
 		</tr>
 	</table>
 </div>

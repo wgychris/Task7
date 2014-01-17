@@ -4,9 +4,10 @@
 
 
 <div>
+<h2>Request Check</h2>
 	<div id="left">
 		<form method="post" action="requestCheck.do">
-			<table>
+			<table class="table">
 				<tr>
 					<td>Amount: $</td>
 					<td><input type="text" name="checkAmt"></td>
@@ -29,7 +30,9 @@
 				</tr>
 				
 			</table>
-			<input type="submit" name="submitCheck" value="Next"> <br />
+			<input type="submit" class="btn btn-primary btn-lg active" name="submitCheck" value="Next"> 
+			<input type="button" value="Cancel" class="btn btn-primary btn-lg active"/>
+			<br />
 		</form>
 	</div>
 </div>
