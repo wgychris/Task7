@@ -41,7 +41,6 @@ td.right {
 						class="btn btn-primary btn-lg active" name="submitCheck"
 						value="Next"> <input type="button" value="Cancel"
 						class="btn btn-primary btn-lg active" /></td>
-
 				</tr>
 			</table>
 
