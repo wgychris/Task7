@@ -3,6 +3,7 @@ package model;
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
@@ -40,7 +41,7 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	 * @param employee username, password
 	 * @return true if the password is correct otherwise false
 	 */
-	public boolean checkPassword(String username, String password) throws RollbackException{
+	/*public boolean checkPassword(String username, String password) throws RollbackException{
 		
 			EmployeeBean eb = read(username);
 			if(eb==null) {
@@ -50,14 +51,14 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 			if(eb.getPassword().equals(password)) return true;
 			else return false;
 		
-	}
+	}*/
 	
 	/*
 	 * void changePassword
 	 * @param username, password
 	 * @return void
 	 */
-	public void changePassword(String username, String password) throws RollbackException{
+	/*public void changePassword(String username, String password) throws RollbackException{
 		try{
 			Transaction.begin();
 			EmployeeBean eb = read(username);
@@ -73,18 +74,38 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 		}finally {
 			if(Transaction.isActive()) Transaction.rollback();
 		}
-	}
+	}*/
 	/*
 	 * EmployeeBean getEmployeeInfo
 	 * @description Get all information of a certain employee
 	 * @param username 
 	 * @return EmployeeBean or null if username not exist
 	 */
-	public EmployeeBean getCustomerInfo(String username) throws RollbackException{
+	/*public EmployeeBean getCustomerInfo(String username) throws RollbackException{
 		EmployeeBean eb = read(username);
 		if(eb==null) return null;
 		return eb;
+	}*/
+	
+	/*
+	 * EmployeeBean getAllEmployee
+	 * @description Get all employees
+	 * @return EmployeeBean[]
+	 */
+	public int getEmployeeCount() throws RollbackException{
+		EmployeeBean[] employees=match();
+		return employees.length;
 	}
 	
-
+	public EmployeeBean login(String userName, String password) throws RollbackException {
+		try {
+			Transaction.begin();
+			EmployeeBean[] beans = match(new MatchArg[]{MatchArg.equals("username", userName),MatchArg.equals("password", password)});
+			if(beans.length==0)return null;
+			Transaction.commit();
+			return beans[0];
+		} finally{
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
 }

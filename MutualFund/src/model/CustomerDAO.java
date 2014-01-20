@@ -13,6 +13,7 @@ import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
 import databeans.CustomerBean;
+import databeans.EmployeeBean;
 
 
 
@@ -137,6 +138,19 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 			Transaction.commit();
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
+		}
+	}
+
+
+	public CustomerBean login(String userName, String password) throws RollbackException {
+		try {
+			Transaction.begin();
+			CustomerBean[] beans = match(new MatchArg[]{MatchArg.equals("username", userName),MatchArg.equals("password", password)});
+			if(beans.length==0)return null;
+			Transaction.commit();
+			return beans[0];
+		} finally{
+			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
 	

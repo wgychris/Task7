@@ -4,6 +4,9 @@ import javax.servlet.ServletException;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
+import org.genericdao.RollbackException;
+
+import databeans.EmployeeBean;
 /*
  * General Model
  * YD Jan 19 Version 1.0
@@ -16,7 +19,7 @@ public class Model {
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private PositionDAO positionDAO;
 	
-	public Model(ServletConfig config) throws ServletException {
+	public Model(ServletConfig config) throws ServletException{
 		try{
 			String jdbcDriver = config.getInitParameter("jdbcDriverName");
 			String jdbcURL    = config.getInitParameter("jdbcURL");
@@ -29,11 +32,23 @@ public class Model {
 			fundDAO = new FundDAO("fund",pool);
 			fundPriceHistoryDAO = new FundPriceHistoryDAO("fundPriceHistory",pool);
 			//transactionDAO,fundDAO,fund_priceDAO,positionDAO,
+			int count=eDAO.getEmployeeCount();
+			if(count==0){
+				EmployeeBean eb=new EmployeeBean();
+				eb.setFirstname("xc");
+				eb.setLastname("l");
+				eb.setPassword("001");
+				eb.setUsername("001");
+				eDAO.create(eb);
+			}
 		}catch (DAOException e) {
 			throw new ServletException(e);
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	public CustomerDAO getFavoriteDAO() { return cDAO; }
+	public CustomerDAO getCustomerDAO() { return cDAO; }
 	public TransactionDAO getTransactionDAO() {
 		return transactionDAO;
 	}
@@ -50,6 +65,6 @@ public class Model {
 		return positionDAO;
 	}
 	
-	public EmployeeDAO  getUserDAO()  { return eDAO;  }
+	public EmployeeDAO  getEmployeeDAO()  { return eDAO;  }
 	//transactionDAO,fundDAO,fund_priceDAO,positionDAO,
 }

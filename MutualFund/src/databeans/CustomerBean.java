@@ -1,5 +1,6 @@
 
 package databeans;
+
 import org.genericdao.PrimaryKey;
 /*
  * Customer JavaBean
@@ -86,6 +87,10 @@ public class CustomerBean {
 	}
 	public void setCash(long cash) {
 		this.cash = cash;
+	}
+	
+	public boolean checkPassword(String password) {
+		return password.equals(password);
 	}
 	
 }

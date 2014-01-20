@@ -10,19 +10,21 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("transaction_id")
 public class TransactionBean {
-	private int tansaction_id;
+	private int transaction_id;
 	private int customer_id;
 	private String execute_date;
 	private long shares;
 	private String transaction_type;
 	private long amount;
 
-	public int getTansaction_id() {
-		return tansaction_id;
+	
+
+	public int getTransaction_id() {
+		return transaction_id;
 	}
 
-	public void setTansaction_id(int tansaction_id) {
-		this.tansaction_id = tansaction_id;
+	public void setTransaction_id(int transaction_id) {
+		this.transaction_id = transaction_id;
 	}
 
 	public int getCustomer_id() {
