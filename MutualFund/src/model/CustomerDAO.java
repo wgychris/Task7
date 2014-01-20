@@ -23,8 +23,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 	}
 	
 	
-	/*
-	 * Get customer id
+	/* int getCustomerId
+	 * @description Get customer id
 	 * @param username
 	 * @return userid or -1 if the username not existed.
 	 */
@@ -37,7 +37,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 	}
 	
 	/*
-	 * Change password
+	 * void changePassword
+	 * @description Change password
 	 * @param customer_id, password
 	 * @return void
 	 */
@@ -60,7 +61,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 	}
 	
 	/*
-	 * Check Password
+	 * boolean checkPassword
+	 * @description Check Password
 	 * @param customer_id, password
 	 * @return true if the password is correct otherwise false
 	 */
@@ -77,7 +79,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 	}
 	
 	/*
-	 * Get all information of a certain customer
+	 * CustomerBean getCustomerInfo
+	 * @description Get all information of a certain customer
 	 * @param customer id
 	 * @return CustomerBean or null if customer_id not exist
 	 */
@@ -88,7 +91,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 	}
 	
 	/*
-	 * Get all customers beans
+	 * CustomerBean[] getAllCustomers
+	 * @description Get all customers beans
 	 * @param none
 	 * @return CustomerBean[]
 	 */
@@ -98,7 +102,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 	}
 	
 	/*
-	 * Update cash
+	 * void updataCash
+	 * @description Update cash
 	 * @param customer_id, cash(long)
 	 * @return void
 	 */
@@ -120,7 +125,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 		}
 	}
 	/*
-	 * Create New Customer Account (used by employee)
+	 * void createNewCustomer
+	 * @description Create New Customer Account (used by employee)
 	 * @param customerbean
 	 * @return void
 	 */

@@ -21,7 +21,7 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	}
 	
 	/*
-	 * Create New Employee Account (used by employee only)
+	 * void createNewEmployee (used by employee only)
 	 * @param employeebean
 	 * @return void
 	 */
@@ -36,7 +36,7 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	}
 	
 	/*
-	 * Check Password
+	 * boolean checkPassword
 	 * @param employee username, password
 	 * @return true if the password is correct otherwise false
 	 */
@@ -53,7 +53,7 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	}
 	
 	/*
-	 * Change password
+	 * void changePassword
 	 * @param username, password
 	 * @return void
 	 */
@@ -74,7 +74,17 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
 	}
-	
+	/*
+	 * EmployeeBean getEmployeeInfo
+	 * @description Get all information of a certain employee
+	 * @param username 
+	 * @return EmployeeBean or null if username not exist
+	 */
+	public EmployeeBean getCustomerInfo(String username) throws RollbackException{
+		EmployeeBean eb = read(username);
+		if(eb==null) return null;
+		return eb;
+	}
 	
 
 }
