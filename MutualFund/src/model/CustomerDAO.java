@@ -88,6 +88,16 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 	}
 	
 	/*
+	 * Get all customers beans
+	 * @param none
+	 * @return CustomerBean[]
+	 */
+	public CustomerBean[] getAllCustomers() throws RollbackException{
+		CustomerBean[] customers = match();
+		return customers;
+	}
+	
+	/*
 	 * Update cash
 	 * @param customer_id, cash(long)
 	 * @return void
@@ -109,6 +119,22 @@ public class CustomerDAO extends GenericDAO<CustomerBean>{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
 	}
+	/*
+	 * Create New Customer Account (used by employee)
+	 * @param customerbean
+	 * @return void
+	 */
+	public void createNewCustomer(CustomerBean cb) throws RollbackException{
+		try{
+			Transaction.begin();
+			create(cb);
+			Transaction.commit();
+		}finally{
+			if(Transaction.isActive()) Transaction.rollback();
+		}
+	}
+	
+	
 	
 	
 }
