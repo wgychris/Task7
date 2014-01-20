@@ -30,19 +30,19 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">Menu</a>
                 </li>
-                <li><a href="#">Change Password</a>
+                <li><a href="c_change-pwd.jsp">Change Password</a>
                 </li>
                 <li><a href="#">View Account</a>
                 </li>
-                <li><a href="#">Buy Fund</a>
+                <li><a href="c_buyFund.jsp">Buy Fund</a>
                 </li>
-                <li><a href="#">Sell Fund</a>
+                <li><a href="c_sellFund.jsp">Sell Fund</a>
                 </li>
-                <li><a href="#">Request Check</a>
+                <li><a href="c_requestCheck.jsp">Request Check</a>
                 </li>
-                <li><a href="#">Transaction History</a>
+                <li><a href="">Transaction History</a>
                 </li>
-                <li><a href="#">Research Fund</a>
+                <li><a href="c_researchFund.jsp">Research Fund</a>
                 </li>
                 <li><a href="#">Logout</a>
                 </li>
