@@ -20,6 +20,9 @@ public class CustomerBean {
 	private String state;
 	private String zip;
 	private long cash;
+	private long tempcash;
+	
+	
 	
 	public int getCustomer_id() {
 		return customer_id;
@@ -54,6 +57,9 @@ public class CustomerBean {
 	public long getCash() {
 		return cash;
 	}
+	public long getTempcash() {
+		return tempcash;
+	}
 	public void setCustomer_id(int customer_id) {
 		this.customer_id = customer_id;
 	}
@@ -86,6 +92,10 @@ public class CustomerBean {
 	}
 	public void setCash(long cash) {
 		this.cash = cash;
+	}
+	
+	public void setTempcash(long tempcash) {
+		this.tempcash = tempcash;
 	}
 	
 }
