@@ -10,9 +10,9 @@
 		<h1>Buy Fund</h1>
 	</div>
 	<div id="left" style="position:relative;float:left;">
-		<form method="post" action="#buy.do">
+		<form method="post" action="buyFund.do">
 			<label>Fund Ticker </label> <input type="text" name="fundTicker" class="form-control"> <br/>
-			<label>Dollar Amount $ </label> <input type="text" name="amountId" class="form-control" > <br/>
+			<label>Dollar Amount $ </label> <input type="text" name="amount" class="form-control" > <br/>
 			<input type="submit" name="buy" value="Buy Fund" class="btn btn-lg btn-primary btn-block"> <br/> 
 		</form>
 	</div>
