@@ -24,7 +24,7 @@
 	<!-- Spacer row -->
 	
 	<tr>
-		<td bgcolor="#eeeeee" valign="top" height="500" width="140px">
+		<td bgcolor="#eeeeee" valign="top" height="500" width="160px">
 			<!-- Navigation bar is one table cell down the left side -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">

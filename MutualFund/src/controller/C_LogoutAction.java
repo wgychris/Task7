@@ -21,6 +21,6 @@ public class C_LogoutAction extends Action {
         session.setAttribute("customer",null);
 
 		request.setAttribute("message","You are now logged out");
-        return "success.jsp";
+        return "c_success.jsp";
     }
 }

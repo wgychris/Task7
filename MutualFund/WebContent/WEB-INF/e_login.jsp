@@ -1,4 +1,4 @@
-<jsp:include page="template-top.jsp" />
+<jsp:include page="template-top2.jsp" />
 
 <jsp:include page="error-list.jsp" />
 

@@ -7,15 +7,20 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.CustomerDAO;
 import model.EmployeeDAO;
 import model.Model;
+import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import utils.dataConversion;
 import databeans.CustomerBean;
 import databeans.EmployeeBean;
+import databeans.TransactionBean;
+import formbeans.DepositCheckForm;
 import formbeans.LoginForm;
 
 /*
@@ -27,62 +32,59 @@ import formbeans.LoginForm;
  * value), just redirect to manage.do to allow the user to manage
  * his photos.
  */
-public class E_LoginAction extends Action {
-	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory.getInstance(LoginForm.class);
+public class E_DepositCheckAction extends Action {
+	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(DepositCheckForm.class);
 	
-	private EmployeeDAO employeeDAO;
+	private TransactionDAO transactionDAO;
+	private CustomerDAO customerDAO;
 
-	public E_LoginAction(Model model) {
-		employeeDAO = model.getEmployeeDAO();
+	public E_DepositCheckAction(Model model) {
+		transactionDAO = model.getTransactionDAO();
+		customerDAO=model.getCustomerDAO();
 	}
 
-	public String getName() { return "admin_login.do"; }
+	public String getName() { return "e_depositCheck.do"; }
     
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
         try {
-	    	LoginForm form = formBeanFactory.create(request);
+	    	DepositCheckForm form = formBeanFactory.create(request);
 	        request.setAttribute("form",form);
 
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
-	            return "e_login.jsp";
+	            return "e_depositCheck.jsp";
 	        }
 
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "e_login.jsp";
+	            return "e_depositCheck.jsp";
 	        }
 
+	        int customerId=-1;
+	        customerId=customerDAO.getCustomerId(form.getCustomer());
+	        if(customerId==-1){
+	        	errors.add("cannot find customerId with customerName");
+	        	return "e_depositCheck.jsp";
+	        }
 	        // Look up the user
-	        EmployeeBean employee = employeeDAO.login(form.getUserName(),form.getPassword());
-	        
-	        if (employee == null) {
-	            errors.add("User Name not found");
-	            return "e_login.jsp";
-	        }
-
-	        // Check the password
-	        /*if (!employee.checkPassword(form.getPassword())) {
-	            errors.add("Incorrect password");
-	            return "e_login.jsp";
-	        }*/
-	
-	        // Attach (this copy of) the user bean to the session
-	        HttpSession session = request.getSession();
-	        session.setAttribute("employee",employee);
-
-	        return "e_manage.jsp";
+	        TransactionBean tb=new TransactionBean();
+	        tb.setTransaction_type("deposit");
+	        tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form.getAmount()));
+	        tb.setCustomer_id(customerId);
+	        transactionDAO.createNewTransaction(tb);
+	        request.setAttribute("message","the transaction is in process");
+	        return "e_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
-        	return "error-list.jsp";
+        	return "e_depositCheck.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
-        	return "error-list.jsp";
+        	return "e_depositCheck.jsp";
         }
     }
 }

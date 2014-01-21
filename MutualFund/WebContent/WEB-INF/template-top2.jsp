@@ -24,7 +24,7 @@
 	<!-- Spacer row -->
 	
 	<tr>
-		<td bgcolor="#eeeeee" valign="top" height="500" width="140px">
+		<td bgcolor="#eeeeee" valign="top" height="500" width="160px">
 			<!-- Navigation bar is one table cell down the left side -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -34,7 +34,7 @@
                 </li>
                 <li><a href="#">Create Employee Account</a>
                 </li>
-                <li><a href="e_create.jsp">Create Customer Account</a>
+                <li><a href="e_create_customer.do">Create Customer Account</a>
                 </li>
                 <li><a href="#">Reset Customer Password</a>
                 </li>
@@ -42,7 +42,7 @@
                 </li>
                 <li><a href="view.jsp">View Customer Transaction History</a>
                 </li>
-                <li><a href="e_depositCheck.jsp">Deposit Check</a>
+                <li><a href="e_depositCheck.do">Deposit Check</a>
                 </li>
                 <li><a href="e_createFund_info.jsp">Create Fund</a>
                 </li>

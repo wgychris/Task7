@@ -1,4 +1,4 @@
-<jsp:include page="template-top.jsp" />
+<jsp:include page="template-top2.jsp" />
 
 <div class="page-header">
   <h1>Create Customer Account:</h1>
@@ -7,19 +7,15 @@
 <jsp:include page="error-list.jsp" />
 
 <p>
-	<form method="POST" action="c_create.do">
+	<form method="POST" action="e_create_customer.do">
 		<table>
-		    <tr>
-				<td> Customer ID: *</td>
-				<td><input type="text" name="customerId" value=""/></td>
-			</tr>
 			<tr>
-				<td> Customer Name: *</td>
+				<td> userName: *</td>
 				<td><input type="text" name="userName" value=""/></td>
 			</tr>
 			<tr>
 				<td> Password: *</td>
-				<td><input type="text" name="userName" value=""/></td>
+				<td><input type="text" name="password" value=""/></td>
 			</tr>
 			<tr>
 				<td> First Name: *</td>
@@ -51,7 +47,7 @@
 			</tr>
 			<tr>
 				<td> Cash: </td>
-				<td><input type="text" name="cashBalance" value=""/></td>
+				<td><input type="text" name="cash" value=""/></td>
 			</tr>
 			<tr><td>&nbsp;  <td></tr>
 			<tr><td>&nbsp;  <td></tr>

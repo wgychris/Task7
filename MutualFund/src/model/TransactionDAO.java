@@ -26,7 +26,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean>{
 	public void createNewTransaction(TransactionBean bean) throws RollbackException{
 		try{
 			Transaction.begin();
-			create(bean);
+			createAutoIncrement(bean);
 			Transaction.commit();
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();

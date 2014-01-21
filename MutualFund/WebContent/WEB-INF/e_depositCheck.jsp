@@ -12,7 +12,7 @@ td.right {
 <div>
 	<h1>Deposit Check</h1>
 	<div id="left">
-		<form action="#" method="POST">
+		<form action="e_depositCheck.do" method="POST">
 			<table class="table">
 				<tr>
 					<td>To customer:</td>
@@ -23,15 +23,13 @@ td.right {
 					<td>Amount:</td>
 					<td><input type="text" name="amount" placeholder="0.00" /></td>
 				</tr>
-				<tr>
-					<td>Personal Message:</td>
-					<td><input type="text" name="message" /></td>
-				</tr>
 			</table>
 			<input type="button" value="Cancel"
-				class="btn btn-default btn-lg active" /><input type="submit"
+				class="btn btn-default btn-lg active" />
+				
+			<input type="submit"
 				class="btn btn-primary btn-lg active" name="submitCheck"
-				value="Next">
+				value="Submit" />
 		</form>
 	</div>
 </div>
