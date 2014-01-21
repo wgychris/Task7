@@ -12,7 +12,7 @@ td.right {
 <div>
 	<h1>Transition Day</h1>
 	<div>
-		<form action="#" method="POST">
+		<form action="e_transition.do" method="POST">
 			<table class="table">
 				<tr>
 					<td>Trading Day:</td>
@@ -24,32 +24,25 @@ td.right {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Fund</th>
+						<th>FundName</th>
 						<th>Ticker</th>
-						<th>Current Price</th>
 						<th>New Closing Price</th>
 					</tr>
 				</thead>
 				<tboday>
-				<tr>
-					<td>Fund</td>
-					<td>Ticker</td>
-					<td>Current Price</td>
-					<td>New Closing Price</td>
-				</tr>
-				<c:if test="${requestScope.fund != null}">
+				
+				<c:if test="${requestScope.funds!= null}">
 					<tr>
-						<td>Fund</td>
+						<td>FundName</td>
 						<td>Ticker</td>
-						<td>Current Price</td>
 						<td>New Closing Price</td>
 					</tr>
-					<c:forEach items="${requestScope.fund}" var="fund">
+					<c:forEach items="${requestScope.funds}" var="fund">
 						<tr>
-							<td>${fund}</td>
-							<td>${ticker}</td>
-							<td>${fund.price}</td>
-							<td><input type="text" placeholder="0.000" value="" /></td>
+							<td>${fund.name}</td>
+							<td>${fund.symbol}</td>
+							<td><input type="hidden" name="fundId" value="${fund.fund_id }"></td>
+							<td><input type="text" placeholder="0.00" name="price" value="" /></td>
 						</tr>
 					</c:forEach>
 				</c:if> </tboday>

@@ -10,25 +10,25 @@ td.right {
 </style>
 
 <div>
-	<h1>Deposit Check</h1>
+	<h1>Create Fund</h1>
 	<div id="left">
 		<form action="#" method="POST">
 			<table class="table">
 				<tr>
 					<td>Fund name:</td>
-					<td><input type="text" name="fund"
+					<td><input type="text" name="fundname"
 						placehodler="Enter name of fund" value="" /></td>
 				</tr>
 				<tr>
 					<td>Ticker:</td>
-					<td><input type="text" name="ticker"
+					<td><input type="text" name="symbol"
 						placehodler="1-5 character identifier" /></td>
 				</tr>
 			</table>
 			<input type="button" value="Cancel"
 				class="btn btn-default btn-lg active" /><input type="submit"
 				class="btn btn-primary btn-lg active" name="submitCheck"
-				value="Next">
+				value="Submit"/>
 		</form>
 	</div>
 </div>

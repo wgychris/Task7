@@ -44,9 +44,9 @@
                 </li>
                 <li><a href="e_depositCheck.do">Deposit Check</a>
                 </li>
-                <li><a href="e_createFund_info.jsp">Create Fund</a>
+                <li><a href="e_createFund.do">Create Fund</a>
                 </li>
-                <li><a href="e_transitionDay_info.jsp">Transition Day</a>
+                <li><a href="e_transition.do">Transition Day</a>
                 </li>
                 <li><a href="#">Logout</a>
                 </li>
