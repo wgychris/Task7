@@ -67,7 +67,7 @@ public class C_SellFundAction extends Action {
 
 			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
 					c.getCustomer_id(),
-					fundDAO.getFundByTicker(form.getFundTicker()));
+					fundDAO.getFundByTicker(form.getFundTicker()).getFund_id());
 
 			long maxShares = positionBean.getShares();
 			long inputShares = dataConversion
