@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import model.CustomerDAO;
-import model.EmployeeDAO;
 import model.Model;
 import model.TransactionDAO;
 
@@ -17,11 +15,8 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import utils.dataConversion;
-import databeans.CustomerBean;
-import databeans.EmployeeBean;
 import databeans.TransactionBean;
 import formbeans.DepositCheckForm;
-import formbeans.LoginForm;
 
 /*
  * Processes the parameters from the form in login.jsp.
