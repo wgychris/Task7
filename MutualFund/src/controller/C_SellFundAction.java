@@ -13,9 +13,12 @@ import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import com.apple.jobjc.SEL;
+
 import databeans.CustomerBean;
 import databeans.TransactionBean;
 import formbeans.BuyFundForm;
+import formbeans.SellFundForm;
 
 /*
  * Processes the parameters from the form in login.jsp.
@@ -26,18 +29,18 @@ import formbeans.BuyFundForm;
  * value), just redirect to manage.do to allow the user to manage
  * his photos.
  */
-public class C_BuyFundAction extends Action {
-	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory
-			.getInstance(BuyFundForm.class);
+public class C_SellFundAction extends Action {
+	private FormBeanFactory<SellFundForm> formBeanFactory = FormBeanFactory
+			.getInstance(SellFundForm.class);
 
 	private TransactionDAO transactionDAO;
 
-	public C_BuyFundAction(Model model) {
+	public C_SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 	}
 
 	public String getName() {
-		return "buyFund.do";
+		return "#sell.do";// ??
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -45,36 +48,36 @@ public class C_BuyFundAction extends Action {
 		request.setAttribute("errors", errors);
 
 		try {
-			BuyFundForm form = formBeanFactory.create(request);
+			SellFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 
 			// If no params were passed, return with no errors so that the form
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				return "c_buyFund.jsp";
+				return "c_sellFund.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "c_buyFund.jsp";
+				return "c_sellFund.jsp";
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
 			long tempCash = c.getTempcash();
-			StringBuffer tmpAmount = new StringBuffer(form.getAmount());
-			if (tmpAmount.length() > 2
-					&& tmpAmount.charAt(tmpAmount.length() - 2) == '.') {
-				tmpAmount.deleteCharAt(tmpAmount.length() - 2);
-				tmpAmount.append('0');
-			} else if (tmpAmount.length() > 3
-					&& tmpAmount.charAt(tmpAmount.length() - 3) == '.') {
-				tmpAmount.deleteCharAt(tmpAmount.length() - 3);
+			StringBuffer tmpShare = new StringBuffer(form.getShare());
+			if (tmpShare.length() > 2
+					&& tmpShare.charAt(tmpShare.length() - 2) == '.') {
+				tmpShare.deleteCharAt(tmpShare.length() - 2);
+				tmpShare.append('0');
+			} else if (tmpShare.length() > 3
+					&& tmpShare.charAt(tmpShare.length() - 3) == '.') {
+				tmpShare.deleteCharAt(tmpShare.length() - 3);
 			} else {
-				tmpAmount.append("00");
+				tmpShare.append("00");
 			}
-			long inputAmount = Long.parseLong(tmpAmount.toString());
+			long inputAmount = Long.parseLong(form.getShare());
 			if (inputAmount - tempCash < 0) {
 				errors.add("");
 				return "c_buyFund.jsp";
@@ -83,7 +86,6 @@ public class C_BuyFundAction extends Action {
 			t.setAmount(inputAmount);
 			t.setCustomer_id(c.getCustomer_id());
 			t.setTransaction_type("");// ??
-			// Which fund?
 
 			transactionDAO.createAutoIncrement(t);
 			return "buyFund.do";

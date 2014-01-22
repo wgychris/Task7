@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
-public class BuyFundForm extends FormBean {
+public class SellFundForm extends FormBean {
 	private String fundTicker;
-	private String amount;
+	private String share;
 
 	public String getFundTicker() {
 		return fundTicker;
@@ -17,12 +17,12 @@ public class BuyFundForm extends FormBean {
 		this.fundTicker = trimAndConvert(fundTicker, "<>\"");
 	}
 
-	public String getAmount() {
-		return amount;
+	public String getShare() {
+		return share;
 	}
 
-	public void setAmount(String amount) {
-		this.amount = trimAndConvert(amount, "<>\"");
+	public void setShare(String share) {
+		this.share = trimAndConvert(share, "<>\"");
 	}
 
 	public List<String> getValidationErrors() {
@@ -30,16 +30,16 @@ public class BuyFundForm extends FormBean {
 		if (fundTicker == null || fundTicker.length() == 0) {
 			errors.add("FundTicker is required");
 		}
-		if (amount == null || amount.length() == 0) {
-			errors.add("Amount is required");
+		if (share == null || share.length() == 0) {
+			errors.add("Number of shares is required");
 		} else {
 			int countPoint = 0;
-			for (int i = 0; i < amount.length(); i++) {
-				if (amount.charAt(i) == '.'
-						&& (++countPoint > 1 || i < amount.length() - 3)) {
+			for (int i = 0; i < share.length(); i++) {
+				if (share.charAt(i) == '.'
+						&& (++countPoint > 1 || i < share.length() - 4)) {
 					errors.add("Invalid number");
 					break;
-				} else if (amount.charAt(i) < '0' || amount.charAt(i) > '9') {
+				} else if (share.charAt(i) < '0' || share.charAt(i) > '9') {
 					errors.add("Invalid number");
 					break;
 				}
