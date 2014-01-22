@@ -50,5 +50,13 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
 	}
-	
+	/*
+	 * Get position
+	 * @param customer_id and fund_id
+	 * @return position_bean
+	 */
+	public PositionBean getPosition(int customer_id, int fund_id) throws RollbackException {
+		PositionBean pb = read(customer_id,fund_id);
+		return null;
+	}
 }
