@@ -6,34 +6,29 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.FundDAO;
 import model.Model;
+import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import com.apple.jobjc.SEL;
-
+import utils.dataConversion;
 import databeans.CustomerBean;
+import databeans.FundBean;
+import databeans.PositionBean;
 import databeans.TransactionBean;
-import formbeans.BuyFundForm;
 import formbeans.SellFundForm;
 
-/*
- * Processes the parameters from the form in login.jsp.
- * If successful, set the "user" session attribute to the
- * user's User bean and then redirects to view the originally
- * requested photo.  If there was no photo originally requested
- * to be viewed (as specified by the "redirect" hidden form
- * value), just redirect to manage.do to allow the user to manage
- * his photos.
- */
 public class C_SellFundAction extends Action {
 	private FormBeanFactory<SellFundForm> formBeanFactory = FormBeanFactory
 			.getInstance(SellFundForm.class);
 
 	private TransactionDAO transactionDAO;
+	private FundDAO fundDAO;
+	private PositionDAO positionDAO;
 
 	public C_SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
@@ -63,32 +58,29 @@ public class C_SellFundAction extends Action {
 			if (errors.size() != 0) {
 				return "c_sellFund.jsp";
 			}
+			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
+				errors.add("No such fund exists");
+				return "c_sellFund.jsp";
+			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-			long tempCash = c.getTempcash();
-			StringBuffer tmpShare = new StringBuffer(form.getShare());
-			if (tmpShare.length() > 2
-					&& tmpShare.charAt(tmpShare.length() - 2) == '.') {
-				tmpShare.deleteCharAt(tmpShare.length() - 2);
-				tmpShare.append('0');
-			} else if (tmpShare.length() > 3
-					&& tmpShare.charAt(tmpShare.length() - 3) == '.') {
-				tmpShare.deleteCharAt(tmpShare.length() - 3);
-			} else {
-				tmpShare.append("00");
-			}
-			long inputAmount = Long.parseLong(form.getShare());
-			if (inputAmount - tempCash < 0) {
-				errors.add("");
+			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
+					c.getCustomer_id(), form.getFundTicker());
+			long maxShares = positionBean.getShares();
+			long inputShares = dataConversion
+					.convertFromStringToThreeDigitLong(form.getShare());
+			if (inputShares > maxShares) {
+				errors.add("Number of shares should not be greater than "
+						+ maxShares);
 				return "c_buyFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
-			t.setAmount(inputAmount);
+			t.setShares(inputShares);
 			t.setCustomer_id(c.getCustomer_id());
-			t.setTransaction_type("");// ??
+			t.setTransaction_type("sell");
 
 			transactionDAO.createAutoIncrement(t);
-			return "buyFund.do";
+			return "sellFund.do";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";

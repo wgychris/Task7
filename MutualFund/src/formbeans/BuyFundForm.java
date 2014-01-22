@@ -32,18 +32,8 @@ public class BuyFundForm extends FormBean {
 		}
 		if (amount == null || amount.length() == 0) {
 			errors.add("Amount is required");
-		} else {
-			int countPoint = 0;
-			for (int i = 0; i < amount.length(); i++) {
-				if (amount.charAt(i) == '.'
-						&& (++countPoint > 1 || i < amount.length() - 3)) {
-					errors.add("Invalid number");
-					break;
-				} else if (amount.charAt(i) < '0' || amount.charAt(i) > '9') {
-					errors.add("Invalid number");
-					break;
-				}
-			}
+		} else if(!amount.matches("-?\\d+(\\.\\d+)?")){
+			errors.add("Invalid amount");
 		}
 		return errors;
 	}

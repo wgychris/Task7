@@ -6,14 +6,19 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.FundDAO;
 import model.Model;
+import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import utils.dataConversion;
 import databeans.CustomerBean;
+import databeans.FundBean;
+import databeans.PositionBean;
 import databeans.TransactionBean;
 import formbeans.BuyFundForm;
 
@@ -31,6 +36,8 @@ public class C_BuyFundAction extends Action {
 			.getInstance(BuyFundForm.class);
 
 	private TransactionDAO transactionDAO;
+	private FundDAO fundDAO;
+	private PositionDAO positionDAO;
 
 	public C_BuyFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
@@ -61,31 +68,24 @@ public class C_BuyFundAction extends Action {
 				return "c_buyFund.jsp";
 			}
 			HttpSession session = request.getSession();
-			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-			long tempCash = c.getTempcash();
-			StringBuffer tmpAmount = new StringBuffer(form.getAmount());
-			if (tmpAmount.length() > 2
-					&& tmpAmount.charAt(tmpAmount.length() - 2) == '.') {
-				tmpAmount.deleteCharAt(tmpAmount.length() - 2);
-				tmpAmount.append('0');
-			} else if (tmpAmount.length() > 3
-					&& tmpAmount.charAt(tmpAmount.length() - 3) == '.') {
-				tmpAmount.deleteCharAt(tmpAmount.length() - 3);
-			} else {
-				tmpAmount.append("00");
-			}
-			long inputAmount = Long.parseLong(tmpAmount.toString());
-			if (inputAmount - tempCash < 0) {
-				errors.add("");
+			CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+			FundBean fund =(FundBean)fundDAO.getFundByTicker(form.getFundTicker());
+			long inputAmount = dataConversion
+					.convertFromStringToThreeDigitLong(form.getAmount());
+			if (inputAmount > customer.getTempcash()) {
+				errors.add("Amount should not be greater than" + customer.getTempcash());
 				return "c_buyFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
 			t.setAmount(inputAmount);
-			t.setCustomer_id(c.getCustomer_id());
-			t.setTransaction_type("");// ??
-			// Which fund?
-
+			t.setCustomer_id(customer.getCustomer_id());
+			t.setTransaction_type("buy");
 			transactionDAO.createAutoIncrement(t);
+			// Which fund?
+			PositionBean positionBean = new PositionBean();
+			positionBean.setCustomer_id(customer.getCustomer_id());
+			positionBean.setFund_id(fund.getFund_id());
+			positionDAO.createAutoIncrement(positionBean);
 			return "buyFund.do";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());

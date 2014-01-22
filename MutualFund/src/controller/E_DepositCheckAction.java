@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,58 +27,63 @@ import formbeans.DepositCheckForm;
  * his photos.
  */
 public class E_DepositCheckAction extends Action {
-	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(DepositCheckForm.class);
-	
+	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory
+			.getInstance(DepositCheckForm.class);
+
 	private TransactionDAO transactionDAO;
 	private CustomerDAO customerDAO;
 
 	public E_DepositCheckAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
-		customerDAO=model.getCustomerDAO();
+		customerDAO = model.getCustomerDAO();
 	}
 
-	public String getName() { return "e_depositCheck.do"; }
-    
-    public String perform(HttpServletRequest request) {
-        List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        
-        try {
-	    	DepositCheckForm form = formBeanFactory.create(request);
-	        request.setAttribute("form",form);
+	public String getName() {
+		return "e_depositCheck.do";
+	}
 
-	        // If no params were passed, return with no errors so that the form will be
-	        // presented (we assume for the first time).
-	        if (!form.isPresent()) {
-	            return "e_depositCheck.jsp";
-	        }
+	public String perform(HttpServletRequest request) {
+		List<String> errors = new ArrayList<String>();
+		request.setAttribute("errors", errors);
 
-	        // Any validation errors?
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
-	            return "e_depositCheck.jsp";
-	        }
+		try {
+			DepositCheckForm form = formBeanFactory.create(request);
+			request.setAttribute("form", form);
 
-	        int customerId=-1;
-	        customerId=customerDAO.getCustomerId(form.getCustomer());
-	        if(customerId==-1){
-	        	errors.add("cannot find customerId with customerName");
-	        	return "e_depositCheck.jsp";
-	        }
-	        // Look up the user
-	        TransactionBean tb=new TransactionBean();
-	        tb.setTransaction_type("deposit");
-	        tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form.getAmount()));
-	        tb.setCustomer_id(customerId);
-	        transactionDAO.createNewTransaction(tb);
-	        request.setAttribute("message","the transaction is in process");
-	        return "e_success.jsp";
-        } catch (RollbackException e) {
-        	errors.add(e.getMessage());
-        	return "e_depositCheck.jsp";
-        } catch (FormBeanException e) {
-        	errors.add(e.getMessage());
-        	return "e_depositCheck.jsp";
-        }
-    }
+			// If no params were passed, return with no errors so that the form
+			// will be
+			// presented (we assume for the first time).
+			if (!form.isPresent()) {
+				return "e_depositCheck.jsp";
+			}
+
+			// Any validation errors?
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
+				return "e_depositCheck.jsp";
+			}
+
+			int customerId = -1;
+			customerId = customerDAO.getCustomerId(form.getCustomer());
+			if (customerId == -1) {
+				errors.add("cannot find customerId with customerName");
+				return "e_depositCheck.jsp";
+			}
+			// Look up the user
+			TransactionBean tb = new TransactionBean();
+			tb.setTransaction_type("deposit");
+			tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form
+					.getAmount()));
+			tb.setCustomer_id(customerId);
+			transactionDAO.createNewTransaction(tb);
+			request.setAttribute("message", "the transaction is in process");
+			return "e_success.jsp";
+		} catch (RollbackException e) {
+			errors.add(e.getMessage());
+			return "e_depositCheck.jsp";
+		} catch (FormBeanException e) {
+			errors.add(e.getMessage());
+			return "e_depositCheck.jsp";
+		}
+	}
 }
