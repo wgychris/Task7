@@ -13,7 +13,7 @@
 			<label>Fund Ticker</label> <br/>
 			<input type="text" class="form-control" name="fundTicker" ><br/>
 			<label>Shares</label> <br/>
-			<input type="text" class="form-control" name="shares" ><br/>
+			<input type="text" class="form-control" name="share" ><br/>
 			<input type="submit" name="sell" value="Sell" class="btn btn-lg btn-primary btn-block"><br/>	
 		</form>
 	</div>
