@@ -64,8 +64,11 @@ public class C_SellFundAction extends Action {
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
+
 			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
-					c.getCustomer_id(), form.getFundTicker());
+					c.getCustomer_id(),
+					fundDAO.getFundByTicker(form.getFundTicker()));
+
 			long maxShares = positionBean.getShares();
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());

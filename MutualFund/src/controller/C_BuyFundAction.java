@@ -81,7 +81,6 @@ public class C_BuyFundAction extends Action {
 			t.setCustomer_id(customer.getCustomer_id());
 			t.setTransaction_type("buy");
 			transactionDAO.createAutoIncrement(t);
-			// Which fund?
 			PositionBean positionBean = new PositionBean();
 			positionBean.setCustomer_id(customer.getCustomer_id());
 			positionBean.setFund_id(fund.getFund_id());
