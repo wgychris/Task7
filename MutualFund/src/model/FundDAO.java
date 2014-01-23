@@ -43,8 +43,8 @@ public class FundDAO extends GenericDAO<FundBean>{
 			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("name",fundName));
 			if(newBeanArray.length > 0 ) 
-				return false;
-			return true; 
+				return true;
+			return false; 
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
@@ -60,8 +60,8 @@ public class FundDAO extends GenericDAO<FundBean>{
 			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
 			if(newBeanArray.length > 0 ) 
-				return false;
-			return true; 
+				return true;
+			return false; 
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}

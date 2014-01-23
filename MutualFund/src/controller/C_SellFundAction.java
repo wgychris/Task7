@@ -32,10 +32,12 @@ public class C_SellFundAction extends Action {
 
 	public C_SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
+		fundDAO = model.getFundDAO();
+		positionDAO = model.getPositionDAO();
 	}
 
 	public String getName() {
-		return "#sell.do";// ??
+		return "c_sellFund.do";// ??
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -64,11 +66,12 @@ public class C_SellFundAction extends Action {
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
+			FundBean fundBean = (FundBean)fundDAO.getFundByTicker(form.getFundTicker());
 
 			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
 					c.getCustomer_id(),
-					fundDAO.getFundByTicker(form.getFundTicker()).getFund_id());
-
+					fundBean.getFund_id());
+			System.out.print(positionBean.getCustomer_id());
 			long maxShares = positionBean.getShares();
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());

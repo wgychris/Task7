@@ -34,15 +34,15 @@
                 </li>
                 <li><a href="#">View Account</a>
                 </li>
-                <li><a href="c_buyFund.jsp">Buy Fund</a>
+                <li><a href="c_buyFund.do">Buy Fund</a>
                 </li>
-                <li><a href="c_sellFund.jsp">Sell Fund</a>
+                <li><a href="c_sellFund.do">Sell Fund</a>
                 </li>
-                <li><a href="c_requestCheck.jsp">Request Check</a>
+                <li><a href="c_requestCheck.do">Request Check</a>
                 </li>
                 <li><a href="">Transaction History</a>
                 </li>
-                <li><a href="c_researchFund.jsp">Research Fund</a>
+                <li><a href="c_researchFund.do">Research Fund</a>
                 </li>
                 <li><a href="c_logout.do">Logout</a>
                 </li>

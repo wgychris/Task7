@@ -9,7 +9,7 @@
 		<h1>Sell Fund</h1>
 	</div>
 	<div style="position:relative;float:left">
-		<form method="post" action="#sell.do">
+		<form method="post" action="c_sellFund.do">
 			<label>Fund Ticker</label> <br/>
 			<input type="text" class="form-control" name="fundTicker" ><br/>
 			<label>Shares</label> <br/>
