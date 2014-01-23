@@ -120,5 +120,16 @@ public class FundDAO extends GenericDAO<FundBean>{
 		}
 	}
 	
+	/*
+	 * Get position
+	 * @param customer_id and fund_id
+	 * @return position_bean
+	 */
+	public FundBean getFundByFundId(int fund_id) throws RollbackException {
+		FundBean fb = read(fund_id);
+//		
+		return fb;
+	}
+	
 
 }
