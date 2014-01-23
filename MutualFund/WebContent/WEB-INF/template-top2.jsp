@@ -48,7 +48,7 @@
                 </li>
                 <li><a href="e_transition.do">Transition Day</a>
                 </li>
-                <li><a href="#">Logout</a>
+                <li><a href="e_logout.do">Logout</a>
                 </li>
             </ul>
         </div>
