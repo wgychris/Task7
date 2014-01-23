@@ -81,11 +81,11 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	 * @param username 
 	 * @return EmployeeBean or null if username not exist
 	 */
-	/*public EmployeeBean getCustomerInfo(String username) throws RollbackException{
+	public EmployeeBean getCustomerInfo(String username) throws RollbackException{
 		EmployeeBean eb = read(username);
 		if(eb==null) return null;
 		return eb;
-	}*/
+	}
 	
 	/*
 	 * EmployeeBean getAllEmployee

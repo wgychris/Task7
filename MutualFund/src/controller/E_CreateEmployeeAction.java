@@ -63,7 +63,7 @@ public class E_CreateEmployeeAction extends Action {
 	        cb.setFirstname(form.getFirstName());
 	        cb.setLastname(form.getLastName());
 	        cb.setPassword(form.getPassword());
-	        employeeDAO.createAutoIncrement(cb);
+	        employeeDAO.create(cb);
 	        request.setAttribute("message","new employee has been added");
 	        return "e_success.jsp";
         } catch (FormBeanException e) {
