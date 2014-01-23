@@ -9,21 +9,29 @@ import javax.servlet.http.HttpServletRequest;
 import org.genericdao.RollbackException;
 
 import databeans.CustomerBean;
+import databeans.FundBean;
+import databeans.TransactionBean;
 import model.CustomerDAO;
+import model.FundDAO;
 import model.Model;
+import model.PositionDAO;
 import model.TransactionDAO;
 
 
 
 public class E_ViewCustomerAction extends Action{
 	private CustomerDAO customerDAO;
+	private FundDAO fundDAO;
+	private PositionDAO positionDAO;
+	private TransactionDAO transactionDAO ;
 
 	
 	//ini DAOs
 	public E_ViewCustomerAction(Model model){
-//		CustomerDAO = model.getCustomerDAO();
-//		fundDAO = model.getFundDAO();
-//		positionDAO = model.getPositionDAO();
+		customerDAO = model.getCustomerDAO();
+		 fundDAO = model.getFundDAO();
+		 positionDAO = model.getPositionDAO();
+		 transactionDAO = model.getTransactionDAO();
 	}
 	
 	@Override
@@ -40,11 +48,11 @@ public class E_ViewCustomerAction extends Action{
 			//customer from session;
 			CustomerBean [] customerList = customerDAO.getAllCustomers();
 			FundBean [] fbarray = fundDAO.getAllFunds();
-			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(cb.getCustomer_id());
+//			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(cb.getCustomer_id());
 			//user is for jsp page, avoid the same name of customer form session
-			request.setAttribute("user", cb); //single javabean
+//			request.setAttribute("user", cb); //single javabean
 			request.setAttribute("funds", fbarray); //array javabean
-			request.setAttribute("transactions", tbarray); //array javabean belongs to certain customer
+//			request.setAttribute("transactions", tbarray); //array javabean belongs to certain customer
 			
 			return "c_viewtransaction.jsp";
 		} catch (RollbackException e) {

@@ -53,12 +53,12 @@ public class E_ResetPwdAction extends Action {
 	        }
 	        CustomerBean customer = (CustomerBean) request.getAttribute("userName");
 	        CustomerBean[] userName = customerDAO.getAllCustomers();
-			if (userName == null || userName.length() == 0) {
+			if (userName == null || userName.length == 0) {
 				errors.add("User must be specified");
 				return "error.jsp";
 			}
 	
-			CustomerBean customer = customerDAO.read(userName);
+//			CustomerBean customer = customerDAO.read(userName);
         	if (customer == null) {
     			errors.add("Invalid User: "+userName);
     			return "error.jsp";
@@ -70,9 +70,9 @@ public class E_ResetPwdAction extends Action {
 	
 			request.setAttribute("userName",customer.getUsername());
 	        return "e_reset-pwd.jsp";
-//        } catch (RollbackException e) {
-//        	errors.add(e.toString());
-//        	return "error.jsp";
+        } catch (RollbackException e) {
+        	errors.add(e.toString());
+        	return "error.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.toString());
         	return "error.jsp";
