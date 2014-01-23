@@ -7,20 +7,13 @@ import org.genericdao.PrimaryKey;
  * Yusi Jan 19 Version
  * co-author:
  */
-@PrimaryKey("employee_id")
+@PrimaryKey("username")
 public class EmployeeBean {
-	private int employee_id;
 	private String username;
 	private String password;
 	private String firstname;
 	private String lastname;
 	
-	public int getEmployee_id() {
-		return employee_id;
-	}
-	public void setEmployee_id(int employee_id) {
-		this.employee_id = employee_id;
-	}
 	public String getUsername() {
 		return username;
 	}

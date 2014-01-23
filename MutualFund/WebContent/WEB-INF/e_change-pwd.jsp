@@ -7,9 +7,9 @@
 <jsp:include page="error-list.jsp" />
 
 <p>
-	<form method="POST" action="change-pwd.do">
+	<form method="POST" action="e_change-pwd.do">
 		<table class="table table-hover">
-		    <tr>
+			<tr>
 				<td> Old Password: *</td>
 				<td><input type="password" name="oldPassword" value=""/></td>
 			</tr>

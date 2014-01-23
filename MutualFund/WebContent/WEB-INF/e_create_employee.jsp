@@ -7,7 +7,7 @@
 <jsp:include page="error-list.jsp" />
 
 <p>
-	<form method="POST" action="e_create.do">
+	<form method="POST" action="e_create_employee.do">
 		<table>
 			<tr>
 				<td> Employee Name: *</td>

@@ -44,7 +44,7 @@
                 </li>
                 <li><a href="c_researchFund.jsp">Research Fund</a>
                 </li>
-                <li><a href="#">Logout</a>
+                <li><a href="c_logout.do">Logout</a>
                 </li>
             </ul>
         </div>

@@ -12,12 +12,22 @@ import org.genericdao.PrimaryKey;
 public class TransactionBean {
 	private int transaction_id;
 	private int customer_id;
+	private int fund_id;
 	private String execute_date;
 	private long shares;
 	private String transaction_type;
 	private long amount;
 
 	
+	
+
+	public int getFund_id() {
+		return fund_id;
+	}
+
+	public void setFund_id(int fund_id) {
+		this.fund_id = fund_id;
+	}
 
 	public int getTransaction_id() {
 		return transaction_id;
