@@ -12,8 +12,8 @@ import org.genericdao.PrimaryKey;
 public class TransactionBean {
 	private int transaction_id;
 	private int customer_id;
-	private int fund_id;
 	private String execute_date;
+	private int fund_id;
 	private long shares;
 	private String transaction_type;
 	private long amount;
@@ -21,13 +21,7 @@ public class TransactionBean {
 	
 	
 
-	public int getFund_id() {
-		return fund_id;
-	}
 
-	public void setFund_id(int fund_id) {
-		this.fund_id = fund_id;
-	}
 
 	public int getTransaction_id() {
 		return transaction_id;
@@ -52,6 +46,7 @@ public class TransactionBean {
 	public void setExecute_date(String execute_date) {
 		this.execute_date = execute_date;
 	}
+	
 
 	public long getShares() {
 		return shares;
@@ -60,7 +55,13 @@ public class TransactionBean {
 	public void setShares(long shares) {
 		this.shares = shares;
 	}
+	public int getFund_id() {
+		return fund_id;
+	}
 
+	public void setFund_id(int fund_id) {
+		this.fund_id = fund_id;
+	}
 	public String getTransaction_type() {
 		return transaction_type;
 	}

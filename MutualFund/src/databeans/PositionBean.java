@@ -14,6 +14,15 @@ public class PositionBean {
 	private int fund_id;
 	private int customer_id;
 	private long shares;
+	private long tempshares;
+
+	public long getTempshares() {
+		return tempshares;
+	}
+
+	public void setTempshares(long tempshares) {
+		this.tempshares = tempshares;
+	}
 
 	public int getCustomer_id() {
 		return customer_id;
