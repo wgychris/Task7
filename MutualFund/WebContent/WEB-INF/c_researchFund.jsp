@@ -1,10 +1,11 @@
 <!-- Daisy Wang Jan 16 Version 1.0 -->
 <jsp:include page="template-top.jsp" />
-
+<%@ page import="databeans.FundPriceHistoryBean"%>
 <style type="text/css">
 #tfheader {
 	background-color: #c3dfef;
 }
+
 #tfheader2 {
 	background-color: #F5F5DC;
 }
@@ -63,33 +64,47 @@
 </style>
 <div id="tfheader">
 	<form id="tfnewsearch" method="get" action="http://www.google.com">
-		Research Fund : <input type="text" class="tftextinput" name="q" size="21"
-			maxlength="120"><input type="submit" value="search"
-			class="tfbutton">
+		Research Fund : <input type="text" class="tftextinput"
+			name="fundTicker" size="21" maxlength="120"><input
+			type="submit" value="search" class="tfbutton">
 	</form>
 	<div class="tfclear"></div>
 </div>
 <div id="tfheader2">
-<table class="table table-hover"">
+	<table class="table table-hover">
+		<%
+    for (FundPriceHistoryBean f : (FundPriceHistoryBean[])request.getAttribute("fundInfo")) {
+%>
 		<tr>
-			<td>Date              </td>
-			<td>Closing Price    </td>
-			<td>Action   </td>
+			<td><%=f.getDate()%></td>
+			<td><%=f.getPrice()%></td>
+		</tr>
+		<%
+		}
+%>
+	</table>
+
+
+	<table class="table table-hover">
+		<tr>
+			<td>Date</td>
+			<td>Closing Price</td>
+			<td>Action</td>
 		</tr>
 		<tr>
-			<td>1/1/2013              </td>
-			<td>$20.00    </td>
-			<td><button type="button" class="btn btn-primary">Buy</button>   </td>
+			<td>1/1/2013</td>
+			<td>$20.00</td>
+			<td><button type="button" class="btn btn-primary">Buy</button></td>
 		</tr>
 		<tr>
-			<td>1/2/2013              </td>
-			<td>$14.00    </td>
-			<td><button type="button" class="btn btn-primary">Buy</button>   </td>
+			<td>1/2/2013</td>
+			<td>$14.00</td>
+			<td><button type="button" class="btn btn-primary">Buy</button></td>
 		</tr>
 		<tr>
-			<td>1/3/2013              </td>
-			<td>$26.00    </td>
-			<td><button type="button" class="btn btn-primary">Buy</button>   </td>
+			<td>1/3/2013</td>
+			<td>$26.00</td>
+			<td><button type="button" class="btn btn-primary">Buy</button></td>
 		</tr>
 	</table>
 </div>
