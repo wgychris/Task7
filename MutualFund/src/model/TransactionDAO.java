@@ -110,5 +110,22 @@ public class TransactionDAO extends GenericDAO<TransactionBean>{
 		}
 	}
 	
+	/*
+	 * TransactionBean[] getTransactionByDate
+	 * @description Get all Transactions of a certain execute_date
+	 * @param execute_date 
+	 * @return TransactionBean[] 
+	 */
+	public TransactionBean[] getTransactionByCustomerId(int customer_id) throws RollbackException{
+		try{
+			Transaction.begin();
+//			TransactionBean[] newBeanArray = match(MatchArg.equals("execute_date",execute_date));
+			TransactionBean[] newBeanArray = match(MatchArg.equals("customer_id", customer_id));
+			return newBeanArray;
+		}finally {
+			if(Transaction.isActive()) Transaction.rollback();
+		}
+	}
+	
 
 }
