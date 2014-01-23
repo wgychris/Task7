@@ -16,16 +16,16 @@ import org.mybeans.form.FormBeanFactory;
 import databeans.CustomerBean;
 import formbeans.ChangePwdForm;
 
-public class C_ResetPwdAction extends Action {
+public class E_ResetPfcAction extends Action {
 	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
 	
 	private CustomerDAO customerDAO;
 
-	public C_ResetPwdAction(Model model) {
+	public E_ResetPfcAction(Model model) {
 		customerDAO = model.getCustomerDAO();
 	}
 
-	public String getName() { return "c_reset-pwd.do"; }
+	public String getName() { return "e_reset-pfc.do"; }
     
     public String perform(HttpServletRequest request) {
     	// Set up error list
@@ -41,13 +41,13 @@ public class C_ResetPwdAction extends Action {
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
-	            return "c_reset-pwd.jsp";
+	            return "c_reset-pfc.jsp";
 	        }
 	
 	        // Check for any validation errors
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "c_reset-pwd.jsp";
+	            return "c_reset-pfc.jsp";
 	        }
 	
 			CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
@@ -56,7 +56,7 @@ public class C_ResetPwdAction extends Action {
         	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
 			request.setAttribute("message","Password changed for "+customer.getCustomer_id());
-	        return "success.jsp";
+	        return "c_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
         	return "error.jsp";

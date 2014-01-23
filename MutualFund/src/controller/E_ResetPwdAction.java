@@ -6,35 +6,34 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import model.CustomerDAO;
 import model.Model;
-import model.EmployeeDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import databeans.EmployeeBean;
+import databeans.CustomerBean;
 import formbeans.ChangePwdForm;
 
 public class E_ResetPwdAction extends Action {
 	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
 	
-	private EmployeeDAO employeeDAO;
+	private CustomerDAO customerDAO;
 
 	public E_ResetPwdAction(Model model) {
-		employeeDAO = model.getEmployeeDAO();
+		customerDAO = model.getCustomerDAO();
 	}
 
 	public String getName() { return "e_reset-pwd.do"; }
     
-	
     public String perform(HttpServletRequest request) {
     	// Set up error list
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
 
         try {
-
+            
 	        
 	        // Load the form parameters into a form bean
 	        ChangePwdForm form = formBeanFactory.create(request);
@@ -51,13 +50,13 @@ public class E_ResetPwdAction extends Action {
 	            return "e_reset-pwd.jsp";
 	        }
 	
-	        EmployeeBean employee = (EmployeeBean) request.getSession().getAttribute("employee");
+			CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
 	
 			// Change the password
-        	employeeDAO.changePassword(employee.getUsername(),form.getNewPassword());
+        	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
-			request.setAttribute("message","Password changed for "+employee.getUsername());
-	        return "success.jsp";
+			request.setAttribute("message","Password changed for "+customer.getCustomer_id());
+	        return "c_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
         	return "error.jsp";
@@ -67,4 +66,3 @@ public class E_ResetPwdAction extends Action {
         }
     }
 }
-
