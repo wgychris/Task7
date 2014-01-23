@@ -1,12 +1,13 @@
-<jsp:include page="template-top.jsp" />
+<jsp:include page="template-top2.jsp" />
 <jsp:include page="error-list.jsp" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="page-header">
-  <h1>View ${customer.username}'s Transaction History:</h1>
+  <h1>View ${searcheduser.username}'s Transaction History:</h1>
 </div>
 
 <jsp:include page="error-list.jsp" />
+
 <table class="table table-hover">
 		<tr>
 			<td>Transaction_ID</td>

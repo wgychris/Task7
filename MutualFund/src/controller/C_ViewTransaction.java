@@ -52,8 +52,8 @@ public class C_ViewTransaction extends Action{
         request.setAttribute("errors",errors);
 		try {
 			//customer from session;
-//			CustomerBean cb = (CustomerBean)request.getSession().getAttribute("customer");
-//			int customer_id = cb.getCustomer_id();
+			CustomerBean cb = (CustomerBean)request.getSession().getAttribute("customer");
+			int customer_id = cb.getCustomer_id();
 			
 //			System.out.println(cb.getUsername());
 			
@@ -72,22 +72,39 @@ public class C_ViewTransaction extends Action{
 				TempTransaction tt = new TempTransaction(); //need to create new object for each loop!!!
 				int fundid = transactionDAO.getTransactionByCustomerId(1)[i].getFund_id();
 //				System.out.println("fundid is" + fundid);
-				tt.setAmount(transactionDAO.getTransactionByCustomerId(1)[i].getAmount());
+				
+				
+				/*These are for testing
+				tt.setAmount(transactionDAO.getTransactionByCustomerId(1)[i].getAmount()/100);
+				tt.setShares(transactionDAO.getTransactionByCustomerId(1)[i].getShares()/1000);
+				
 				tt.setCustomer_id(transactionDAO.getTransactionByCustomerId(1)[i].getCustomer_id());
 				tt.setExecute_date((transactionDAO.getTransactionByCustomerId(1)[i].getExecute_date()));
 				tt.setFund_id((transactionDAO.getTransactionByCustomerId(1)[i].getFund_id()));
 				tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_id());
 //				System.out.println("transaction id is "+transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_id());
 				tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_type()));
-				tt.setShares(transactionDAO.getTransactionByCustomerId(1)[i].getShares());
+				
 				tt.setName(fundDAO.getFundByFundId(fundid).getName());
 				tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
+				*/
+				tt.setAmount(transactionDAO.getTransactionByCustomerId(customer_id)[i].getAmount()/100);
+				tt.setShares(transactionDAO.getTransactionByCustomerId(customer_id)[i].getShares()/1000);
+				tt.setCustomer_id(transactionDAO.getTransactionByCustomerId(customer_id)[i].getCustomer_id());
+				tt.setExecute_date((transactionDAO.getTransactionByCustomerId(customer_id)[i].getExecute_date()));
+				tt.setFund_id((transactionDAO.getTransactionByCustomerId(customer_id)[i].getFund_id()));
+				tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_id());
+				tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_type()));
+				tt.setName(fundDAO.getFundByFundId(fundid).getName());
+				tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
+				
 				al.add(tt);
 //				System.out.println("al "+i+" "+al.get(i).getTransaction_id());
 			}
 			
 			
 			request.setAttribute("temptransactions", al); //send arraylist of beans to the jsp
+			
 			System.out.println(al.get(2).getTransaction_id());
 			return "c_viewTransactionHistory.jsp";
 		} catch (RollbackException e) {

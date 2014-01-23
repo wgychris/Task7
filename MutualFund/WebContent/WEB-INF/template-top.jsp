@@ -40,7 +40,7 @@
                 </li>
                 <li><a href="c_requestCheck.do">Request Check</a>
                 </li>
-                <li><a href="">Transaction History</a>
+                <li><a href="viewtransaction.do">Transaction History</a>
                 </li>
                 <li><a href="c_researchFund.do">Research Fund</a>
                 </li>
