@@ -14,10 +14,12 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
+import databeans.User;
 import formbeans.ChangePwdForm;
+import formbeans.CreateCustomerForm;
 
 public class E_ResetPwdAction extends Action {
-	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
+	private FormBeanFactory<CreateCustomerForm> formBeanFactory = FormBeanFactory.getInstance(CreateCustomerForm.class);
 	
 	private CustomerDAO customerDAO;
 
@@ -36,7 +38,7 @@ public class E_ResetPwdAction extends Action {
             
 	        
 	        // Load the form parameters into a form bean
-	        ChangePwdForm form = formBeanFactory.create(request);
+        	CreateCustomerForm form = formBeanFactory.create(request);
 	        
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
@@ -49,17 +51,28 @@ public class E_ResetPwdAction extends Action {
 	        if (errors.size() != 0) {
 	            return "e_reset-pwd.jsp";
 	        }
+	        CustomerBean customer = (CustomerBean) request.getAttribute("userName");
+	        CustomerBean[] userName = customerDAO.getAllCustomers();
+			if (userName == null || userName.length() == 0) {
+				errors.add("User must be specified");
+				return "error.jsp";
+			}
 	
-			CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
+			CustomerBean customer = customerDAO.read(userName);
+        	if (customer == null) {
+    			errors.add("Invalid User: "+userName);
+    			return "error.jsp";
+    		}
+
 	
-			// Change the password
-        	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
+//			// Change the password
+//        	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
-			request.setAttribute("message","Password changed for "+customer.getCustomer_id());
-	        return "c_success.jsp";
-        } catch (RollbackException e) {
-        	errors.add(e.toString());
-        	return "error.jsp";
+			request.setAttribute("userName",customer.getUsername());
+	        return "e_reset-pwd.jsp";
+//        } catch (RollbackException e) {
+//        	errors.add(e.toString());
+//        	return "error.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.toString());
         	return "error.jsp";

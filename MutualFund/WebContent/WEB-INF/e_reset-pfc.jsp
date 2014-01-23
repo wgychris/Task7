@@ -2,12 +2,11 @@
 <body>
 <p style="font-size:medium">
 	
-		<%  Object firstName= request.getAttribute("firstName");%>
-	<%  Object lastName= request.getAttribute("lastName");%>
+		<%  Object userName= request.getAttribute("userName");%>
+	
 	<h2>
 		Reset Password For
-		<%=firstName %>
-		<%=lastName %></h2>
+		<%=userName %></h2>
 </p>
 
 <jsp:include page="error-list.jsp" />

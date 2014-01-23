@@ -69,7 +69,7 @@
 <div id="tfheader">
 	<form id="tfnewsearch" method="get" action="e_reset-pwd.do">
 		Search Customer : <input type="text" class="tftextinput"
-			name="customer" size="21" maxlength="120"><input
+			name="userName" size="21" maxlength="120"><input
 			type="submit" value="search" class="tfbutton">
 	</form>
 	<div class="tfclear"></div>
