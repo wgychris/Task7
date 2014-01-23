@@ -10,6 +10,10 @@
 	<form method="POST" action="e_change-pwd.do">
 		<table class="table table-hover">
 			<tr>
+				<td> Old Password: *</td>
+				<td><input type="password" name="oldPassword" value=""/></td>
+			</tr>
+			<tr>
 				<td> New Password: *</td>
 				<td><input type="password" name="newPassword" value=""/></td>
 			</tr>
