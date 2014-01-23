@@ -6,38 +6,39 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import model.CustomerDAO;
 import model.Model;
-import model.EmployeeDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import databeans.EmployeeBean;
+import databeans.CustomerBean;
+//import databeans.User;
 import formbeans.ChangePwdForm;
+import formbeans.CreateCustomerForm;
 
 public class E_ResetPwdAction extends Action {
-	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
+	private FormBeanFactory<CreateCustomerForm> formBeanFactory = FormBeanFactory.getInstance(CreateCustomerForm.class);
 	
-	private EmployeeDAO employeeDAO;
+	private CustomerDAO customerDAO;
 
 	public E_ResetPwdAction(Model model) {
-		employeeDAO = model.getEmployeeDAO();
+		customerDAO = model.getCustomerDAO();
 	}
 
 	public String getName() { return "e_reset-pwd.do"; }
     
-	
     public String perform(HttpServletRequest request) {
     	// Set up error list
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
 
         try {
-
+            
 	        
 	        // Load the form parameters into a form bean
-	        ChangePwdForm form = formBeanFactory.create(request);
+        	CreateCustomerForm form = formBeanFactory.create(request);
 	        
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
@@ -50,21 +51,31 @@ public class E_ResetPwdAction extends Action {
 	        if (errors.size() != 0) {
 	            return "e_reset-pwd.jsp";
 	        }
+	        CustomerBean customer = (CustomerBean) request.getAttribute("userName");
+	        CustomerBean[] userName = customerDAO.getAllCustomers();
+			if (userName == null || userName.length() == 0) {
+				errors.add("User must be specified");
+				return "error.jsp";
+			}
 	
-	        EmployeeBean employee = (EmployeeBean) request.getSession().getAttribute("employee");
+			CustomerBean customer = customerDAO.read(userName);
+        	if (customer == null) {
+    			errors.add("Invalid User: "+userName);
+    			return "error.jsp";
+    		}
+
 	
-			// Change the password
-        	employeeDAO.changePassword(employee.getUsername(),form.getNewPassword());
+//			// Change the password
+//        	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
-			request.setAttribute("message","Password changed for "+employee.getUsername());
-	        return "success.jsp";
-        } catch (RollbackException e) {
-        	errors.add(e.toString());
-        	return "error.jsp";
+			request.setAttribute("userName",customer.getUsername());
+	        return "e_reset-pwd.jsp";
+//        } catch (RollbackException e) {
+//        	errors.add(e.toString());
+//        	return "error.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.toString());
         	return "error.jsp";
         }
     }
 }
-
