@@ -58,7 +58,7 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	 * @param username, password
 	 * @return void
 	 */
-	/*public void changePassword(String username, String password) throws RollbackException{
+	public void changePassword(String username, String password) throws RollbackException{
 		try{
 			Transaction.begin();
 			EmployeeBean eb = read(username);
@@ -74,7 +74,7 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 		}finally {
 			if(Transaction.isActive()) Transaction.rollback();
 		}
-	}*/
+	}
 	/*
 	 * EmployeeBean getEmployeeInfo
 	 * @description Get all information of a certain employee
