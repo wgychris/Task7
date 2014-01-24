@@ -83,7 +83,6 @@ public class FundDAO extends GenericDAO<FundBean>{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
 	}
-	
 
 	/*
 	 * void getFundByName
@@ -101,7 +100,6 @@ public class FundDAO extends GenericDAO<FundBean>{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
 	}
-	
 	
 	/*
 	 * void getFundByTicker
