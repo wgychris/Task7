@@ -36,7 +36,7 @@ public class E_ViewCustomerAction extends Action{
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
-		try {
+		/*try {
 			//customer from session;
 			CustomerBean [] customerList = customerDAO.getAllCustomers();
 			FundBean [] fbarray = fundDAO.getAllFunds();
@@ -50,7 +50,8 @@ public class E_ViewCustomerAction extends Action{
 		} catch (RollbackException e) {
 			errors.add(e.toString());
         	return "error.jsp";
-		}
+		}*/
+		return null;
         
 	}
 	

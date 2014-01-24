@@ -3,6 +3,7 @@ package model;
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
@@ -57,8 +58,18 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 	 */
 	public PositionBean getPosition(int customer_id, int fund_id) throws RollbackException {
 		PositionBean pb = read(customer_id,fund_id);
-//		int [] params = {customer_id,fund_id};
-//		PositionBean pbBean = read(params);
+		return pb;
+	}
+	
+	public PositionBean[] getAllPositionsByCustomerIdBeans (int customer_id) throws RollbackException {
+		Transaction.begin();
+		PositionBean[] newBeanArray = match(MatchArg.equals("customer_id", customer_id));
+		System.out.print("In getAllPositionsByCustomerIdBeans:");
+		if(newBeanArray.length > 0) {
+			System.out.print("get position successfully \n");
+			return newBeanArray;
+		}
+		System.out.print("get position failed \n");
 		return null;
 	}
 }

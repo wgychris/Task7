@@ -14,7 +14,6 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
-import databeans.User;
 import formbeans.ChangePwdForm;
 import formbeans.CreateCustomerForm;
 
@@ -52,7 +51,7 @@ public class E_ResetPwdAction extends Action {
 	            return "e_reset-pwd.jsp";
 	        }
 	        CustomerBean customer = (CustomerBean) request.getAttribute("userName");
-	        CustomerBean[] userName = customerDAO.getAllCustomers();
+	        /*CustomerBean[] userName = customerDAO.getAllCustomers();
 			if (userName == null || userName.length() == 0) {
 				errors.add("User must be specified");
 				return "error.jsp";
@@ -62,7 +61,7 @@ public class E_ResetPwdAction extends Action {
         	if (customer == null) {
     			errors.add("Invalid User: "+userName);
     			return "error.jsp";
-    		}
+    		}*/
 
 	
 //			// Change the password
