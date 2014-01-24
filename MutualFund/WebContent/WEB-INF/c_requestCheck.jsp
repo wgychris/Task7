@@ -33,7 +33,7 @@ td.right {
 				<tr>
 					<td>Transfer Date:</td>
 					<td><input type="text" name="transferDate"
-						value="${form.transferDate}"></td>
+						value="#"></td>
 				</tr>
 				<tr>
 					<td></td>

@@ -53,15 +53,16 @@ public class C_RequestCheckAction extends Action {
 			if (errors.size() != 0) {
 				return "c_requestCheck.jsp";
 			}
-			HttpSession session = request.getSession();
-			CustomerBean c = (CustomerBean) session.getAttribute("customer");
+//			HttpSession session = request.getSession();
+//			CustomerBean c = (CustomerBean) session.getAttribute("customer");
 
 			// Look up the user
 			TransactionBean tb = new TransactionBean();
 			tb.setTransaction_type("request");
 			tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form
 					.getCheckAmt()));
-			tb.setCustomer_id(c.getCustomer_id());
+//			tb.setCustomer_id(c.getCustomer_id());
+			tb.setCustomer_id(1);
 			transactionDAO.createNewTransaction(tb);
 			request.setAttribute("message", "the transaction is in process");
 			return "c_success.jsp";
