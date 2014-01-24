@@ -68,6 +68,7 @@ public class C_SellFundAction extends Action {
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
 			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
 					.getFundTicker());
+			System.out.println("fund id " + fundBean.getFund_id());
 			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
 					c.getCustomer_id(), fundBean.getFund_id());
 			long tmpShares = positionBean.getTempshares();
@@ -84,6 +85,7 @@ public class C_SellFundAction extends Action {
 			t.setCustomer_id(c.getCustomer_id());
 			// t.setCustomer_id(1);//test
 			t.setTransaction_type("sell");
+			t.setFund_id(fundBean.getFund_id());
 			transactionDAO.createAutoIncrement(t);
 			PositionBean p = new PositionBean();
 			p.setCustomer_id(c.getCustomer_id());

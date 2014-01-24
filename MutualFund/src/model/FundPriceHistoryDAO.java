@@ -70,11 +70,9 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 	 */
 	public FundPriceHistoryBean getLastDateBeanByFundId(int id) throws RollbackException,
 			ParseException {
-		try {
-			Transaction.begin();
-			FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals(
+		FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals(
 					"fund_id", id));
-			java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat();
+			java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat("yyyy-mm-dd");
 			System.out.print("In getLastDateByFundId: ");
 			if (newBeanArray.length > 0) {
 				Date lastDate = sFormat.parse(newBeanArray[0].getDate());
@@ -93,10 +91,7 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 			System.out.print("find lastDate falied \n");
 			return null;
 
-		} finally {
-			if (Transaction.isActive())
-				Transaction.rollback();
-		}
+		
 	}
 
 	/*

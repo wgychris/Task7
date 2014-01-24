@@ -62,11 +62,13 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 		return pb;
 	}
 	
+	
+	
 	public PositionBean[] getAllPositionsByCustomerIdBeans (int customer_id) throws RollbackException {
 		Transaction.begin();
 		PositionBean[] newBeanArray = match(MatchArg.equals("customer_id", customer_id));
 		System.out.print("In getAllPositionsByCustomerIdBeans:");
-		if(newBeanArray.length > 0) {
+		if(newBeanArray != null && newBeanArray.length > 0) {
 			System.out.print("get position successfully \n");
 			return newBeanArray;
 		}

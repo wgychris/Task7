@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.CustomerDAO;
 import model.FundDAO;
 import model.Model;
 import model.TransactionDAO;
@@ -34,10 +35,12 @@ public class C_BuyFundAction extends Action {
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
+	private CustomerDAO customerDAO;
 
 	public C_BuyFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
+		customerDAO = model.getCustomerDAO();
 	}
 
 	public String getName() {
@@ -65,24 +68,31 @@ public class C_BuyFundAction extends Action {
 				return "c_buyFund.jsp";
 			}
 			HttpSession session = request.getSession();
-			CustomerBean customer = (CustomerBean) session
-					.getAttribute("customer");
+			
+			CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+			
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				errors.add("Invalid ticker");
 				return "c_buyFund.jsp";
 			}
 
-			long inputAmount = dataConversion
-					.convertFromStringToThreeDigitLong(form.getAmount());
+//			long inputAmount = dataConversion
+//					.convertFromStringToThreeDigitLong(form.getAmount());
+			long inputAmount = dataConversion.convertFromStringToTwoDigitLong(form.getAmount());
 			if (inputAmount > customer.getTempcash()) {
-				errors.add("Amount should not be greater than"
-						+ customer.getTempcash());
+				errors.add("Amount should not be greater than"+ customer.getTempcash());
 				return "c_buyFund.jsp";
+				
 			}
 			TransactionBean t = new TransactionBean();
-			t.setAmount(inputAmount);
+			t.setAmount(inputAmount);	
 			t.setCustomer_id(customer.getCustomer_id());
 			t.setTransaction_type("buy");
+			System.out.println("getTempcash() before " + customer.getTempcash());
+			customer.setTempcash((customer.getTempcash())-inputAmount);
+			System.out.println("inputAmount " + inputAmount);
+			System.out.println("getTempcash() " + customer.getTempcash());
+			customerDAO.updataTempCash(customer.getCustomer_id(), customer.getTempcash()-inputAmount);
 			transactionDAO.create(t);
 			
 			request.setAttribute("message", "new fund has been bought");

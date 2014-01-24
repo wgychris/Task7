@@ -21,8 +21,9 @@
 
 	<div id="right"
 		style="position: relative; float: left; margin-left: 100px;">
-		<label id="cashbalance">Cash Balance : </label><br /> <label>$
-		</label> XXXX${customr.cash}
+		<label id="cashbalance">Cash Balance : </label><br /> 
+		<label>$</label>${sessionScope.customer.cash/100} <br/>
+		<label>$</label>${sessionScope.customer.tempcash/100}<br/>
 	</div>
 
 </div>
