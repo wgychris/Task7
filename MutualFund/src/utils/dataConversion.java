@@ -70,7 +70,7 @@ public class dataConversion {
 		String p = Long.toString(shares);
 		StringBuffer sb = new StringBuffer(p.substring(0, p.length() - 3));
 		sb.append('.');
-		sb.append(p.substring(p.length() - 2));
+		sb.append(p.substring(p.length() - 3));
 		return sb.toString();
 	}
 
@@ -78,11 +78,11 @@ public class dataConversion {
 		String p = Long.toString(price);
 		StringBuffer sb = new StringBuffer(p.substring(0, p.length() - 2));
 		sb.append('.');
-		sb.append(p.substring(p.length() - 1));
+		sb.append(p.substring(p.length() - 2));
 		return sb.toString();
 	}
 
-	// public static void main(String args[]){
-	// System.out.println(convertFromStringToThreeDigitLong("321.9012"));
-	// }
+//	public static void main(String args[]) {
+//		System.out.println(convertFromLongToTwoDigString(10000000));
+//	}
 }
