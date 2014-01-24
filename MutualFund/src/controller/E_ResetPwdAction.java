@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import model.CustomerDAO;
 import model.Model;
@@ -71,6 +72,8 @@ public class E_ResetPwdAction extends Action {
 //        	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
 			request.setAttribute("customer",cb);
+			HttpSession session = request.getSession();
+		        session.setAttribute("customer",cb);
 	        return "e_reset-pfc.do";
         } catch (RollbackException e) {
         	errors.add(e.toString());
