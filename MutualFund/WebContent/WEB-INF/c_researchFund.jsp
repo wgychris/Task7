@@ -93,35 +93,9 @@
 
 	</table>
 	<%
-    } else {
-%>
-
-
-	<table class="table table-hover">
-		<tr>
-			<td>Date</td>
-			<td>Closing Price</td>
-			<td>Action</td>
-		</tr>
-		<tr>
-			<td>1/1/2013</td>
-			<td>$20.00</td>
-			<td><button type="button" class="btn btn-primary">Buy</button></td>
-		</tr>
-		<tr>
-			<td>1/2/2013</td>
-			<td>$14.00</td>
-			<td><button type="button" class="btn btn-primary">Buy</button></td>
-		</tr>
-		<tr>
-			<td>1/3/2013</td>
-			<td>$26.00</td>
-			<td><button type="button" class="btn btn-primary">Buy</button></td>
-		</tr>
-	</table>
-	<%
     } 
 %>
+
 </div>
 
 
