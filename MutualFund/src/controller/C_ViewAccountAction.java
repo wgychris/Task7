@@ -49,6 +49,7 @@ public class C_ViewAccountAction extends Action {
 		try {
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
 					"customer");
+			request.setAttribute("user", cb);
 			System.out.print("0: cuId:" + cb.getCustomer_id());
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
