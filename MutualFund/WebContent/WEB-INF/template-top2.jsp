@@ -24,7 +24,7 @@
 	<!-- Spacer row -->
 	
 	<tr>
-		<td bgcolor="#eeeeee" valign="top" height="500" width="160px">
+		<td bgcolor="#eeeeee" valign="top" height="500" width="180px">
 			<!-- Navigation bar is one table cell down the left side -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -40,7 +40,7 @@
                 </li>
                 <li><a href="#">View Customer Account</a>
                 </li>
-                <li><a href="view.jsp">View Customer Transaction History</a>
+                <li><a href="eviewtransaction.do">View Customer Transaction History</a>
                 </li>
                 <li><a href="e_depositCheck.do">Deposit Check</a>
                 </li>
@@ -57,4 +57,4 @@
 		<td>
 			<!-- Padding (blank space) between navbar and content -->
 		</td>
-		<td  valign="top">
+		<td  valign="top" width="500px">

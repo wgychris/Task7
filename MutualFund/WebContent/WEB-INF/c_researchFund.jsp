@@ -1,5 +1,6 @@
 <!-- Daisy Wang Jan 16 Version 1.0 -->
 <jsp:include page="template-top.jsp" />
+<jsp:include page="error-list.jsp" />
 <%@ page import="databeans.FundPriceHistoryBean"%>
 <style type="text/css">
 #tfheader {
@@ -63,7 +64,7 @@
 }
 </style>
 <div id="tfheader">
-	<form id="tfnewsearch" method="get" action="http://www.google.com">
+	<form id="tfnewsearch" method="post" action="c_researchFund.do">
 		Research Fund : <input type="text" class="tftextinput"
 			name="fundTicker" size="21" maxlength="120"><input
 			type="submit" value="search" class="tfbutton">
@@ -72,8 +73,11 @@
 </div>
 <div id="tfheader2">
 	<table class="table table-hover">
+	<%
+	if (request.getAttribute("title") != null) {
+%>
 		<%
-    for (FundPriceHistoryBean f : (FundPriceHistoryBean[])request.getAttribute("fundInfo")) {
+    for (FundPriceHistoryBean f : (FundPriceHistoryBean[])request.getAttribute("fundsInfo")) {
 %>
 		<tr>
 			<td><%=f.getDate()%></td>
@@ -82,7 +86,11 @@
 		<%
 		}
 %>
+
 	</table>
+	<%
+    } else {
+%>
 
 
 	<table class="table table-hover">
@@ -107,6 +115,9 @@
 			<td><button type="button" class="btn btn-primary">Buy</button></td>
 		</tr>
 	</table>
+	<%
+    } 
+%>
 </div>
 
 

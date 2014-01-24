@@ -3,12 +3,6 @@
 <jsp:include page="template-top2.jsp" />
 <jsp:include page="error-list.jsp" />
 
-<style type="text/css">
-td.right {
-	text-align: right;
-}
-</style>
-
 <div>
 	<h1>Transition Day</h1>
 	<div>
@@ -16,7 +10,7 @@ td.right {
 			<table class="table">
 				<tr>
 					<td>Trading Day:</td>
-					<td><input type="text" name="fund"
+					<td><input type="text" name="transitionDay"
 						placeholder="later than the previously ended trading day" value="" /></td>
 				</tr>
 			</table>
@@ -32,17 +26,13 @@ td.right {
 				<tboday>
 				
 				<c:if test="${requestScope.funds!= null}">
-					<tr>
-						<td>FundName</td>
-						<td>Ticker</td>
-						<td>New Closing Price</td>
-					</tr>
 					<c:forEach items="${requestScope.funds}" var="fund">
 						<tr>
 							<td>${fund.name}</td>
 							<td>${fund.symbol}</td>
-							<td><input type="hidden" name="fundId" value="${fund.fund_id }"></td>
-							<td><input type="text" placeholder="0.00" name="price" value="" /></td>
+							
+							<td><input type="text" placeholder="0.00" name="price" value="" />
+							<input type="hidden" name="fund_id" value="${fund.fund_id }"></td>
 						</tr>
 					</c:forEach>
 				</c:if> </tboday>
