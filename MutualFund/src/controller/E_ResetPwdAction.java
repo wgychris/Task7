@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import model.CustomerDAO;
 import model.Model;
@@ -14,6 +15,7 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
+
 //import databeans.User;
 import formbeans.ChangePwdForm;
 import formbeans.CreateCustomerForm;
@@ -55,12 +57,23 @@ public class E_ResetPwdAction extends Action {
 	        if (errors.size() != 0) {
 	            return "e_reset-pwd.jsp";
 	        }
+	        CustomerBean customer = (CustomerBean) request.getAttribute("userName");
+	        /*CustomerBean[] userName = customerDAO.getAllCustomers();
+			if (userName == null || userName.length() == 0) {
+				errors.add("User must be specified");
+				return "error.jsp";
 	        //return -1 means this user not existed
 	        
 	        if(customer_id==-1){
 				errors.add("Invalid User Name");
 				return "e_reset-pwd.jsp";
 			}
+	
+			CustomerBean customer = customerDAO.read(userName);
+        	if (customer == null) {
+    			errors.add("Invalid User: "+userName);
+    			return "error.jsp";
+    		}*/
 	        
 			
 			
@@ -71,6 +84,8 @@ public class E_ResetPwdAction extends Action {
 //        	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
 			request.setAttribute("customer",cb);
+			HttpSession session = request.getSession();
+		        session.setAttribute("customer",cb);
 	        return "e_reset-pfc.do";
         } catch (RollbackException e) {
         	errors.add(e.toString());

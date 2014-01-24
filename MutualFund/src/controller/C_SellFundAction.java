@@ -66,28 +66,30 @@ public class C_SellFundAction extends Action {
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-			FundBean fundBean = (FundBean)fundDAO.getFundByTicker(form.getFundTicker());
-//		PositionBean positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(),fundBean.getFund_id());
-//			long maxShares = positionBean.getShares();
-			long maxShares = 10000;
+			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
+					.getFundTicker());
+			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
+					c.getCustomer_id(), fundBean.getFund_id());
+			long tmpShares = positionBean.getTempshares();
+			// long maxShares = 10000;
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
-			if (inputShares > maxShares) {
+			if (inputShares > tmpShares) {
 				errors.add("Number of shares should not be greater than "
-						+ maxShares);
+						+ tmpShares);
 				return "c_sellFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
 			t.setShares(inputShares);
-//			t.setCustomer_id(c.getCustomer_id()); 
-			t.setCustomer_id(1);//test
+			t.setCustomer_id(c.getCustomer_id());
+			// t.setCustomer_id(1);//test
 			t.setTransaction_type("sell");
 			transactionDAO.createAutoIncrement(t);
 			PositionBean p = new PositionBean();
-//			p.setCustomer_id(c.getCustomer_id());
-			p.setCustomer_id(1);//test
+			p.setCustomer_id(c.getCustomer_id());
+			// p.setCustomer_id(1);//test
 			p.setFund_id(fundBean.getFund_id());
-			p.setShares(maxShares - inputShares);//should use tmpShares;
+			p.setShares(tmpShares - inputShares);// should use ;
 			positionDAO.create(p);
 
 			request.setAttribute("message", "fund has been sold");
