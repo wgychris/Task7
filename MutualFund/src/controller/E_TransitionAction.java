@@ -10,15 +10,18 @@ import javax.servlet.http.HttpSession;
 
 import model.FundDAO;
 import model.Model;
+import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import utils.dataConversion;
 import databeans.CustomerBean;
 import databeans.EmployeeBean;
 import databeans.FundBean;
+import databeans.PositionBean;
 import databeans.TransactionBean;
 import formbeans.LoginForm;
 import formbeans.TransitionForm;
@@ -37,10 +40,12 @@ public class E_TransitionAction extends Action {
 	
 	private FundDAO fundDAO;
 	private TransactionDAO transactionDAO;
+	private PositionDAO positionDAO;
 
 	public E_TransitionAction(Model model) {
 		fundDAO = model.getFundDAO();
 		transactionDAO=model.getTransactionDAO();
+		positionDAO=model.getPositionDAO();
 	}
 
 	public String getName() { return "e_transition.do"; }
@@ -86,7 +91,22 @@ public class E_TransitionAction extends Action {
 	        	}else if(tbs[i].getTransaction_type().equals("request")){
 	        		transactionDAO.updateTransactionDate(tbs[i], form.getTransitionDay());
 	        	}else if(tbs[i].getTransaction_type().equals("buyFund")){
+	        		int fundid=tbs[i].getFund_id();
+	        		int cusid=tbs[i].getCustomer_id();
+	        		double updatePrice=dataConversion.convertFromStringToTwoDigitLong(map.get(""+fundid));
+	        		//Because the amount has two digit as long integer, so we need to divede 100
+	        		double share=tbs[i].getAmount()/100*updatePrice;
+	        		long sh=dataConversion.convertFromDoubleToThreeDigitLong(share);
+	        		tbs[i].setShares(sh);
+	        		tbs[i].setExecute_date(form.getTransitionDay());
+	        		transactionDAO.update(tbs[i]);
 	        		
+	        		PositionBean pb=new PositionBean();
+	        		pb.setCustomer_id(cusid);
+	        		pb.setFund_id(fundid);
+	        		pb.setShares(sh);
+	        		pb.setTempshares(sh);
+	        		positionDAO.create(pb);
 	        	}else if(tbs[i].getTransaction_type().equals("sellFund")){
 	        		
 	        	}else{

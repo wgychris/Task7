@@ -1,5 +1,7 @@
 package utils;
 
+import java.text.DecimalFormat;
+
 public class dataConversion {
 
 	public static long convertFromStringToTwoDigitLong(String s) {
@@ -48,6 +50,13 @@ public class dataConversion {
 			return false;
 		}
 		return true;
+	}
+
+	public static long convertFromDoubleToThreeDigitLong(double share) {
+		DecimalFormat    df   = new DecimalFormat("######0.000");   
+		df.format(share);
+		long l=(long) (share*1000);
+		return l;
 	}
 
 	// public static void main(String args[]){
