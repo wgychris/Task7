@@ -57,6 +57,7 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 	 */
 	public PositionBean getPosition(int customer_id, int fund_id) throws RollbackException {
 		PositionBean pb = read(customer_id,fund_id);
-		return null;
+//		
+		return pb;
 	}
 }

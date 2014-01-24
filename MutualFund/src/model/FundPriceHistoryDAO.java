@@ -58,7 +58,7 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean>{
 	public FundPriceHistoryBean[] getFundPriceHistoryByFundId(int id) throws RollbackException{
 		try{
 			Transaction.begin();
-			FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals("fund_price_history_id",id));
+			FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals("fund_id",id));
 			return newBeanArray;
 		}finally {
 			if(Transaction.isActive()) Transaction.rollback();
