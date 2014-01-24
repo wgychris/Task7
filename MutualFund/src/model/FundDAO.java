@@ -59,9 +59,11 @@ public class FundDAO extends GenericDAO<FundBean>{
 		try{
 			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
+
 			if(newBeanArray.length > 0 ) 
 				return true;
 			return false; 
+
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
