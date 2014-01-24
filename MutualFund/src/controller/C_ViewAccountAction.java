@@ -68,6 +68,7 @@ public class C_ViewAccountAction extends Action {
 				}
 				request.setAttribute("day", day);
 			}
+			System.out.print("!!!2");
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
 			if (pBean!= null && pBean.length != 0) {
 				for (int i = 0; i < pBean.length; i++) {
@@ -77,18 +78,23 @@ public class C_ViewAccountAction extends Action {
 					lfb.setShares(pBean[i].getShares());
 					// lfb.setName();无根据fund id查fund name的方法
 					FundPriceHistoryBean fphBean;
+					System.out.print("!!!4");
 					fphBean = fundPriceHistoryDAO
 							.getLastDateBeanByFundId(fundID);
 					lfb.setPrice_date(fphBean.getDate());
 					lfb.setPrice(fphBean.getPrice());
 				}
 			}
+			System.out.print("!!!3");
 			request.setAttribute("userFundList", list);
+			System.out.print("return");
 			return "c_viewAccount.jsp";
 		} catch (RollbackException e) {
+			System.out.print("e1");
 			errors.add(e.toString());
 			return "error.jsp";
 		} catch (ParseException e) {
+			System.out.print("e2");
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error.jsp";
