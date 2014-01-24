@@ -42,7 +42,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean>{
 	public void updateTransactionDate(TransactionBean bean, String date) throws RollbackException{
 		try{
 			Transaction.begin();
-			TransactionBean newBean = read(bean);
+			TransactionBean newBean = read(bean.getTransaction_id());
 			
 			if(newBean==null) {
 				throw new RollbackException("Transaction no longer exists");

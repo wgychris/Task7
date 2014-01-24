@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import utils.dataConversion;
+
 public class TransitionForm extends FormBean {
 	private String[] fund_id;
 	private String[] price;
+	private String transitionDay;
 	
 	public String[] getFund_id() {
 		return fund_id;
@@ -25,8 +28,20 @@ public class TransitionForm extends FormBean {
 		this.price = price;
 	}
 
+	
+	public String getTransitionDay() {
+		return transitionDay;
+	}
+
+	public void setTransitionDay(String transitionDay) {
+		this.transitionDay = transitionDay;
+	}
+
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
+		if (!dataConversion.isDate(transitionDay)) {
+			errors.add("TransitionDay is not valid");
+		}
 		return errors;
 	}
 }
