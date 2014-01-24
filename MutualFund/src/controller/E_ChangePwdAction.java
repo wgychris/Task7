@@ -57,7 +57,7 @@ public class E_ChangePwdAction extends Action {
         	employeeDAO.changePassword(employee.getUsername(),form.getNewPassword());
 	
 			request.setAttribute("message","Password changed for "+employee.getUsername());
-	        return "success.jsp";
+	        return "e_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
         	return "error.jsp";

@@ -32,10 +32,12 @@ public class C_SellFundAction extends Action {
 
 	public C_SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
+		fundDAO = model.getFundDAO();
+		positionDAO = model.getPositionDAO();
 	}
 
 	public String getName() {
-		return "#sell.do";// ??
+		return "c_sellFund.do";// ??
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -64,26 +66,32 @@ public class C_SellFundAction extends Action {
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-
-			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
-					c.getCustomer_id(),
-					fundDAO.getFundByTicker(form.getFundTicker()).getFund_id());
-
-			long maxShares = positionBean.getShares();
+			FundBean fundBean = (FundBean)fundDAO.getFundByTicker(form.getFundTicker());
+//		PositionBean positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(),fundBean.getFund_id());
+//			long maxShares = positionBean.getShares();
+			long maxShares = 10000;
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
 			if (inputShares > maxShares) {
 				errors.add("Number of shares should not be greater than "
 						+ maxShares);
-				return "c_buyFund.jsp";
+				return "c_sellFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
 			t.setShares(inputShares);
-			t.setCustomer_id(c.getCustomer_id());
+//			t.setCustomer_id(c.getCustomer_id()); 
+			t.setCustomer_id(1);//test
 			t.setTransaction_type("sell");
-
 			transactionDAO.createAutoIncrement(t);
-			return "sellFund.do";
+			PositionBean p = new PositionBean();
+//			p.setCustomer_id(c.getCustomer_id());
+			p.setCustomer_id(1);//test
+			p.setFund_id(fundBean.getFund_id());
+			p.setShares(maxShares - inputShares);//should use tmpShares;
+			positionDAO.create(p);
+
+			request.setAttribute("message", "fund has been sold");
+			return "c_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";

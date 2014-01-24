@@ -7,7 +7,7 @@
 <jsp:include page="error-list.jsp" />
 
 <p>
-	<form method="POST" action="view.do">
+	<form method="POST" action="e_view-customer.do">
 		<table>
 		    <tr>
 				<td> Customer ID: </td>

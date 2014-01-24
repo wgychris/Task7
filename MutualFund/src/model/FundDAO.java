@@ -43,8 +43,8 @@ public class FundDAO extends GenericDAO<FundBean>{
 			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("name",fundName));
 			if(newBeanArray.length > 0 ) 
-				return false;
-			return true; 
+				return true;
+			return false; 
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
@@ -59,9 +59,11 @@ public class FundDAO extends GenericDAO<FundBean>{
 		try{
 			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
-			if(newBeanArray.length == 0 ) 
-				return false;
-			return true; 
+
+			if(newBeanArray.length > 0 ) 
+				return true;
+			return false; 
+
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
@@ -118,6 +120,17 @@ public class FundDAO extends GenericDAO<FundBean>{
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+	}
+	
+	/*
+	 * Get position
+	 * @param customer_id and fund_id
+	 * @return position_bean
+	 */
+	public FundBean getFundByFundId(int fund_id) throws RollbackException {
+		FundBean fb = read(fund_id);
+//		
+		return fb;
 	}
 	
 

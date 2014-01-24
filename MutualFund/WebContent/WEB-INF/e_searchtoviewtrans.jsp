@@ -1,9 +1,5 @@
+<!-- Yusi Zhang Jan 23 Version 1.0 edited from Daisy Wang's JSP-->
 <jsp:include page="template-top2.jsp" />
-
-<div class="page-header">
-  <h1>Reset Password For Customers</h1>
-</div>
-
 <jsp:include page="error-list.jsp" />
 <style type="text/css">
 #tfheader {
@@ -67,13 +63,13 @@
 }
 </style>
 <div id="tfheader">
-	<form id="tfnewsearch" method="get" action="e_reset-pwd.do">
-		Search Customer : <input type="text" class="tftextinput"
-			name="userName" size="21" maxlength="120"><input
-			type="submit" value="search" class="tfbutton">
+	<form id="tfnewsearch" method="post" action="eviewtransaction.do">
+		Research Customer User Name : <input type="text" class="tftextinput" name="username" size="21" maxlength="120">
+		<input type="submit" value="search" class="tfbutton">
 	</form>
 	<div class="tfclear"></div>
 </div>
+
 
 
 <jsp:include page="template-bottom.jsp" />

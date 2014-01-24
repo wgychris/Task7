@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import model.FundDAO;
 import model.Model;
-import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
@@ -17,8 +16,6 @@ import org.mybeans.form.FormBeanFactory;
 
 import utils.dataConversion;
 import databeans.CustomerBean;
-import databeans.FundBean;
-import databeans.PositionBean;
 import databeans.TransactionBean;
 import formbeans.BuyFundForm;
 
@@ -37,14 +34,14 @@ public class C_BuyFundAction extends Action {
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private PositionDAO positionDAO;
 
 	public C_BuyFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
+		fundDAO = model.getFundDAO();
 	}
 
 	public String getName() {
-		return "buyFund.do";
+		return "c_buyFund.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -68,24 +65,28 @@ public class C_BuyFundAction extends Action {
 				return "c_buyFund.jsp";
 			}
 			HttpSession session = request.getSession();
-			CustomerBean customer = (CustomerBean) session.getAttribute("customer");
-			FundBean fund =(FundBean)fundDAO.getFundByTicker(form.getFundTicker());
+			CustomerBean customer = (CustomerBean) session
+					.getAttribute("customer");
+			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
+				errors.add("Invalid ticker");
+				return "c_buyFund.jsp";
+			}
+
 			long inputAmount = dataConversion
 					.convertFromStringToThreeDigitLong(form.getAmount());
 			if (inputAmount > customer.getTempcash()) {
-				errors.add("Amount should not be greater than" + customer.getTempcash());
+				errors.add("Amount should not be greater than"
+						+ customer.getTempcash());
 				return "c_buyFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
 			t.setAmount(inputAmount);
 			t.setCustomer_id(customer.getCustomer_id());
 			t.setTransaction_type("buy");
-			transactionDAO.createAutoIncrement(t);
-			PositionBean positionBean = new PositionBean();
-			positionBean.setCustomer_id(customer.getCustomer_id());
-			positionBean.setFund_id(fund.getFund_id());
-			positionDAO.createAutoIncrement(positionBean);
-			return "buyFund.do";
+			transactionDAO.create(t);
+			
+			request.setAttribute("message", "new fund has been bought");
+			return "c_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";

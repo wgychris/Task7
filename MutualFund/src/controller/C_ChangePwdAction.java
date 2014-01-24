@@ -56,7 +56,7 @@ public class C_ChangePwdAction extends Action {
         	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
 			request.setAttribute("message","Password changed for "+customer.getCustomer_id());
-	        return "success.jsp";
+	        return "c_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
         	return "error.jsp";
