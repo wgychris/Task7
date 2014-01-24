@@ -59,6 +59,13 @@ public class dataConversion {
 		return l;
 	}
 
+	public static long convertFromDoubleToTwoDigitLong(double amount) {
+		DecimalFormat    df   = new DecimalFormat("######0.00");   
+		df.format(amount);
+		long l=(long) (amount*100);
+		return l;
+	}
+
 	// public static void main(String args[]){
 	// System.out.println(convertFromStringToThreeDigitLong("321.9012"));
 	// }
