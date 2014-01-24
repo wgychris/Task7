@@ -69,8 +69,7 @@ public class C_SellFundAction extends Action {
 			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
 					.getFundTicker());
 			System.out.println("fund id " + fundBean.getFund_id());
-			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
-					c.getCustomer_id(), fundBean.getFund_id());
+			PositionBean positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(), fundBean.getFund_id());
 			long tmpShares = positionBean.getTempshares();
 			// long maxShares = 10000;
 			long inputShares = dataConversion
@@ -92,7 +91,8 @@ public class C_SellFundAction extends Action {
 			// p.setCustomer_id(1);//test
 			p.setFund_id(fundBean.getFund_id());
 			p.setShares(tmpShares - inputShares);// should use ;
-			positionDAO.create(p);
+//			positionDAO.create(p);
+			positionDAO.updataTempCash(p);
 
 			request.setAttribute("message", "fund has been sold");
 			return "c_success.jsp";

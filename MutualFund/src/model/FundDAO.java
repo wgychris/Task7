@@ -40,7 +40,7 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 */
 	public boolean checkFundByName(String fundName) throws RollbackException{
 		try{
-			Transaction.begin();
+//			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("name",fundName));
 			if(newBeanArray.length > 0 ) 
 				return true;
@@ -57,7 +57,7 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 */
 	public boolean checkFundByTicker(String ticker) throws RollbackException{
 		try{
-			Transaction.begin();
+//			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
 
 			if(newBeanArray.length > 0 ) 
@@ -78,7 +78,7 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 */
 	public FundBean[] getAllFunds() throws RollbackException{
 		try{
-			Transaction.begin();
+//			Transaction.begin();
 			FundBean[] newBeanArray = match();
 			return newBeanArray;
 		}finally {
@@ -93,7 +93,7 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 */
 	public FundBean getFundByName(String fundName) throws RollbackException{
 		try{
-			Transaction.begin();
+//			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("name",fundName));
 			if(newBeanArray.length > 0 ) 
 				return newBeanArray[0];
@@ -110,7 +110,7 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 */
 	public FundBean getFundByTicker(String ticker) throws RollbackException{
 		try{
-			Transaction.begin();
+//			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
 			if(newBeanArray.length > 0 ) 
 				return newBeanArray[0];

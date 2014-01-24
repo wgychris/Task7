@@ -57,7 +57,6 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			}
 
 			newBean.setExecute_date(date);
-			;
 
 			update(newBean);
 			Transaction.commit();
@@ -76,7 +75,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	 */
 	public TransactionBean[] getAllTransactions() throws RollbackException {
 		try {
-			Transaction.begin();
+//			Transaction.begin();
 			TransactionBean[] newBeanArray = match();
 			return newBeanArray;
 		} finally {
@@ -97,7 +96,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	public TransactionBean[] getTransactionByType(String type)
 			throws RollbackException {
 		try {
-			Transaction.begin();
+//			Transaction.begin();
 			TransactionBean[] newBeanArray = match(MatchArg.equals(
 					"transaction_type", type));
 
@@ -120,7 +119,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	public TransactionBean[] getTransactionByDate(String execute_date)
 			throws RollbackException {
 		try {
-			Transaction.begin();
+//			Transaction.begin();
 			TransactionBean[] newBeanArray = match(MatchArg.equals(
 					"execute_date", execute_date));
 

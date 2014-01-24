@@ -17,6 +17,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import utils.dataConversion;
 import databeans.CustomerBean;
+import databeans.FundBean;
 import databeans.TransactionBean;
 import formbeans.BuyFundForm;
 
@@ -84,10 +85,16 @@ public class C_BuyFundAction extends Action {
 				return "c_buyFund.jsp";
 				
 			}
+			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
+					.getFundTicker());
+			int fund_id = fundBean.getFund_id();
 			TransactionBean t = new TransactionBean();
 			t.setAmount(inputAmount);	
 			t.setCustomer_id(customer.getCustomer_id());
+			t.setFund_id(fund_id);
 			t.setTransaction_type("buy");
+			System.out.println("buy ");
+			System.out.println("fund id" + fund_id);
 			System.out.println("getTempcash() before " + customer.getTempcash());
 			customer.setTempcash((customer.getTempcash())-inputAmount);
 			System.out.println("inputAmount " + inputAmount);

@@ -96,9 +96,12 @@ public class C_ViewTransaction extends Action{
 				tt.setFund_id((transactionDAO.getTransactionByCustomerId(customer_id)[i].getFund_id()));
 				tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_id());
 				tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_type()));
+				if(tt.getFund_id()==0){
+					al.add(tt);
+					continue;
+				}
 				tt.setName(fundDAO.getFundByFundId(fundid).getName());
 				tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
-				
 				al.add(tt);
 //				System.out.println("al "+i+" "+al.get(i).getTransaction_id());
 			}
