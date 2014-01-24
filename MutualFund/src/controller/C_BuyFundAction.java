@@ -89,8 +89,7 @@ public class C_BuyFundAction extends Action {
 					.getFundTicker());
 			int fund_id = fundBean.getFund_id();
 			TransactionBean t = new TransactionBean();
-			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
-					.getFundTicker());
+//			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form.getFundTicker());
 			System.out.println("fund id " + fundBean.getFund_id());
 			t.setFund_id(fundBean.getFund_id());
 			t.setAmount(inputAmount);	
