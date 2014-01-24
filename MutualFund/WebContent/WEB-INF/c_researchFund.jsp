@@ -74,10 +74,14 @@
 <div id="tfheader2">
 	<table class="table table-hover">
 	<%
-	if (request.getAttribute("title") != null) {
+	if (request.getAttribute("fundInfo") != null) {
 %>
+<tr>
+			<td>Date</td>
+			<td>Closing Price</td>
+		</tr>
 		<%
-    for (FundPriceHistoryBean f : (FundPriceHistoryBean[])request.getAttribute("fundsInfo")) {
+    for (FundPriceHistoryBean f : (FundPriceHistoryBean[])request.getAttribute("fundInfo")) {
 %>
 		<tr>
 			<td><%=f.getDate()%></td>
@@ -89,35 +93,9 @@
 
 	</table>
 	<%
-    } else {
-%>
-
-
-	<table class="table table-hover">
-		<tr>
-			<td>Date</td>
-			<td>Closing Price</td>
-			<td>Action</td>
-		</tr>
-		<tr>
-			<td>1/1/2013</td>
-			<td>$20.00</td>
-			<td><button type="button" class="btn btn-primary">Buy</button></td>
-		</tr>
-		<tr>
-			<td>1/2/2013</td>
-			<td>$14.00</td>
-			<td><button type="button" class="btn btn-primary">Buy</button></td>
-		</tr>
-		<tr>
-			<td>1/3/2013</td>
-			<td>$26.00</td>
-			<td><button type="button" class="btn btn-primary">Buy</button></td>
-		</tr>
-	</table>
-	<%
     } 
 %>
+
 </div>
 
 

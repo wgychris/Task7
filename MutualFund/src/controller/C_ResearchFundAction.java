@@ -66,9 +66,15 @@ public class C_ResearchFundAction extends Action {
 				return "c_researchFund.jsp";
 			}
 			
+			System.out.print("come here2! \n");
 			String ticker = form.getFundTicker();
 			FundBean fb  = fundDAO.getFundByTicker(ticker);
+			System.out.print("come here3!"+fb.getSymbol()+" \n");
 			FundPriceHistoryBean[] fphBean = fphDAO.getFundPriceHistoryByFundId(fb.getFund_id());
+			System.out.print("cprice history!"+fphBean.length+" \n");
+			for(FundPriceHistoryBean b: fphBean) {
+				System.out.print(b.getFund_id()+b.getDate()+"\n");
+			}
 			request.setAttribute("fundInfo", fphBean);
 			
 			return "c_researchFund.jsp";
