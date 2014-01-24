@@ -43,7 +43,7 @@ public class C_ViewTransaction extends Action{
 	@Override
 	public String getName() {
 		
-		return "viewtransaction.do";
+		return "c_viewTransactionHistory.do";
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class C_ViewTransaction extends Action{
 			
 			request.setAttribute("temptransactions", al); //send arraylist of beans to the jsp
 			
-			System.out.println(al.get(2).getTransaction_id());
+//			System.out.println(al.get(2).getTransaction_id());
 			return "c_viewTransactionHistory.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());

@@ -56,7 +56,7 @@ public class E_ResetPfcAction extends Action {
         	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
 			request.setAttribute("message","Password changed for "+customer.getUsername());
-	        return "e_success.jsp";
+	        return "c_success_forE.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
         	return "error.jsp";

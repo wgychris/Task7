@@ -13,32 +13,32 @@
 				<td>${user.customer_id}</td>
 			</tr>
 			<tr>
-				<td> Customer Name: </td>
-				<td>${user.customer_id}</td>
+				<td> User Name: </td>
+				<td>${user.username}</td>
 			</tr>
 			<tr>
 				<td> First Name: </td>
-				<td>${user.customer_id}</td>
+				<td>${user.firstname}</td>
 			</tr>
 			<tr>
 				<td> Last Name: </td>
-				<td>${user.customer_id}</td>
+				<td>${user.lastname}</td>
 			</tr>
 			<tr>
 				<td> Address: </td>
-				<td>${user.customer_id}</td>
+				<td>${user.addr1}</td>
 			</tr>
 			<tr>
 				<td> City: </td>
-				<td>${user.customer_id}</td>
+				<td>${user.city}</td>
 			</tr>
 			<tr>
 				<td> State: </td>
-				<td>${user.customer_id}</td>
+				<td>${user.state}</td>
 			</tr>
 			<tr>
 				<td> Zip: </td>
-				<td>${user.customer_id}</td>
+				<td>${user.zip}</td>
 			</tr>
 			<tr>
 				<td> Last Trading Day: </td>
@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 				<td> Cash Balance: </td>
-				<td></td>
+				<td>${user.cash }</td>
 			</tr>
 			<tr><td>&nbsp;  <td></tr>
 			<tr><td>&nbsp;  <td></tr>
