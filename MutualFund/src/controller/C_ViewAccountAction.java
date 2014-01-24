@@ -50,15 +50,12 @@ public class C_ViewAccountAction extends Action {
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
 					"customer");
 			request.setAttribute("user", cb);
-			System.out.print("0: cuId:" + cb.getCustomer_id());
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
-			System.out.print("1");
 			TransactionBean[] tbarray = transactionDAO
 					.getTransactionByCustomerId(cb.getCustomer_id());
 			// user is for jsp page, avoid the same name of customer form
 			// session
-			System.out.print("!!!");
 			if (tbarray != null && tbarray.length != 0) {
 				String day = tbarray[0].getExecute_date();
 				for (int i = 1; i < tbarray.length; i++) {
@@ -68,7 +65,6 @@ public class C_ViewAccountAction extends Action {
 				}
 				request.setAttribute("day", day);
 			}
-			System.out.print("!!!2");
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
 			if (pBean!= null && pBean.length != 0) {
 				for (int i = 0; i < pBean.length; i++) {
@@ -76,13 +72,12 @@ public class C_ViewAccountAction extends Action {
 					int fundID = pBean[i].getFund_id();
 					lfb.setFund_id(fundID);
 					lfb.setShares(pBean[i].getShares());
-					// lfb.setName();无根据fund id查fund name的方法
 					FundPriceHistoryBean fphBean;
-					System.out.print("!!!4");
 					fphBean = fundPriceHistoryDAO
 							.getLastDateBeanByFundId(fundID);
 					lfb.setPrice_date(fphBean.getDate());
 					lfb.setPrice(fphBean.getPrice());
+					list.add(lfb);
 				}
 			}
 			System.out.print("!!!3");
