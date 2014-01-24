@@ -18,7 +18,6 @@ import databeans.CustomerBean;
 import databeans.TransactionBean;
 import formbeans.RequestCheckForm;
 
-
 public class C_RequestCheckAction extends Action {
 	private FormBeanFactory<RequestCheckForm> formBeanFactory = FormBeanFactory
 			.getInstance(RequestCheckForm.class);
@@ -40,10 +39,6 @@ public class C_RequestCheckAction extends Action {
 		try {
 			RequestCheckForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
-
-			// If no params were passed, return with no errors so that the form
-			// will be
-			// presented (we assume for the first time).
 			if (!form.isPresent()) {
 				return "c_requestCheck.jsp";
 			}
@@ -53,15 +48,19 @@ public class C_RequestCheckAction extends Action {
 			if (errors.size() != 0) {
 				return "c_requestCheck.jsp";
 			}
-//			HttpSession session = request.getSession();
-//			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-
-			// Look up the user
+			long inpuntAmount = dataConversion
+					.convertFromStringToTwoDigitLong(form.getCheckAmt());
+			HttpSession session = request.getSession();
+			CustomerBean c = (CustomerBean) session.getAttribute("customer");
+			long tmpCash = c.getTempcash();
+			if (inpuntAmount > tmpCash) {
+				errors.add("Amount should not be greater than " + tmpCash);
+				return "c_requestCheck.jsp";
+			}
 			TransactionBean tb = new TransactionBean();
+			c.setTempcash(tmpCash - inpuntAmount);
 			tb.setTransaction_type("request");
-			tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form
-					.getCheckAmt()));
-//			tb.setCustomer_id(c.getCustomer_id());
+			tb.setAmount(inpuntAmount);
 			tb.setCustomer_id(1);
 			transactionDAO.createNewTransaction(tb);
 			request.setAttribute("message", "the transaction is in process");

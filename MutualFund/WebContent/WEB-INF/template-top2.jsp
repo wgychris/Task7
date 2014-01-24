@@ -38,7 +38,7 @@
                 </li>
                 <li><a href="e_reset-pwd.do">Reset Customer Password</a>
                 </li>
-                <li><a href="e_view-customer.do">View Customer Account</a>
+                <li><a href="e_viewAllAccount.do">View Customer Account</a>
                 </li>
 <!--                 <li><a href="e_viewTransactionHistory.do">View Customer Transaction History</a>
                 </li> -->

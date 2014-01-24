@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="template-top.jsp" />
+<jsp:include page="template-top2.jsp" />
 
 <div class="page-header">
 	<h1>View Customer Account:</h1>
@@ -58,7 +58,6 @@
 			<th>Shares</th>
 			<th>Last price</th>
 			<th>Value</th>
-			<th>Operation</th>
 		</thead>
 		<c:forEach items="${requestScope.userFundList}" var="userFund">
 			<tr>
@@ -67,15 +66,13 @@
 				<td>${userFund.shares}</td>
 				<td>${userFund.price}</td>
 				<td>${userFund.price * userFund.shares}</td>
-				<td><a type="button" class="btn btn-default"
-					href="c_buyFund.do">Buy</a> <a type="button"
-					class="btn btn-default" href="c_sellFund.do">Sell</a></td>
 			</tr>
 		</c:forEach>
 	</c:if>
 </table>
 
 <a type="button" class="btn btn-default btn-lg active"
-	href="c_viewAccount.do">Back</a>
+	href="e_viewAllAccount.do">Back</a>
+
 
 <jsp:include page="template-bottom.jsp" />
