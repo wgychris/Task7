@@ -50,12 +50,12 @@ public class E_ResetPfcAction extends Action {
 	            return "c_reset-pfc.jsp";
 	        }
 	
-			CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
+			CustomerBean customer = (CustomerBean) request.getAttribute("customer");
 	
 			// Change the password
         	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
-			request.setAttribute("message","Password changed for "+customer.getCustomer_id());
+			request.setAttribute("message","Password changed for "+customer.getUsername());
 	        return "c_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());

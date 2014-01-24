@@ -12,7 +12,7 @@ import org.mybeans.form.FormBean;
  * @author yusizhang
  *
  */
-public class ViewCustomerTransactionForm extends FormBean{
+public class SearchCustomerName extends FormBean{
 	private String username;
 
 	public String getUsername() {

@@ -15,7 +15,7 @@ import org.mybeans.form.FormBeanFactory;
 import databeans.CustomerBean;
 import databeans.TempTransaction;
 import databeans.TransactionBean;
-import formbeans.ViewCustomerTransactionForm;
+import formbeans.SearchCustomerName;
 import model.CustomerDAO;
 import model.FundDAO;
 import model.Model;
@@ -27,8 +27,8 @@ import model.TransactionDAO;
  *Jan 23 Version 1.0
  */
 public class E_ViewTransaction extends Action{
-	private FormBeanFactory<ViewCustomerTransactionForm> formBeanFactory = FormBeanFactory
-			.getInstance(ViewCustomerTransactionForm.class);
+	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
+			.getInstance(SearchCustomerName.class);
 	
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
@@ -54,7 +54,7 @@ public class E_ViewTransaction extends Action{
         request.setAttribute("errors",errors);
         
         try{
-        	ViewCustomerTransactionForm form = formBeanFactory.create(request);
+        	SearchCustomerName form = formBeanFactory.create(request);
         	request.setAttribute("form", form);
         	
         	// presented (we assume for the first time).
