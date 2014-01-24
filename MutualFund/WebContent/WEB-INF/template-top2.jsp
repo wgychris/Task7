@@ -30,23 +30,23 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">Menu</a>
                 </li>
-                <li><a href="e_change-pwd.jsp">Change Password</a>
+                <li><a href="e_change-pwd.do">Change Password</a>
                 </li>
-                <li><a href="#">Create Employee Account</a>
+                <li><a href="e_create_employee.do">Create Employee Account</a>
                 </li>
                 <li><a href="e_create_customer.do">Create Customer Account</a>
                 </li>
-                <li><a href="#">Reset Customer Password</a>
+                <li><a href="e_reset-pwd.do">Reset Customer Password</a>
                 </li>
-                <li><a href="#">View Customer Account</a>
+                <li><a href="e_view-customer.do">View Customer Account</a>
                 </li>
-                <li><a href="eviewtransaction.do">View Customer Transaction History</a>
-                </li>
+<!--                 <li><a href="e_viewTransactionHistory.do">View Customer Transaction History</a>
+                </li> -->
                 <li><a href="e_depositCheck.do">Deposit Check</a>
                 </li>
                 <li><a href="e_createFund.do">Create Fund</a>
                 </li>
-                <li><a href="e_transition.do">Transition Day</a>
+                <li><a href="e_transitionDay.do">Transition Day</a>
                 </li>
                 <li><a href="e_logout.do">Logout</a>
                 </li>

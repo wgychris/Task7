@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import databeans.CustomerBean;
+import databeans.EmployeeBean;
 import model.Model;
 
 @SuppressWarnings("serial")
@@ -62,24 +64,26 @@ public class Controller extends HttpServlet {
 	private String performTheAction(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
 		String servletPath = request.getServletPath();
-		// User user = (User) session.getAttribute("user");
+		 CustomerBean customerBean = (CustomerBean) session.getAttribute("customer");
+		 EmployeeBean employeeBean =  (EmployeeBean) session.getAttribute("employee");
 		String action = getActionName(servletPath);
 
 		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
 
-		// if (action.equals("register.do") || action.equals("login.do")) {
-		// Allow these actions without logging in
-		// return Action.perform(action,request);
-		// }
+		 if (action.equals("c_login.do")||action.equals("admin_login.do")) {
+//		 Allow these actions without logging in
+		 return Action.perform(action,request);
+		 }
 
-		// if (user == null) {
+		 if (customerBean == null) {
 		// If the user hasn't logged in, direct him to the login page
-		// return Action.perform("login.do",request);
-		// }
-
+			if(employeeBean==null)	 
+			 return Action.perform("c_login.do",request);
+			else return Action.perform(action, request);	 
+		 }
 		// Let the logged in user run his chosen action
 		return Action.perform(action, request);
-	}
+		}
 
 	/*
 	 * If nextPage is null, send back 404 If nextPage ends with ".do", redirect

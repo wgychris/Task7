@@ -30,9 +30,10 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">Menu</a>
                 </li>
-                <li><a href="c_change-pwd.jsp">Change Password</a>
+                <li><a href="c_change-pwd.do">Change Password</a>
                 </li>
-                <li><a href="#">View Account</a>
+                
+                <li><a href="c_viewAccount.do">View Account</a>
                 </li>
                 <li><a href="c_buyFund.do">Buy Fund</a>
                 </li>
@@ -40,7 +41,7 @@
                 </li>
                 <li><a href="c_requestCheck.do">Request Check</a>
                 </li>
-                <li><a href="viewtransaction.do">Transaction History</a>
+                <li><a href="c_viewTransactionHistory.do">Transaction History</a>
                 </li>
                 <li><a href="c_researchFund.do">Research Fund</a>
                 </li>

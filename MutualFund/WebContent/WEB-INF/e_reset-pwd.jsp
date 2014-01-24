@@ -1,5 +1,5 @@
 <jsp:include page="template-top2.jsp" />
-<jsp:include page="error-list.jsp" />
+
 <div class="page-header">
   <h1>Reset Password For Customers</h1>
 </div>
