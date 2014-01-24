@@ -57,21 +57,22 @@ public class C_ViewTransaction extends Action{
 			
 //			System.out.println(cb.getUsername());
 			
-//			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(cb.getCustomer_id());
-			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(1); //test user id is 1
+			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(customer_id);
+//			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(1); //test user id is 1
 			
-//			System.out.println(tbarray[0].getTransaction_id());
+			System.out.println(tbarray[0].getTransaction_id());
 			
-//			int length = transactionDAO.getTransactionByCustomerId(cb.getCustomer_id()).length;
-			int length = transactionDAO.getTransactionByCustomerId(1).length;
-//			System.out.println("length is "+length);
+			int length = transactionDAO.getTransactionByCustomerId(customer_id).length;
+//			int length = transactionDAO.getTransactionByCustomerId(1).length;
+			System.out.println("length is "+length);
 			ArrayList<TempTransaction> al = new ArrayList<TempTransaction>();
 			TransactionBean tb = new TransactionBean();
 			
 			for(int i=0;i<length;i++){
 				TempTransaction tt = new TempTransaction(); //need to create new object for each loop!!!
-				int fundid = transactionDAO.getTransactionByCustomerId(1)[i].getFund_id();
-//				System.out.println("fundid is" + fundid);
+//				int fundid = transactionDAO.getTransactionByCustomerId(1)[i].getFund_id();
+				int fundid = transactionDAO.getTransactionByCustomerId(customer_id)[i].getFund_id();
+				System.out.println("fundid is" + fundid);
 				
 				
 				/*These are for testing

@@ -71,7 +71,7 @@ public class C_ViewAccountAction extends Action {
 					int fundID = pBean[i].getFund_id();
 					lfb.setFund_id(fundID);
 					lfb.setShares(pBean[i].getShares());
-					// lfb.setName();无根据fund id查fund name的方法
+					// lfb.setName();fund idfund name
 					FundPriceHistoryBean fphBean;
 					fphBean = fundPriceHistoryDAO
 							.getLastDateBeanByFundId(fundID);
@@ -83,11 +83,11 @@ public class C_ViewAccountAction extends Action {
 			return "c_viewAccount.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "error-list.jsp";
 		} catch (ParseException e) {
 			e.printStackTrace();
 			errors.add(e.toString());
-			return "error.jsp";
+			return "error-list.jsp";
 		}
 	}
 
