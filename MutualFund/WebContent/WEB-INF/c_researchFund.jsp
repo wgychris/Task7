@@ -74,10 +74,14 @@
 <div id="tfheader2">
 	<table class="table table-hover">
 	<%
-	if (request.getAttribute("title") != null) {
+	if (request.getAttribute("fundInfo") != null) {
 %>
+<tr>
+			<td>Date</td>
+			<td>Closing Price</td>
+		</tr>
 		<%
-    for (FundPriceHistoryBean f : (FundPriceHistoryBean[])request.getAttribute("fundsInfo")) {
+    for (FundPriceHistoryBean f : (FundPriceHistoryBean[])request.getAttribute("fundInfo")) {
 %>
 		<tr>
 			<td><%=f.getDate()%></td>
