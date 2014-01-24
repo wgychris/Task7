@@ -35,7 +35,7 @@ public class C_LoginAction extends Action {
 		customerDAO = model.getCustomerDAO();
 	}
 
-	public String getName() { return "login.do"; }
+	public String getName() { return "c_login.do"; }
     
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();

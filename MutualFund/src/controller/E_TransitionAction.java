@@ -55,7 +55,7 @@ public class E_TransitionAction extends Action {
 		customerDAO=model.getCustomerDAO();
 	}
 
-	public String getName() { return "e_transition.do"; }
+	public String getName() { return "e_transitionDay.do"; }
     
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();

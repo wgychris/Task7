@@ -12,14 +12,16 @@ import org.genericdao.PrimaryKey;
 public class FundPriceHistoryBean {
 	private int fund_price_history_id;
 	private int fund_id;
+	private long price;
+	private String date;
+	
 	public int getFund_id() {
 		return fund_id;
 	}
 	public void setFund_id(int fund_id) {
 		this.fund_id = fund_id;
 	}
-	private long price;
-	private String date;
+	
 	public int getFund_price_history_id() {
 		return fund_price_history_id;
 	}
