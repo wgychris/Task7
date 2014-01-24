@@ -37,26 +37,26 @@ public class E_ResetPfcAction extends Action {
 	        
 	        // Load the form parameters into a form bean
 	        ChangePwdForm form = formBeanFactory.create(request);
-	        
+	        request.setAttribute("form",form);
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
-	            return "c_reset-pfc.jsp";
+	            return "e_reset-pfc.jsp";
 	        }
-	
+	        
 	        // Check for any validation errors
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "c_reset-pfc.jsp";
+	            return "e_reset-pfc.jsp";
 	        }
-
-			CustomerBean customer = (CustomerBean) request.getAttribute("customer");
-
+	        
+//			CustomerBean customer = (CustomerBean) request.getAttribute("customer");
+	        CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
 			// Change the password
         	customerDAO.changePassword(customer.getCustomer_id(),form.getNewPassword());
 	
 			request.setAttribute("message","Password changed for "+customer.getUsername());
-	        return "c_success.jsp";
+	        return "e_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
         	return "error.jsp";
