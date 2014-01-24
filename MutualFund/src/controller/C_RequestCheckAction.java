@@ -30,7 +30,7 @@ public class C_RequestCheckAction extends Action {
 	}
 
 	public String getName() {
-		return "e_requestCheck.do";
+		return "c_requestCheck.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -45,13 +45,13 @@ public class C_RequestCheckAction extends Action {
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				return "e_requestCheck.jsp";
+				return "c_requestCheck.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "e_requestCheck.jsp";
+				return "c_requestCheck.jsp";
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
