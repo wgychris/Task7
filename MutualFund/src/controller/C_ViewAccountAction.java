@@ -51,10 +51,10 @@ public class C_ViewAccountAction extends Action {
 					"customer");
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
-			TransactionBean[] tbarray = transactionDAO
+//			PositionBean[] pBean = positionDAO
+//					.getAllPositionsByCustomerIdBeans(1);
+			/*TransactionBean[] tbarray = transactionDAO
 					.getTransactionByCustomerId(cb.getCustomer_id());
-			// user is for jsp page, avoid the same name of customer form
-			// session
 			if (tbarray != null && tbarray.length != 0) {
 				String day = tbarray[0].getExecute_date();
 				for (int i = 1; i < tbarray.length; i++) {
@@ -63,7 +63,10 @@ public class C_ViewAccountAction extends Action {
 					}
 				}
 				request.setAttribute("day", day);
-			}
+			}else {
+				request.setAttribute("day", "No Trading History");
+			}*/
+			request.setAttribute("day", "No Trading History");
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
 			if (pBean.length != 0) {
 				for (int i = 0; i < pBean.length; i++) {
@@ -71,12 +74,14 @@ public class C_ViewAccountAction extends Action {
 					int fundID = pBean[i].getFund_id();
 					lfb.setFund_id(fundID);
 					lfb.setShares(pBean[i].getShares());
-					// lfb.setName();无根据fund id查fund name的方法
-					FundPriceHistoryBean fphBean;
-					fphBean = fundPriceHistoryDAO
-							.getLastDateBeanByFundId(fundID);
+					FundPriceHistoryBean fphBean = new FundPriceHistoryBean();
+//					fphBean = fundPriceHistoryDAO
+//							.getLastDateBeanByFundId(fundID);
+					fphBean.setDate("20130101");
+					fphBean.setPrice(9999);
 					lfb.setPrice_date(fphBean.getDate());
 					lfb.setPrice(fphBean.getPrice());
+					list.add(lfb);
 				}
 			}
 			request.setAttribute("userFundList", list);
@@ -84,10 +89,10 @@ public class C_ViewAccountAction extends Action {
 		} catch (RollbackException e) {
 			errors.add(e.toString());
 			return "error.jsp";
-		} catch (ParseException e) {
-			e.printStackTrace();
-			errors.add(e.toString());
-			return "error.jsp";
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//			errors.add(e.toString());
+//			return "error.jsp";
 		}
 	}
 
