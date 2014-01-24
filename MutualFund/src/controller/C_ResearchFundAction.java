@@ -53,11 +53,13 @@ public class C_ResearchFundAction extends Action {
 				return "c_researchFund.jsp";
 			}
 
+			System.out.print("!!ticker"+form.getFundTicker()+"\n");
 			// Any validation errors?
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
+				System.out.print("!! not exist !! \n");
 				errors.add("No such fund exists");
 			}
-			
+			System.out.print("come here! \n");
 			
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {

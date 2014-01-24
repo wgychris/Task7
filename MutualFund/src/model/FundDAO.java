@@ -59,7 +59,7 @@ public class FundDAO extends GenericDAO<FundBean>{
 		try{
 			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
-			if(newBeanArray.length > 0 ) 
+			if(newBeanArray.length == 0 ) 
 				return false;
 			return true; 
 		}finally{
