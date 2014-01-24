@@ -87,12 +87,12 @@ public class C_ViewAccountAction extends Action {
 		} catch (RollbackException e) {
 			System.out.print("e1");
 			errors.add(e.toString());
-			return "error.jsp";
+			return "error-list.jsp";
 		} catch (ParseException e) {
 			System.out.print("e2");
 			e.printStackTrace();
 			errors.add(e.toString());
-			return "error.jsp";
+			return "error-list.jsp";
 		}
 	}
 
