@@ -57,16 +57,19 @@ public class C_ViewAccountAction extends Action {
 			// user is for jsp page, avoid the same name of customer form
 			// session
 			if (tbarray != null && tbarray.length != 0) {
-				String day = tbarray[0].getExecute_date();
+				String day = "0000/00/00";
+				// String day = tbarray[0].getExecute_date();
 				for (int i = 1; i < tbarray.length; i++) {
-					if (tbarray[i].getExecute_date().compareTo(day) > 0) {
+					if (tbarray[i].getExecute_date() != null
+							&& tbarray[i].getExecute_date().compareTo(day) > 0) {
 						day = tbarray[i].getExecute_date();
 					}
 				}
-				request.setAttribute("day", day);
+				request.setAttribute("day", day.equals("0000/00/00") ? null
+						: day);
 			}
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
-			if (pBean!= null && pBean.length != 0) {
+			if (pBean != null && pBean.length != 0) {
 				for (int i = 0; i < pBean.length; i++) {
 					LastFundBean lfb = new LastFundBean();
 					int fundID = pBean[i].getFund_id();
@@ -75,9 +78,11 @@ public class C_ViewAccountAction extends Action {
 					FundPriceHistoryBean fphBean;
 					fphBean = fundPriceHistoryDAO
 							.getLastDateBeanByFundId(fundID);
-					lfb.setPrice_date(fphBean.getDate());
-					lfb.setPrice(fphBean.getPrice());
-					list.add(lfb);
+					if (fphBean != null) {
+						lfb.setPrice_date(fphBean.getDate());
+						lfb.setPrice(fphBean.getPrice());
+						list.add(lfb);
+					}
 				}
 			}
 			System.out.print("!!!3");
