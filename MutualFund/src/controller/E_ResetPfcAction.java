@@ -59,10 +59,10 @@ public class E_ResetPfcAction extends Action {
 	        return "c_success_forE.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
-        	return "error.jsp";
+        	return "error-list.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.toString());
-        	return "error.jsp";
+        	return "error-list.jsp";
         }
     }
 }

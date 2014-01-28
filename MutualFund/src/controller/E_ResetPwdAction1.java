@@ -20,13 +20,13 @@ import formbeans.ChangePwdForm;
 import formbeans.CreateCustomerForm;
 import formbeans.SearchCustomerName;
 
-public class E_ResetPwdAction extends Action {
+public class E_ResetPwdAction1 extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);
 
 	private CustomerDAO customerDAO;
 
-	public E_ResetPwdAction(Model model) {
+	public E_ResetPwdAction1(Model model) {
 		customerDAO = model.getCustomerDAO();
 	}
 

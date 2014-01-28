@@ -68,30 +68,32 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 	 * 
 	 * @return String
 	 */
-	public FundPriceHistoryBean getLastDateBeanByFundId(int id) throws RollbackException,
-			ParseException {
-		FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals(
-					"fund_id", id));
-			java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat("yyyy-mm-dd");
-			System.out.print("In getLastDateByFundId: ");
-			if (newBeanArray.length > 0) {
-				Date lastDate = sFormat.parse(newBeanArray[0].getDate());
-				int lastDayIndex = 0;
-				for (int i = 0; i < newBeanArray.length; i++) {
+	public FundPriceHistoryBean getLastDateBeanByFundId(int id)
+			throws RollbackException, ParseException {
+		FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals("fund_id",
+				id));
+		java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat(
+				"yyyy-mm-dd");
+		System.out.print("In getLastDateByFundId: ");
+		if (newBeanArray.length > 0) {
+			Date lastDate = sFormat.parse(newBeanArray[0].getDate());
+			int lastDayIndex = 0;
+			for (int i = 0; i < newBeanArray.length; i++) {
+				if (newBeanArray[i].getDate() != null) {
 					Date nextDate = sFormat.parse(newBeanArray[i].getDate());
 					if (nextDate.after(lastDate)) {
 						lastDate = nextDate;
 						lastDayIndex = i;
 					}
 				}
-				
-				System.out.print("find lastDate successfully \n");
-				return newBeanArray[lastDayIndex];
 			}
-			System.out.print("find lastDate falied \n");
-			return null;
 
-		
+			System.out.print("find lastDate successfully \n");
+			return newBeanArray[lastDayIndex];
+		}
+		System.out.print("find lastDate falied \n");
+		return null;
+
 	}
 
 	/*
@@ -103,10 +105,10 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 	 */
 	public FundPriceHistoryBean[] getFundPriceHistoryByFundId(int id)
 			throws RollbackException {
-			FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals(
-					"fund_id", id));
-			return newBeanArray;
-		
+		FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals("fund_id",
+				id));
+		return newBeanArray;
+
 	}
 
 	/*

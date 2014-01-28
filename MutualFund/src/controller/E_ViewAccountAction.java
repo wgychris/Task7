@@ -22,31 +22,31 @@ import databeans.FundPriceHistoryBean;
 import databeans.PositionBean;
 import databeans.LastFundBean;
 
-public class C_ViewAccountAction extends Action {
-
-	private FundDAO fundDAO;
+public class E_ViewAccountAction extends Action {
 	private PositionDAO positionDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
+	private FundDAO fundDAO;
 
-	// ini DAOs
-	public C_ViewAccountAction(Model model) {
+	public E_ViewAccountAction(Model model) {
 		positionDAO = model.getPositionDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		fundDAO = model.getFundDAO();
 	}
 
-	@Override
 	public String getName() {
-		return "c_viewAccount.do";
+		return "e_viewAccount.do";
 	}
 
-	@Override
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		try {
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
 					"customer");
+			if (cb == null) {
+				System.out.println("no customer");
+				return "e_viewAllAccount.jsp";
+			}
 			request.setAttribute("user", cb);
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
@@ -59,7 +59,7 @@ public class C_ViewAccountAction extends Action {
 							.getLastDateBeanByFundId(fundID);
 					if (fphBean != null) {
 						FundBean fundBean = fundDAO.getFundByFundId(fundID);
-//						lfb.setFund_id(fundID);
+						// lfb.setFund_id(fundID);
 						lfb.setName(fundBean.getName());
 						lfb.setSymbol(fundBean.getSymbol());
 						lfb.setShares(pBean[i].getShares());
@@ -74,13 +74,13 @@ public class C_ViewAccountAction extends Action {
 			System.out.print("!!!3");
 			request.setAttribute("userFundList", list);
 			System.out.print("return");
-			return "c_viewAccount.jsp";
+			return "e_viewAccount.jsp";
 		} catch (RollbackException e) {
-			System.out.print("" + e.toString());
+			System.out.print("e1");
 			errors.add(e.toString());
 			return "error-list.jsp";
 		} catch (ParseException e) {
-			System.out.print("" + e.toString());
+			System.out.print("e2");
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";

@@ -53,20 +53,36 @@ public class dataConversion {
 	}
 
 	public static long convertFromDoubleToThreeDigitLong(double share) {
-		DecimalFormat    df   = new DecimalFormat("######0.000");   
+		DecimalFormat df = new DecimalFormat("######0.000");
 		df.format(share);
-		long l=(long) (share*1000);
+		long l = (long) (share * 1000);
 		return l;
 	}
 
 	public static long convertFromDoubleToTwoDigitLong(double amount) {
-		DecimalFormat    df   = new DecimalFormat("######0.00");   
+		DecimalFormat df = new DecimalFormat("######0.00");
 		df.format(amount);
-		long l=(long) (amount*100);
+		long l = (long) (amount * 100);
 		return l;
 	}
 
-	// public static void main(String args[]){
-	// System.out.println(convertFromStringToThreeDigitLong("321.9012"));
-	// }
+	public static String convertFromLongToThreeDigString(long shares) {
+		String p = Long.toString(shares);
+		StringBuffer sb = new StringBuffer(p.substring(0, p.length() - 3));
+		sb.append('.');
+		sb.append(p.substring(p.length() - 3));
+		return sb.toString();
+	}
+
+	public static String convertFromLongToTwoDigString(long price) {
+		String p = Long.toString(price);
+		StringBuffer sb = new StringBuffer(p.substring(0, p.length() - 2));
+		sb.append('.');
+		sb.append(p.substring(p.length() - 2));
+		return sb.toString();
+	}
+
+//	public static void main(String args[]) {
+//		System.out.println(convertFromLongToTwoDigString(10000000));
+//	}
 }

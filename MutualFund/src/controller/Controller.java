@@ -38,8 +38,9 @@ public class Controller extends HttpServlet {
 		Action.add(new E_ChangePwdAction(model));
 		Action.add(new C_ResearchFundAction(model));
 		Action.add(new C_ViewTransaction(model));
-		Action.add(new E_ViewCustomerAction(model));
 		Action.add(new E_ViewTransaction(model));
+		Action.add(new E_ViewAllAccountAction(model));
+		Action.add(new E_ViewAccountAction(model));
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -64,26 +65,36 @@ public class Controller extends HttpServlet {
 	private String performTheAction(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
 		String servletPath = request.getServletPath();
-		 CustomerBean customerBean = (CustomerBean) session.getAttribute("customer");
-		 EmployeeBean employeeBean =  (EmployeeBean) session.getAttribute("employee");
+		CustomerBean customerBean = (CustomerBean) session
+				.getAttribute("customer");
+		EmployeeBean employeeBean = (EmployeeBean) session
+				.getAttribute("employee");
 		String action = getActionName(servletPath);
 
 		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
 
-		 if (action.equals("c_login.do")||action.equals("admin_login.do")) {
-//		 Allow these actions without logging in
-		 return Action.perform(action,request);
-		 }
+		if (action.equals("c_login.do") || action.equals("admin_login.do")) {
+			// Allow these actions without logging in
+			return Action.perform(action, request);
+		}
+		
+		/*if (customerBean != null && action.matches("c+"))
+			return Action.perform(action, request);
+		else if (employeeBean != null && action.matches("e+"))
+			return Action.perform(action, request);
+		else
+			return Action.perform("c_login.do", request);*/
 
-		 if (customerBean == null) {
-		// If the user hasn't logged in, direct him to the login page
-			if(employeeBean==null)	 
-			 return Action.perform("c_login.do",request);
-			else return Action.perform(action, request);	 
-		 }
+		if (customerBean == null) {
+			// If the user hasn't logged in, direct him to the login page
+			if (employeeBean == null)
+				return Action.perform("c_login.do", request);
+			else
+				return Action.perform(action, request);
+		}
 		// Let the logged in user run his chosen action
 		return Action.perform(action, request);
-		}
+	}
 
 	/*
 	 * If nextPage is null, send back 404 If nextPage ends with ".do", redirect
