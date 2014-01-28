@@ -6,7 +6,7 @@
 <div>
 	<h1>Transition Day</h1>
 	<div>
-		<form action="e_transition.do" method="POST">
+		<form action="e_transitionDay.do" method="POST">
 			<table class="table">
 				<tr>
 					<td>Trading Day:</td>

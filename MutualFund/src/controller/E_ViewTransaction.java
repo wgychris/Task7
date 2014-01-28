@@ -74,12 +74,13 @@ public class E_ViewTransaction extends Action{
 				errors.add("Invalid User Name");
 				return "e_searchtoviewtrans.jsp";
 			}
-//			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(customer_id);
-			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(1); //test user id is 1
+			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(customer_id);
+//			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(1); //test user id is 1
        
         
-//			int length = transactionDAO.getTransactionByCustomerId(cb.getCustomer_id()).length;
-			int length = transactionDAO.getTransactionByCustomerId(1).length;
+			int length = transactionDAO.getTransactionByCustomerId(cb.getCustomer_id()).length;
+			//ERROR if the transaction is empty!!!!
+//			int length = transactionDAO.getTransactionByCustomerId(1).length;
 			
 			ArrayList<TempTransaction> al = new ArrayList<TempTransaction>();
 			TransactionBean tb = new TransactionBean();
@@ -105,12 +106,12 @@ public class E_ViewTransaction extends Action{
 				tt.setFund_id((transactionDAO.getTransactionByCustomerId(customer_id)[i].getFund_id()));
 				tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_id());
 				tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_type()));
+				if(tt.getFund_id()==0){
+					al.add(tt);
+					continue;
+				}
 				tt.setName(fundDAO.getFundByFundId(fundid).getName());
 				tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
-				
-				
-				
-				
 				al.add(tt);
 //				System.out.println("al "+i+" "+al.get(i).getTransaction_id());
 			}

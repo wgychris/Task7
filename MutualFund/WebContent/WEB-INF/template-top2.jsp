@@ -40,8 +40,8 @@
                 </li>
                 <li><a href="e_view-customer.do">View Customer Account</a>
                 </li>
-<!--                 <li><a href="e_viewTransactionHistory.do">View Customer Transaction History</a>
-                </li> -->
+               <li><a href="eviewtransaction.do">View Customer Transaction History</a>
+                </li>
                 <li><a href="e_depositCheck.do">Deposit Check</a>
                 </li>
                 <li><a href="e_createFund.do">Create Fund</a>
