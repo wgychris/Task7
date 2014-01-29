@@ -20,6 +20,7 @@ import databeans.CustomerBean;
 import databeans.FundBean;
 import databeans.TransactionBean;
 import formbeans.BuyFundForm;
+import org.genericdao.*;
 
 /*
  * Processes the parameters from the form in login.jsp.
@@ -69,49 +70,63 @@ public class C_BuyFundAction extends Action {
 				return "c_buyFund.jsp";
 			}
 			HttpSession session = request.getSession();
-			
-			CustomerBean customer = (CustomerBean) session.getAttribute("customer");
-			
+
+			CustomerBean customer = (CustomerBean) session
+					.getAttribute("customer");
+
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				errors.add("Invalid ticker");
 				return "c_buyFund.jsp";
 			}
 
-//			long inputAmount = dataConversion
-//					.convertFromStringToThreeDigitLong(form.getAmount());
-			long inputAmount = dataConversion.convertFromStringToTwoDigitLong(form.getAmount());
+			// long inputAmount = dataConversion
+			// .convertFromStringToThreeDigitLong(form.getAmount());
+			long inputAmount = dataConversion
+					.convertFromStringToTwoDigitLong(form.getAmount());
 			if (inputAmount > customer.getTempcash()) {
-				errors.add("Amount should not be greater than"+ customer.getTempcash());
+				errors.add("Amount should not be greater than"
+						+ customer.getTempcash());
 				return "c_buyFund.jsp";
-				
+
 			}
+
+			// try {
+			Transaction.begin();
 			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
 					.getFundTicker());
 			int fund_id = fundBean.getFund_id();
 			TransactionBean t = new TransactionBean();
-//			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form.getFundTicker());
+			// FundBean fundBean = (FundBean)
+			// fundDAO.getFundByTicker(form.getFundTicker());
 			System.out.println("fund id " + fundBean.getFund_id());
 			t.setFund_id(fundBean.getFund_id());
-			t.setAmount(inputAmount);	
+			t.setAmount(inputAmount);
 			t.setCustomer_id(customer.getCustomer_id());
 			t.setFund_id(fund_id);
 			t.setTransaction_type("buy");
 			System.out.println("buy ");
 			System.out.println("fund id" + fund_id);
-			System.out.println("getTempcash() before " + customer.getTempcash());
-			customer.setTempcash((customer.getTempcash())-inputAmount);
+			System.out
+					.println("getTempcash() before " + customer.getTempcash());
+			customer.setTempcash((customer.getTempcash()) - inputAmount);
 			System.out.println("inputAmount " + inputAmount);
 			System.out.println("getTempcash() " + customer.getTempcash());
-			customerDAO.updataTempCash(customer.getCustomer_id(), customer.getTempcash()-inputAmount);
+			customerDAO.updataTempCash(customer.getCustomer_id(),
+					customer.getTempcash() - inputAmount);
 			transactionDAO.create(t);
-			
+
 			request.setAttribute("message", "new fund has been bought");
+			Transaction.commit();
 			return "c_success.jsp";
+
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

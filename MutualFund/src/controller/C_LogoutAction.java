@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.Model;
-
+import org.genericdao.*;
 
 /*
  * Logs out by setting the "user" session attribute to null.

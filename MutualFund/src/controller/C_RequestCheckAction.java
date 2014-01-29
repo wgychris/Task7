@@ -17,6 +17,7 @@ import utils.dataConversion;
 import databeans.CustomerBean;
 import databeans.TransactionBean;
 import formbeans.RequestCheckForm;
+import org.genericdao.*;
 
 public class C_RequestCheckAction extends Action {
 	private FormBeanFactory<RequestCheckForm> formBeanFactory = FormBeanFactory
@@ -62,15 +63,23 @@ public class C_RequestCheckAction extends Action {
 			tb.setTransaction_type("request");
 			tb.setAmount(inpuntAmount);
 			tb.setCustomer_id(1);
+
+			Transaction.begin();
+
 			transactionDAO.createNewTransaction(tb);
 			request.setAttribute("message", "the transaction is in process");
+			Transaction.commit();
 			return "c_success.jsp";
+
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "c_requestCheck.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "c_requestCheck.jsp";
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

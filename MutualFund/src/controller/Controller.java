@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import databeans.CustomerBean;
 import databeans.EmployeeBean;
 import model.Model;
-
+import org.genericdao.*;
 @SuppressWarnings("serial")
 public class Controller extends HttpServlet {
 

@@ -21,6 +21,7 @@ import databeans.FundBean;
 import databeans.PositionBean;
 import databeans.TransactionBean;
 import formbeans.SellFundForm;
+import org.genericdao.*;
 
 public class C_SellFundAction extends Action {
 	private FormBeanFactory<SellFundForm> formBeanFactory = FormBeanFactory
@@ -60,6 +61,7 @@ public class C_SellFundAction extends Action {
 			if (errors.size() != 0) {
 				return "c_sellFund.jsp";
 			}
+			Transaction.begin();
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				errors.add("No such fund exists");
 				return "c_sellFund.jsp";
@@ -69,7 +71,8 @@ public class C_SellFundAction extends Action {
 			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
 					.getFundTicker());
 			System.out.println("fund id " + fundBean.getFund_id());
-			PositionBean positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(), fundBean.getFund_id());
+			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
+					c.getCustomer_id(), fundBean.getFund_id());
 			long tmpShares = positionBean.getTempshares();
 			// long maxShares = 10000;
 			long inputShares = dataConversion
@@ -91,16 +94,20 @@ public class C_SellFundAction extends Action {
 			// p.setCustomer_id(1);//test
 			p.setFund_id(fundBean.getFund_id());
 			p.setShares(tmpShares - inputShares);// should use ;
-//			positionDAO.create(p);
+			// positionDAO.create(p);
 			positionDAO.updataTempCash(p);
 
 			request.setAttribute("message", "fund has been sold");
+			Transaction.commit();
 			return "c_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

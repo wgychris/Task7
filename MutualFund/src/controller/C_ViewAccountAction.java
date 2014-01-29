@@ -21,7 +21,7 @@ import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
 import databeans.PositionBean;
 import databeans.LastFundBean;
-
+import org.genericdao.*;
 public class C_ViewAccountAction extends Action {
 
 	private FundDAO fundDAO;
@@ -45,9 +45,11 @@ public class C_ViewAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		try {
+			
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
 					"customer");
 			request.setAttribute("user", cb);
+			Transaction.begin();
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
@@ -74,6 +76,7 @@ public class C_ViewAccountAction extends Action {
 			System.out.print("!!!3");
 			request.setAttribute("userFundList", list);
 			System.out.print("return");
+			Transaction.commit();
 			return "c_viewAccount.jsp";
 		} catch (RollbackException e) {
 			System.out.print("" + e.toString());
@@ -84,6 +87,10 @@ public class C_ViewAccountAction extends Action {
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 
