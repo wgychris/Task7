@@ -17,7 +17,7 @@ import org.mybeans.form.FormBeanFactory;
 import utils.dataConversion;
 import databeans.CustomerBean;
 import formbeans.CreateCustomerForm;
-
+import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the

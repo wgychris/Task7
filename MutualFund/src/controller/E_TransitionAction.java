@@ -26,7 +26,7 @@ import databeans.FundWithLastPriceBean;
 import databeans.PositionBean;
 import databeans.TransactionBean;
 import formbeans.TransitionForm;
-
+import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the

@@ -12,6 +12,7 @@ import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -37,7 +38,7 @@ public class C_SellFundAction extends Action {
 	}
 
 	public String getName() {
-		return "c_sellFund.do";// ??
+		return "c_sellFund.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -60,23 +61,33 @@ public class C_SellFundAction extends Action {
 			if (errors.size() != 0) {
 				return "c_sellFund.jsp";
 			}
+			
+			Transaction.begin();
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				errors.add("No such fund exists");
+				Transaction.commit();
+				return "c_sellFund.jsp";
+			}
+			String name = request.getParameter("name");
+			String price = request.getParameter("price");
+			if (name == null || price == null) {
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
-					.getFundTicker());
+			FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
 			System.out.println("fund id " + fundBean.getFund_id());
-			PositionBean positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(), fundBean.getFund_id());
+			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
+					c.getCustomer_id(), fundBean.getFund_id());
+			request.setAttribute("position", positionBean);
 			long tmpShares = positionBean.getTempshares();
-			// long maxShares = 10000;
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
 			if (inputShares > tmpShares) {
 				errors.add("Number of shares should not be greater than "
 						+ tmpShares);
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
@@ -91,16 +102,21 @@ public class C_SellFundAction extends Action {
 			// p.setCustomer_id(1);//test
 			p.setFund_id(fundBean.getFund_id());
 			p.setShares(tmpShares - inputShares);// should use ;
-//			positionDAO.create(p);
+			// positionDAO.create(p);
 			positionDAO.updataTempCash(p);
 
 			request.setAttribute("message", "fund has been sold");
+			Transaction.commit();
 			return "c_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

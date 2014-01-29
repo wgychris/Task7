@@ -16,7 +16,7 @@ import model.FundDAO;
 import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
-
+import org.genericdao.*;
 public class E_CustomerManage extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);

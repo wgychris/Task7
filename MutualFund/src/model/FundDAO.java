@@ -24,13 +24,14 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 * @return void
 	 */
 	public void createNewFund(FundBean bean) throws RollbackException{
-		try{
-			Transaction.begin();
+		//try{
+			//Transaction.begin();
 			create(bean);
-			Transaction.commit();
+	/*		Transaction.commit();
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	
 	/*
@@ -39,15 +40,16 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 * @return false if fund already exists
 	 */
 	public boolean checkFundByName(String fundName) throws RollbackException{
-		try{
+	//	try{
 //			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("name",fundName));
 			if(newBeanArray.length > 0 ) 
 				return true;
 			return false; 
-		}finally{
+	/*	}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	
 	/*
@@ -56,7 +58,7 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 * @return false if fund already exists
 	 */
 	public boolean checkFundByTicker(String ticker) throws RollbackException{
-		try{
+	//	try{
 //			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
 
@@ -64,9 +66,10 @@ public class FundDAO extends GenericDAO<FundBean>{
 				return true;
 			return false; 
 
-		}finally{
+	/*	}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	
 	
@@ -77,13 +80,13 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 * @return FundBean[] 
 	 */
 	public FundBean[] getAllFunds() throws RollbackException{
-		try{
+	//	try{
 //			Transaction.begin();
 			FundBean[] newBeanArray = match();
 			return newBeanArray;
-		}finally {
-			if(Transaction.isActive()) Transaction.rollback();
-		}
+	//	}finally {
+	//		if(Transaction.isActive()) Transaction.rollback();
+	//	}
 	}
 
 	/*
@@ -92,15 +95,16 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 * @return FundBean
 	 */
 	public FundBean getFundByName(String fundName) throws RollbackException{
-		try{
+	//	try{
 //			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("name",fundName));
 			if(newBeanArray.length > 0 ) 
 				return newBeanArray[0];
 			return null; 
-		}finally{
+	/*	}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	
 	/*
@@ -109,15 +113,16 @@ public class FundDAO extends GenericDAO<FundBean>{
 	 * @return FundBean
 	 */
 	public FundBean getFundByTicker(String ticker) throws RollbackException{
-		try{
+	//	try{
 //			Transaction.begin();
 			FundBean[] newBeanArray = match(MatchArg.equals("symbol",ticker));
 			if(newBeanArray.length > 0 ) 
 				return newBeanArray[0];
 			return null; 
-		}finally{
+/*		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	
 	/*

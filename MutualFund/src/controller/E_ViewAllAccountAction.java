@@ -18,7 +18,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import formbeans.SearchCustomerName;
-
+import org.genericdao.*;
 public class E_ViewAllAccountAction extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);

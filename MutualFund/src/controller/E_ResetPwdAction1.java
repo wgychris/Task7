@@ -19,7 +19,7 @@ import databeans.CustomerBean;
 import formbeans.ChangePwdForm;
 import formbeans.CreateCustomerForm;
 import formbeans.SearchCustomerName;
-
+import org.genericdao.*;
 public class E_ResetPwdAction1 extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);

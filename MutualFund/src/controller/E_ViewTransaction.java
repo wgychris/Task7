@@ -21,7 +21,7 @@ import model.FundDAO;
 import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
-
+import org.genericdao.*;
 /**
  * @author yusizhang
  *Jan 23 Version 1.0
