@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import databeans.CustomerBean;
 import databeans.EmployeeBean;
 import model.Model;
-
+import org.genericdao.*;
 @SuppressWarnings("serial")
 public class Controller extends HttpServlet {
 
@@ -41,7 +41,7 @@ public class Controller extends HttpServlet {
 		Action.add(new E_ViewTransaction(model));
 		Action.add(new E_ViewAllAccountAction(model));
 		Action.add(new E_ViewAccountAction(model));
-		Action.add(new C_SellFundAllAction(model));
+		//Action.add(new C_SellFundAllAction(model));
 		Action.add(new E_CustomerManage(model));
 	}
 

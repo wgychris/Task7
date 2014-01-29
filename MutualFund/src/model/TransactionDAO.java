@@ -29,14 +29,15 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	 */
 	public void createNewTransaction(TransactionBean bean)
 			throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			createAutoIncrement(bean);
-			Transaction.commit();
+	/*		Transaction.commit();
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*
@@ -48,8 +49,8 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	 */
 	public void updateTransactionDate(TransactionBean bean, String date)
 			throws RollbackException {
-		try {
-			Transaction.begin();
+//		try {
+	//		Transaction.begin();
 			TransactionBean newBean = read(bean.getTransaction_id());
 
 			if (newBean == null) {
@@ -59,11 +60,12 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			newBean.setExecute_date(date);
 
 			update(newBean);
-			Transaction.commit();
+/*			Transaction.commit();
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*
@@ -74,14 +76,15 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	 * @return TransactionBean[]
 	 */
 	public TransactionBean[] getAllTransactions() throws RollbackException {
-		try {
+	//	try {
 //			Transaction.begin();
 			TransactionBean[] newBeanArray = match();
 			return newBeanArray;
-		} finally {
+	/*	} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*
@@ -95,16 +98,17 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	 */
 	public TransactionBean[] getTransactionByType(String type)
 			throws RollbackException {
-		try {
+		//try {
 //			Transaction.begin();
 			TransactionBean[] newBeanArray = match(MatchArg.equals(
 					"transaction_type", type));
 
 			return newBeanArray;
-		} finally {
+/*		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*
@@ -118,16 +122,17 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	 */
 	public TransactionBean[] getTransactionByDate(String execute_date)
 			throws RollbackException {
-		try {
+	//	try {
 //			Transaction.begin();
 			TransactionBean[] newBeanArray = match(MatchArg.equals(
 					"execute_date", execute_date));
 
 			return newBeanArray;
-		} finally {
+	/*	} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*

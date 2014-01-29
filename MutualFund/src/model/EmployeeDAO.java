@@ -27,13 +27,14 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	 * @return void
 	 */
 	public void createNewEmployee(EmployeeBean eb) throws RollbackException{
-		try{
-			Transaction.begin();
+	//	try{
+		//	Transaction.begin();
 			create(eb);
-			Transaction.commit();
+	/*		Transaction.commit();
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	
 	/*
@@ -59,8 +60,8 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	 * @return void
 	 */
 	public void changePassword(String username, String password) throws RollbackException{
-		try{
-			Transaction.begin();
+	//	try{
+		//	Transaction.begin();
 			EmployeeBean eb = read(username);
 			
 			if(eb==null) {
@@ -70,10 +71,11 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 			eb.setPassword(password);
 			
 			update(eb);
-			Transaction.commit();
+	/*		Transaction.commit();
 		}finally {
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	/*
 	 * EmployeeBean getEmployeeInfo
@@ -98,14 +100,15 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	}
 	
 	public EmployeeBean login(String userName, String password) throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			EmployeeBean[] beans = match(new MatchArg[]{MatchArg.equals("username", userName),MatchArg.equals("password", password)});
 			if(beans.length==0)return null;
-			Transaction.commit();
+	//		Transaction.commit();
 			return beans[0];
-		} finally{
+	/*	} finally{
 			if (Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 }

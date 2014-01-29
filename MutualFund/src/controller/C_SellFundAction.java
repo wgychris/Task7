@@ -12,6 +12,7 @@ import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -75,17 +76,13 @@ public class C_SellFundAction extends Action {
 			if (errors.size() != 0) {
 				return "c_sellFund.jsp";
 			}
-			/*if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
-				errors.add("No such fund exists");
-				return "c_sellFund.jsp";
-			}*/
-			
 			long tmpShares = positionBean.getTempshares();
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
 			if (inputShares > tmpShares) {
 				errors.add("Number of shares should not be greater than "
 						+ tmpShares);
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
@@ -104,12 +101,17 @@ public class C_SellFundAction extends Action {
 			positionDAO.updataTempCash(p);
 
 			request.setAttribute("message", "fund has been sold");
+			Transaction.commit();
 			return "c_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

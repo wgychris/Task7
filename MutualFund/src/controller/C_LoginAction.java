@@ -11,12 +11,14 @@ import model.CustomerDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import formbeans.LoginForm;
 
+import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the
@@ -57,11 +59,13 @@ public class C_LoginAction extends Action {
 	            return "c_login.jsp";
 	        }
 
+	        Transaction.begin();
 	        // Look up the user
 	        CustomerBean customer = customerDAO.login(form.getUserName(),form.getPassword());
 	        
 	        if (customer == null) {
 	            errors.add("User Name not found");
+	            Transaction.commit();
 	            return "c_login.jsp";
 	        }
 
@@ -74,13 +78,17 @@ public class C_LoginAction extends Action {
 	        // Attach (this copy of) the user bean to the session
 	        HttpSession session = request.getSession();
 	        session.setAttribute("customer",customer);
-	        
+	        Transaction.commit();
 	        return "c_viewAccount.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error-list.jsp";
         } catch (RollbackException e) {
         	return "error-list.jsp";
+		}
+        finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
     }
 }

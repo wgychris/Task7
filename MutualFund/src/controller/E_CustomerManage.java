@@ -16,7 +16,7 @@ import model.FundDAO;
 import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
-
+import org.genericdao.*;
 public class E_CustomerManage extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);
@@ -60,14 +60,15 @@ public class E_CustomerManage extends Action {
 			// check if the customer username exist
 			// return -1 means this user not existed
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
-			System.out.println(form.getUsername());
-			CustomerBean cb = customerDAO.read(customer_id);
-			System.out.println(cb.getUsername()+"by bean");
+
 //			CustomerBean [] cbs = customerDAO.getAllCustomers();
 			if (customer_id == -1) {
 				errors.add("Invalid User Name");
 				return "e_customermanage.jsp";
 			}
+			System.out.println(form.getUsername());
+			CustomerBean cb = customerDAO.read(customer_id);
+			System.out.println(cb.getUsername()+"by bean");
 			
 			/*
 			 * send customer bean to jsp as "users"

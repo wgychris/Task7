@@ -32,14 +32,15 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 	 */
 	public void createNewFundPriceHistory(FundPriceHistoryBean bean)
 			throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			create(bean);
-			Transaction.commit();
+	/*		Transaction.commit();
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*
@@ -51,14 +52,14 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 	 */
 	public FundPriceHistoryBean[] getAllFundPriceHistory()
 			throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			FundPriceHistoryBean[] newBeanArray = match();
 			return newBeanArray;
-		} finally {
+	/*	} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
-		}
+		}*/
 	}
 
 	/*
@@ -120,15 +121,16 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 	 */
 	public FundPriceHistoryBean[] getFundPriceHistoryByDate(String date)
 			throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals("date",
 					date));
 			return newBeanArray;
-		} finally {
+	/*	} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 }

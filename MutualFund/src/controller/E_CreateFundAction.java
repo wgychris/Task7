@@ -15,7 +15,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databeans.FundBean;
 import formbeans.CreateFundForm;
-
+import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the

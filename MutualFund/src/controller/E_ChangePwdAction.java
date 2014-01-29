@@ -15,7 +15,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databeans.EmployeeBean;
 import formbeans.ChangePwdForm;
-
+import org.genericdao.*;
 public class E_ChangePwdAction extends Action {
 	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
 	

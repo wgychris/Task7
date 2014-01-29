@@ -21,7 +21,7 @@ import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
 import databeans.PositionBean;
 import databeans.LastFundBean;
-
+import org.genericdao.*;
 public class E_ViewAccountAction extends Action {
 	private PositionDAO positionDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;

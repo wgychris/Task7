@@ -15,7 +15,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import formbeans.ChangePwdForm;
-
+import org.genericdao.*;
 public class E_ResetPfcAction extends Action {
 	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
 	

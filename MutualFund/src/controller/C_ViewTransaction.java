@@ -18,7 +18,7 @@ import model.FundDAO;
 import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
-
+import org.genericdao.*;
 /**
  * @author yusizhang
  *
@@ -51,12 +51,13 @@ public class C_ViewTransaction extends Action{
 		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
 		try {
+			
 			//customer from session;
 			CustomerBean cb = (CustomerBean)request.getSession().getAttribute("customer");
 			int customer_id = cb.getCustomer_id();
 			
 //			System.out.println(cb.getUsername());
-			
+			Transaction.begin();
 			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(customer_id);
 //			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(1); //test user id is 1
 			
@@ -113,12 +114,16 @@ public class C_ViewTransaction extends Action{
 			
 			
 			request.setAttribute("temptransactions", al); //send arraylist of beans to the jsp
-			
+			Transaction.commit();
 //			System.out.println(al.get(2).getTransaction_id());
 			return "c_viewTransactionHistory.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
         	return "error.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
         
 	}
