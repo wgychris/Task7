@@ -49,7 +49,7 @@
 	<dl class="dl-horizontal">
 		<dt>Cash Balance:</dt>
 		<dd><fmt:formatNumber type="number" 
-            pattern="###,###.##" value="${user.cash}" /></dd>
+            pattern="###,###.00" value="${user.cash/100}" /></dd>
 	</dl>
 </div>
 
