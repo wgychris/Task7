@@ -6,16 +6,7 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class SellFundForm extends FormBean {
-	private String fundTicker;
 	private String share;
-
-	public String getFundTicker() {
-		return fundTicker;
-	}
-
-	public void setFundTicker(String fundTicker) {
-		this.fundTicker = trimAndConvert(fundTicker, "<>\"");
-	}
 
 	public String getShare() {
 		return share;
@@ -27,9 +18,6 @@ public class SellFundForm extends FormBean {
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
-		if (fundTicker == null || fundTicker.length() == 0) {
-			errors.add("FundTicker is required");
-		}
 		if (share == null || share.length() == 0) {
 			errors.add("Number of shares is required");
 		} else {
