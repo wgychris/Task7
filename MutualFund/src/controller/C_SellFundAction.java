@@ -69,12 +69,14 @@ public class C_SellFundAction extends Action {
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			long tmpShares = positionBean.getTempshares();
