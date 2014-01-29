@@ -50,7 +50,7 @@
 		<dt>Cash Balance:</dt>
 		<dd>
 		<fmt:formatNumber type="number" 
-            pattern="###.##" value="${user.cash}" /></dd>
+            pattern="###,###.##" value="${user.cash}" /></dd>
 	</dl>
 </div>
 
@@ -68,8 +68,10 @@
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
 				<td>${userFund.shares}</td>
-				<td>${userFund.price}</td>
-				<td>${userFund.price * userFund.shares}</td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,###.##" value="${userFund.price}" /></td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,###.##" value="${userFund.price}${userFund.price * userFund.shares}" /></td>
 			</tr>
 		</c:forEach>
 	</c:if>

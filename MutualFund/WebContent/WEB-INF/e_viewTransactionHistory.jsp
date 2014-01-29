@@ -30,7 +30,7 @@
 			<td>${transaction.shares}</td>
 			<td>${transaction.transaction_type}</td>
 			<td><fmt:formatNumber type="number" 
-            pattern="###.##" value="${transaction.amount}" /></td>
+            pattern="###,###.##" value="${transaction.amount}" /></td>
 			
 		</tr>
 	</c:forEach> 
