@@ -10,6 +10,7 @@ import model.CustomerDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -19,6 +20,7 @@ import databeans.CustomerBean;
 import formbeans.ChangePwdForm;
 import formbeans.CreateCustomerForm;
 import formbeans.SearchCustomerName;
+
 import org.genericdao.*;
 public class E_ResetPwdAction1 extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
@@ -44,6 +46,7 @@ public class E_ResetPwdAction1 extends Action {
 			// Load the form parameters into a form bean
 			SearchCustomerName form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
+			Transaction.begin();
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
 			CustomerBean cb = customerDAO.getCustomerInfo(customer_id);
 			// If no params were passed, return with no errors so that the form
@@ -51,12 +54,14 @@ public class E_ResetPwdAction1 extends Action {
 
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
+				Transaction.commit();
 				return "e_reset-pwd.jsp";
 			}
 
 			// Check for any validation errors
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
+				Transaction.commit();
 				return "e_reset-pwd.jsp";
 			}
 			CustomerBean customer = (CustomerBean) request
@@ -81,6 +86,7 @@ public class E_ResetPwdAction1 extends Action {
 			request.setAttribute("customer", cb);
 			HttpSession session = request.getSession();
 			session.setAttribute("customer", cb);
+			Transaction.commit();
 			return "e_reset-pfc.do";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
@@ -88,6 +94,10 @@ public class E_ResetPwdAction1 extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
 			return "error.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

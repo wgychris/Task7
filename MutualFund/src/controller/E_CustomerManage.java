@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -16,6 +17,7 @@ import model.FundDAO;
 import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
+
 import org.genericdao.*;
 public class E_CustomerManage extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
@@ -59,11 +61,13 @@ public class E_CustomerManage extends Action {
 			}
 			// check if the customer username exist
 			// return -1 means this user not existed
+			Transaction.begin();
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
 
 //			CustomerBean [] cbs = customerDAO.getAllCustomers();
 			if (customer_id == -1) {
 				errors.add("Invalid User Name");
+				Transaction.commit();
 				return "e_customermanage.jsp";
 			}
 			System.out.println(form.getUsername());
@@ -76,6 +80,7 @@ public class E_CustomerManage extends Action {
 			 */
 			request.setAttribute("users", cb);
 //			request.setAttribute("users", cbs);
+			Transaction.commit();
 			return "e_customermanage.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
@@ -83,6 +88,10 @@ public class E_CustomerManage extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

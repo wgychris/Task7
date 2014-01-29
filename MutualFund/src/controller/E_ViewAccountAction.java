@@ -15,12 +15,14 @@ import model.Model;
 import model.PositionDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
 import databeans.CustomerBean;
 import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
 import databeans.PositionBean;
 import databeans.LastFundBean;
+
 import org.genericdao.*;
 public class E_ViewAccountAction extends Action {
 	private PositionDAO positionDAO;
@@ -48,6 +50,7 @@ public class E_ViewAccountAction extends Action {
 				return "e_viewAllAccount.jsp";
 			}
 			request.setAttribute("user", cb);
+			Transaction.begin();
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
@@ -74,6 +77,7 @@ public class E_ViewAccountAction extends Action {
 			System.out.print("!!!3");
 			request.setAttribute("userFundList", list);
 			System.out.print("return");
+			Transaction.commit();
 			return "e_viewAccount.jsp";
 		} catch (RollbackException e) {
 			System.out.print("e1");
@@ -84,6 +88,10 @@ public class E_ViewAccountAction extends Action {
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 

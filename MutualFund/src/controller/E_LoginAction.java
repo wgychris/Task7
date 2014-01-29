@@ -11,12 +11,14 @@ import model.EmployeeDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import databeans.EmployeeBean;
 import formbeans.LoginForm;
+
 import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
@@ -58,11 +60,13 @@ public class E_LoginAction extends Action {
 	            return "e_login.jsp";
 	        }
 
+	        Transaction.begin();
 	        // Look up the user
 	        EmployeeBean employee = employeeDAO.login(form.getUserName(),form.getPassword());
 	        
 	        if (employee == null) {
 	            errors.add("User Name not found");
+	            Transaction.commit();
 	            return "e_login.jsp";
 	        }
 
@@ -76,6 +80,7 @@ public class E_LoginAction extends Action {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("employee",employee);
 
+	        Transaction.commit();
 	        return "e_customermanage.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
@@ -84,5 +89,9 @@ public class E_LoginAction extends Action {
         	errors.add(e.getMessage());
         	return "error-list.jsp";
         }
+        finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
     }
 }

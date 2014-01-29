@@ -55,6 +55,7 @@ public class C_SellFundAction extends Action {
 //			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
+			Transaction.begin();
 			
 			PositionBean positionBean;
 			
