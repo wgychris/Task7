@@ -47,8 +47,7 @@
 
 			</table>
 
-			<input type="button" value="Cancel"
-				class="btn btn-default btn-lg active" /><input type="submit"
+			<input type="submit"
 				class="btn btn-primary btn-lg active" name="submitCheck"
 				value="Next">
 		</form>

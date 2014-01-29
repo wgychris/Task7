@@ -37,7 +37,10 @@ public class ChangePwdForm extends FormBean {
 			errors.add("Confirm Pwd is required");
 		}
 		
-	
+		if(!newPassword.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$")){
+			errors.add("password must contain both character and number, the length is between 6 to 16");
+		}
+		
 		if (errors.size() > 0) {
 			return errors;
 		}

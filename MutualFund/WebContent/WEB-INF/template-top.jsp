@@ -28,7 +28,7 @@
 			<!-- Navigation bar is one table cell down the left side -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand"><a href="#">Menu</a>
+                <li class="sidebar-brand">Menu
                 </li>
                 <li><a href="c_change-pwd.do">Change Password</a>
                 </li>
