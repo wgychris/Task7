@@ -10,11 +10,13 @@ import model.FundDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.FundBean;
 import formbeans.CreateFundForm;
+
 import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
@@ -60,8 +62,10 @@ public class E_CreateFundAction extends Action {
 	        FundBean fb=new FundBean();
 	        fb.setName(form.getFundname());
 	        fb.setSymbol(form.getSymbol());
+	        Transaction.begin();
 	        fundDAO.createAutoIncrement(fb);
 	        request.setAttribute("message","the fund has been created");
+	        Transaction.commit();
 	        return "e_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
@@ -70,5 +74,9 @@ public class E_CreateFundAction extends Action {
         	errors.add(e.getMessage());
         	return "e_createFund.jsp";
         }
+        finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
     }
 }
