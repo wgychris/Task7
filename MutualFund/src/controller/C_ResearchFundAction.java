@@ -13,6 +13,7 @@ import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -20,8 +21,8 @@ import utils.dataConversion;
 import databeans.CustomerBean;
 import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
-
 import formbeans.ResearchFundForm;
+
 import org.genericdao.*;
 
 public class C_ResearchFundAction extends Action {
@@ -58,12 +59,14 @@ public class C_ResearchFundAction extends Action {
 			// Any validation errors?
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				// System.out.print("!! not exist !! \n");
+				
 				errors.add("No such fund exists");
 			}
 			// System.out.print("come here! \n");
 
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
+				Transaction.commit();
 				return "c_researchFund.jsp";
 			}
 

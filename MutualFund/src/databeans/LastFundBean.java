@@ -1,6 +1,5 @@
 package databeans;
 
-
 public class LastFundBean {
 
 	private Integer fund_id;

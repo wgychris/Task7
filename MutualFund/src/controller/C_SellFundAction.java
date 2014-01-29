@@ -12,6 +12,7 @@ import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -21,7 +22,6 @@ import databeans.FundBean;
 import databeans.PositionBean;
 import databeans.TransactionBean;
 import formbeans.SellFundForm;
-import org.genericdao.*;
 
 public class C_SellFundAction extends Action {
 	private FormBeanFactory<SellFundForm> formBeanFactory = FormBeanFactory
@@ -38,7 +38,7 @@ public class C_SellFundAction extends Action {
 	}
 
 	public String getName() {
-		return "c_sellFund.do";// ??
+		return "c_sellFund.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -61,25 +61,33 @@ public class C_SellFundAction extends Action {
 			if (errors.size() != 0) {
 				return "c_sellFund.jsp";
 			}
+			
 			Transaction.begin();
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				errors.add("No such fund exists");
+				Transaction.commit();
+				return "c_sellFund.jsp";
+			}
+			String name = request.getParameter("name");
+			String price = request.getParameter("price");
+			if (name == null || price == null) {
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
-					.getFundTicker());
+			FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
 			System.out.println("fund id " + fundBean.getFund_id());
 			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
 					c.getCustomer_id(), fundBean.getFund_id());
+			request.setAttribute("position", positionBean);
 			long tmpShares = positionBean.getTempshares();
-			// long maxShares = 10000;
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
 			if (inputShares > tmpShares) {
 				errors.add("Number of shares should not be greater than "
 						+ tmpShares);
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			TransactionBean t = new TransactionBean();
@@ -105,7 +113,8 @@ public class C_SellFundAction extends Action {
 			return "error-list.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
-		} finally {
+		}
+		finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

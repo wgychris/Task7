@@ -15,7 +15,7 @@ td.right {
 		<form action="e_depositCheck.do" method="POST">
 			<table class="table">
 				<tr>
-					<td>To customer:</td>
+					<td>Customer:</td>
 					<td><input type="text" name="customer"
 						placeholder="Enter name of customer" value="" /></td>
 				</tr>

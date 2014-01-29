@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +11,14 @@ import model.CustomerDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import formbeans.LoginForm;
-import org.genericdao.*;
 
+import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the
@@ -27,71 +29,66 @@ import org.genericdao.*;
  * his photos.
  */
 public class C_LoginAction extends Action {
-	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory
-			.getInstance(LoginForm.class);
-
+	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory.getInstance(LoginForm.class);
+	
 	private CustomerDAO customerDAO;
 
 	public C_LoginAction(Model model) {
 		customerDAO = model.getCustomerDAO();
 	}
 
-	public String getName() {
-		return "c_login.do";
-	}
+	public String getName() { return "c_login.do"; }
+    
+    public String perform(HttpServletRequest request) {
+        List<String> errors = new ArrayList<String>();
+        request.setAttribute("errors",errors);
+        
+        try {
+	    	LoginForm form = formBeanFactory.create(request);
+	        request.setAttribute("form",form);
 
-	public String perform(HttpServletRequest request) {
-		List<String> errors = new ArrayList<String>();
-		request.setAttribute("errors", errors);
+	        // If no params were passed, return with no errors so that the form will be
+	        // presented (we assume for the first time).
+	        if (!form.isPresent()) {
+	            return "c_login.jsp";
+	        }
 
-		try {
-			LoginForm form = formBeanFactory.create(request);
-			request.setAttribute("form", form);
+	        // Any validation errors?
+	        errors.addAll(form.getValidationErrors());
+	        if (errors.size() != 0) {
+	            return "c_login.jsp";
+	        }
 
-			// If no params were passed, return with no errors so that the form
-			// will be
-			// presented (we assume for the first time).
-			if (!form.isPresent()) {
-				return "c_login.jsp";
-			}
+	        Transaction.begin();
+	        // Look up the user
+	        CustomerBean customer = customerDAO.login(form.getUserName(),form.getPassword());
+	        
+	        if (customer == null) {
+	            errors.add("User Name not found");
+	            Transaction.commit();
+	            return "c_login.jsp";
+	        }
 
-			// Any validation errors?
-			errors.addAll(form.getValidationErrors());
-			if (errors.size() != 0) {
-				return "c_login.jsp";
-			}
-			// try {
-			Transaction.begin();
-
-			// Look up the user
-			CustomerBean customer = customerDAO.login(form.getUserName(),
-					form.getPassword());
-
-			if (customer == null) {
-				errors.add("User Name not found");
-				return "c_login.jsp";
-			}
-
-			// Check the password
-			// if (!customer.checkPassword(form.getPassword())) {
-			// errors.add("Incorrect password");
-			// return "c_login.jsp";
-			// }
-
-			// Attach (this copy of) the user bean to the session
-			HttpSession session = request.getSession();
-			session.setAttribute("customer", customer);
-			Transaction.commit();
-			return "c_viewAccount.do";
-
-		} catch (FormBeanException e) {
-			errors.add(e.getMessage());
-			return "error-list.jsp";
-		} catch (RollbackException e) {
-			return "error-list.jsp";
-		} finally {
+	        // Check the password
+	        //if (!customer.checkPassword(form.getPassword())) {
+	            //errors.add("Incorrect password");
+	            //return "c_login.jsp";
+	        //}
+	
+	        // Attach (this copy of) the user bean to the session
+	        HttpSession session = request.getSession();
+	        session.setAttribute("customer",customer);
+	        Transaction.commit();
+	        return "c_viewAccount.do";
+        } catch (FormBeanException e) {
+        	errors.add(e.getMessage());
+        	return "error-list.jsp";
+        } catch (RollbackException e) {
+        	return "error-list.jsp";
+		}
+        finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
-	}
+    }
 }
