@@ -1,0 +1,87 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.genericdao.RollbackException;
+import org.mybeans.form.FormBeanException;
+import org.mybeans.form.FormBeanFactory;
+
+import databeans.CustomerBean;
+import formbeans.SearchCustomerName;
+import model.CustomerDAO;
+import model.FundDAO;
+import model.Model;
+import model.PositionDAO;
+import model.TransactionDAO;
+
+public class E_CustomerManage extends Action {
+	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
+			.getInstance(SearchCustomerName.class);
+
+	// private TransactionDAO transactionDAO;
+	// private FundDAO fundDAO;
+	// private PositionDAO positionDAO;
+	private CustomerDAO customerDAO;
+
+	public E_CustomerManage(Model model) {
+		// transactionDAO = model.getTransactionDAO();
+		// fundDAO = model.getFundDAO();
+		// positionDAO = model.getPositionDAO();
+		customerDAO = model.getCustomerDAO();
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "e_customermanage.do";
+	}
+
+	@Override
+	public String perform(HttpServletRequest request) {
+		List<String> errors = new ArrayList<String>();
+		request.setAttribute("errors", errors);
+		try {
+
+			SearchCustomerName form = formBeanFactory.create(request);
+			request.setAttribute("form", form);
+
+			// presented (we assume for the first time).
+			if (!form.isPresent()) {
+				return "e_customermanage.jsp";
+			}
+			// check any other errors from JSP
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
+				return "e_customermanage.jsp";
+			}
+			// check if the customer username exist
+			// return -1 means this user not existed
+			int customer_id = customerDAO.getCustomerId(form.getUsername());
+			System.out.println(form.getUsername());
+			CustomerBean cb = customerDAO.read(customer_id);
+			System.out.println(cb.getUsername()+"by bean");
+//			CustomerBean [] cbs = customerDAO.getAllCustomers();
+			if (customer_id == -1) {
+				errors.add("Invalid User Name");
+				return "e_customermanage.jsp";
+			}
+			
+			/*
+			 * send customer bean to jsp as "users"
+			 * could add other params like first name, last name
+			 */
+			request.setAttribute("users", cb);
+//			request.setAttribute("users", cbs);
+			return "e_customermanage.jsp";
+		} catch (RollbackException e) {
+			errors.add(e.toString());
+			return "error.jsp";
+		} catch (FormBeanException e) {
+			errors.add(e.getMessage());
+			return "error-list.jsp";
+		}
+	}
+}

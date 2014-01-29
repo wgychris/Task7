@@ -76,7 +76,7 @@ public class E_LoginAction extends Action {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("employee",employee);
 
-	        return "e_manage.jsp";
+	        return "e_customermanage.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
         	return "error-list.jsp";

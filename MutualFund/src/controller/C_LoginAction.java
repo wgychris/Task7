@@ -74,7 +74,7 @@ public class C_LoginAction extends Action {
 	        // Attach (this copy of) the user bean to the session
 	        HttpSession session = request.getSession();
 	        session.setAttribute("customer",customer);
-
+	        
 	        return "c_viewAccount.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());

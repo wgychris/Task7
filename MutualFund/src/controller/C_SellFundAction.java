@@ -37,7 +37,7 @@ public class C_SellFundAction extends Action {
 	}
 
 	public String getName() {
-		return "c_sellFund.do";// ??
+		return "c_sellFund.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -64,14 +64,19 @@ public class C_SellFundAction extends Action {
 				errors.add("No such fund exists");
 				return "c_sellFund.jsp";
 			}
+			String name = request.getParameter("name");
+			String price = request.getParameter("price");
+			if (name == null || price == null) {
+				return "c_sellFund.jsp";
+			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
-					.getFundTicker());
+			FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
 			System.out.println("fund id " + fundBean.getFund_id());
-			PositionBean positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(), fundBean.getFund_id());
+			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
+					c.getCustomer_id(), fundBean.getFund_id());
+			request.setAttribute("position", positionBean);
 			long tmpShares = positionBean.getTempshares();
-			// long maxShares = 10000;
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
 			if (inputShares > tmpShares) {
@@ -91,7 +96,7 @@ public class C_SellFundAction extends Action {
 			// p.setCustomer_id(1);//test
 			p.setFund_id(fundBean.getFund_id());
 			p.setShares(tmpShares - inputShares);// should use ;
-//			positionDAO.create(p);
+			// positionDAO.create(p);
 			positionDAO.updataTempCash(p);
 
 			request.setAttribute("message", "fund has been sold");

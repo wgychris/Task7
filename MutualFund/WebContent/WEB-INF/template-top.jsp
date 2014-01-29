@@ -37,7 +37,7 @@
                 </li>
                 <li><a href="c_buyFund.do">Buy Fund</a>
                 </li>
-                <li><a href="c_sellFund.do">Sell Fund</a>
+                <li><a href="c_sellFundAll.do">Sell Fund</a>
                 </li>
                 <li><a href="c_requestCheck.do">Request Check</a>
                 </li>

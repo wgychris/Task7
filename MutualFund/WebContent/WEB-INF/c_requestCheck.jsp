@@ -1,17 +1,20 @@
 <!-- Daisy Wang Jan.16 Version 1.0 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="template-top.jsp" />
 
-<style type="text/css">
+<div style="position: relative;">
+	<style type="text/css">
 td.right {
 	text-align: right;
 }
 </style>
 
-<div>
-	<h1>Request Check</h1>
-	<div id="left">
+	<div class="page-header">
+		<h1>Request Check</h1>
+	</div>
+	<div id="left" style="position: relative; float: left;">
 		<form method="post" action="c_requestCheck.do">
 			<table class="table">
 				<tr>
@@ -19,27 +22,8 @@ td.right {
 					<td><input type="text" name="checkAmt"></td>
 				</tr>
 				<tr>
-					<td>Memo:</td>
-					<td><input type="text" name="amountId"></td>
-				</tr>
-				<tr>
-					<td>One time or repeating?:</td>
-					<td><input type="checkbox" name="option1" value="oneTime">
-						One-time</td>
-				</tr>
-				<tr>
 					<td></td>
-					<td><input type="checkbox" name="option1" value="repeating">
-						Repeating</td>
-				</tr>
-				<tr>
-					<td>Transfer Date:</td>
-					<td><input type="text" name="transferDate"
-						value="#"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="right"> <input type="button" value="Cancel"
+					<td class="right"><input type="button" value="Cancel"
 						class="btn btn-default btn-lg active" /><input type="submit"
 						class="btn btn-primary btn-lg active" name="submitCheck"
 						value="Next"></td>
@@ -48,6 +32,16 @@ td.right {
 
 			<br />
 		</form>
+	</div>
+
+	<div id="right"
+		style="position: relative; float: left; margin-left: 100px;">
+		<label id="cashbalance">Cash Balance : </label><br /> <label>$</label>
+		<fmt:formatNumber type="number" pattern="###.##"
+			value="${sessionScope.customer.cash/100}" />
+		<br /> <label id="availablecash">Available Cash : </label> <br /> <label>$</label>
+		<fmt:formatNumber type="number" pattern="###.##"
+			value="${sessionScope.customer.tempcash/100}" />
 	</div>
 </div>
 
