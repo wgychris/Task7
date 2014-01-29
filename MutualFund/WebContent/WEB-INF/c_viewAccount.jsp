@@ -72,9 +72,16 @@
             pattern="###,###.##" value="${userFund.price}" /></td>
 				<td><fmt:formatNumber type="number" 
             pattern="###,###.##" value="${userFund.price * userFund.shares}" /></td>
-				<td><a type="button" class="btn btn-default"
+				
+				<td>
+				<a type="button" class="btn btn-default"
+					href="c_buyFund.do">Buy</a>
+				<a type="button" class="btn btn-default"
+					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
+				
+				<!-- <td><a type="button" class="btn btn-default"
 					href="c_buyFund.do">Buy</a> <a type="button"
-					class="btn btn-default" href="c_sellFund.do">Sell</a></td>
+					class="btn btn-default" href="c_sellFund.do">Sell</a></td> -->
 			</tr>
 		</c:forEach>
 	</c:if>
