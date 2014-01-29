@@ -17,11 +17,10 @@
 				<td> Confirm Password: *</td>
 				<td><input type="password" name="confirmPassword" value=""/></td>
 			</tr>
-			<tr><td>&nbsp;  <td></tr>
-			<tr><td>&nbsp;  <td></tr>
+			<tr><td><button type="submit" class="btn btn-primary btn-lg active">Submit</button><td></tr>
+			
 		</table>
-		<button type="button" class="btn btn-default btn-lg active">Cancel</button>
-		<button type="submit" class="btn btn-primary btn-lg active">Submit</button>
+		
 	</form>
 </p>
 

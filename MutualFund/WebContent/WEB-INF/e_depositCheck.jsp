@@ -23,13 +23,12 @@ td.right {
 					<td>Amount:</td>
 					<td><input type="text" name="amount" placeholder="0.00" /></td>
 				</tr>
+				<tr>
 			</table>
-			<input type="button" value="Cancel"
-				class="btn btn-default btn-lg active" />
-				
-			<input type="submit"
+				<input type="submit"
 				class="btn btn-primary btn-lg active" name="submitCheck"
 				value="Submit" />
+			
 		</form>
 	</div>
 </div>
