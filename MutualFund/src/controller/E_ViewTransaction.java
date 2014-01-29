@@ -102,7 +102,12 @@ public class E_ViewTransaction extends Action{
 				tt.setAmount(transactionDAO.getTransactionByCustomerId(customer_id)[i].getAmount()/100);
 				tt.setShares(transactionDAO.getTransactionByCustomerId(customer_id)[i].getShares()/1000);
 				tt.setCustomer_id(transactionDAO.getTransactionByCustomerId(customer_id)[i].getCustomer_id());
+				if((transactionDAO.getTransactionByCustomerId(customer_id)[i].getExecute_date()==null)){
+					tt.setExecute_date("Pending");
+				}
+				else{
 				tt.setExecute_date((transactionDAO.getTransactionByCustomerId(customer_id)[i].getExecute_date()));
+				}
 				tt.setFund_id((transactionDAO.getTransactionByCustomerId(customer_id)[i].getFund_id()));
 				tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_id());
 				tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(customer_id)[i].getTransaction_type()));
