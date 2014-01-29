@@ -63,15 +63,16 @@ public class E_CustomerManage extends Action {
 			// return -1 means this user not existed
 			Transaction.begin();
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
-			System.out.println(form.getUsername());
-			CustomerBean cb = customerDAO.read(customer_id);
-			System.out.println(cb.getUsername()+"by bean");
+
 //			CustomerBean [] cbs = customerDAO.getAllCustomers();
 			if (customer_id == -1) {
 				errors.add("Invalid User Name");
 				Transaction.commit();
 				return "e_customermanage.jsp";
 			}
+			System.out.println(form.getUsername());
+			CustomerBean cb = customerDAO.read(customer_id);
+			System.out.println(cb.getUsername()+"by bean");
 			
 			/*
 			 * send customer bean to jsp as "users"

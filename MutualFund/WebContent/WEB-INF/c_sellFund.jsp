@@ -9,6 +9,17 @@
 	<div class="page-header">
 		<h1>Sell Fund</h1>
 	</div>
+	<div id="right"
+		style="position: relative; float: left; margin-left: 100px;">
+		<label id="fundname">Fund Name : </label><br /> <label>${name} </label><br /> 
+		<label id="price">Last price : </label><br /> <label>${price}</label><br /> 
+		<label id="shares">Shares : </label><br /> <label></label>
+		<fmt:formatNumber type="number" pattern="###.##"
+			value="${position.shares/1000}" />
+		<br /> <label id="availableshares">Available Shares : </label> <br /> <label></label>
+		<fmt:formatNumber type="number" pattern="###.##"
+			value="${position.tempshares/1000}" />
+	</div>
 	<div style="position: relative; float: left">
 		<form method="post" action="c_sellFund.do">
 			<label>Fund Ticker</label> <br /> <input type="text"
@@ -18,18 +29,7 @@
 				class="btn btn-lg btn-primary btn-block"><br />
 		</form>
 	</div>
-	<div id="right"
-		style="position: relative; float: left; margin-left: 100px;">
-		<label id="fundname">Fund Name : </label><br /> <label>${position.name }</label><br /> 
-		<label id="ticker">Ticker : </label><br /> <label>${position.symbol }</label><br />
-		<label id="price">Last price : </label><br /> <label>${price}</label><br /> 
-		<label id="shares">Shares : </label><br /> <label></label>
-		<fmt:formatNumber type="number" pattern="###.##"
-			value="${position.shares/1000}" />
-		<br /> <label id="availableshares">Available Shares : </label> <br /> <label></label>
-		<fmt:formatNumber type="number" pattern="###.##"
-			value="${position.tempshares/1000}" />
-	</div>
+	
 	<table class="table table-hover">
 
 		<tr>
