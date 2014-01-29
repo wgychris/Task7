@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -21,6 +22,7 @@ import model.FundDAO;
 import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
+
 import org.genericdao.*;
 /**
  * @author yusizhang
@@ -68,10 +70,12 @@ public class E_ViewTransaction extends Action{
 			}
 			//check if the customer username exist
 			//return -1 means this user not existed
+			Transaction.begin();
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
 			CustomerBean cb = customerDAO.read(customer_id);
 			if(customer_id==-1){
 				errors.add("Invalid User Name");
+				Transaction.commit();
 				return "e_searchtoviewtrans.jsp";
 			}
 			TransactionBean[] tbarray = transactionDAO.getTransactionByCustomerId(customer_id);
@@ -123,6 +127,7 @@ public class E_ViewTransaction extends Action{
 			
 			request.setAttribute("temptransactions", al); //send arraylist of beans to the jsp
 			request.setAttribute("searcheduser", cb);
+			Transaction.commit();
 			return "e_viewTransactionHistory.jsp";
         
         }catch (RollbackException e) {
@@ -131,6 +136,10 @@ public class E_ViewTransaction extends Action{
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
+		}
+        finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
         
         

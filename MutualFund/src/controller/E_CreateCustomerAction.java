@@ -11,12 +11,14 @@ import model.CustomerDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import utils.dataConversion;
 import databeans.CustomerBean;
 import formbeans.CreateCustomerForm;
+
 import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
@@ -71,14 +73,20 @@ public class E_CreateCustomerAction extends Action {
 	        cb.setState(form.getState());
 	        cb.setTempcash(dataConversion.convertFromStringToThreeDigitLong(form.getCash()));
 	        cb.setZip(form.getZip());
+	        Transaction.begin();
 	        customerDAO.createAutoIncrement(cb);
 	        request.setAttribute("message","new customer has been added");
+	        Transaction.commit();
 	        return "e_success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error-list.jsp";
         } catch (RollbackException e) {
         	return "error-list.jsp";
+		}
+        finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
     }
 }

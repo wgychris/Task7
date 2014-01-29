@@ -6,16 +6,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 import model.EmployeeDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.EmployeeBean;
 import formbeans.CreateEmployeeForm;
+
 import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
@@ -63,14 +64,20 @@ public class E_CreateEmployeeAction extends Action {
 	        cb.setFirstname(form.getFirstName());
 	        cb.setLastname(form.getLastName());
 	        cb.setPassword(form.getPassword());
+	        Transaction.begin();
 	        employeeDAO.create(cb);
 	        request.setAttribute("message","new employee has been added");
+	        Transaction.commit();
 	        return "e_success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error-list.jsp";
         } catch (RollbackException e) {
         	return "error-list.jsp";
+		}
+        finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
     }
 }

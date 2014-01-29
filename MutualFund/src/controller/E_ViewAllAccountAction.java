@@ -13,11 +13,13 @@ import model.CustomerDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import formbeans.SearchCustomerName;
+
 import org.genericdao.*;
 public class E_ViewAllAccountAction extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
@@ -38,9 +40,11 @@ public class E_ViewAllAccountAction extends Action {
 		try {
 			SearchCustomerName form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
+			Transaction.begin();
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
 			CustomerBean cb = customerDAO.getCustomerInfo(customer_id);
 
+			Transaction.commit();//??
 			if (!form.isPresent()) {
 				return "e_viewAllAccount.jsp";
 			}
@@ -59,6 +63,10 @@ public class E_ViewAllAccountAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
 			return "error-list.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

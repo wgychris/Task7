@@ -10,12 +10,14 @@ import model.Model;
 import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import utils.dataConversion;
 import databeans.TransactionBean;
 import formbeans.DepositCheckForm;
+
 import org.genericdao.*;
 /*
  * Processes the parameters from the form in login.jsp.
@@ -75,8 +77,10 @@ public class E_DepositCheckAction extends Action {
 			tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form
 					.getAmount()));
 			tb.setCustomer_id(customerId);
+			Transaction.begin();
 			transactionDAO.createNewTransaction(tb);
 			request.setAttribute("message", "the transaction is in process");
+			Transaction.commit();
 			return "e_success.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
@@ -84,6 +88,10 @@ public class E_DepositCheckAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "e_depositCheck.jsp";
+		}
+		finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }

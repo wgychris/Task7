@@ -10,11 +10,13 @@ import model.Model;
 import model.EmployeeDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.EmployeeBean;
 import formbeans.ChangePwdForm;
+
 import org.genericdao.*;
 public class E_ChangePwdAction extends Action {
 	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
@@ -54,9 +56,11 @@ public class E_ChangePwdAction extends Action {
 	        EmployeeBean employee = (EmployeeBean) request.getSession().getAttribute("employee");
 	
 			// Change the password
+	        Transaction.begin();
         	employeeDAO.changePassword(employee.getUsername(),form.getNewPassword());
 	
 			request.setAttribute("message","Password changed for "+employee.getUsername());
+			Transaction.commit();
 	        return "e_success.jsp";
         } catch (RollbackException e) {
         	errors.add(e.toString());
@@ -65,6 +69,10 @@ public class E_ChangePwdAction extends Action {
         	errors.add(e.toString());
         	return "error.jsp";
         }
+        finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
     }
 }
 

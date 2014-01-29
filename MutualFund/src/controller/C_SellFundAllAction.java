@@ -1,6 +1,3 @@
-/**
- * 
- */
 package controller;
 
 import java.text.ParseException;
@@ -15,28 +12,27 @@ import model.Model;
 import model.PositionDAO;
 
 import org.genericdao.RollbackException;
-import org.genericdao.Transaction;
 
 import databeans.CustomerBean;
 import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
-import databeans.PositionBean;
 import databeans.LastFundBean;
+import databeans.PositionBean;
 
-import org.genericdao.*;
-public class E_ViewAccountAction extends Action {
+public class C_SellFundAllAction extends Action {
+	private FundDAO fundDAO;
 	private PositionDAO positionDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
-	private FundDAO fundDAO;
 
-	public E_ViewAccountAction(Model model) {
+	// ini DAOs
+	public C_SellFundAllAction(Model model) {
 		positionDAO = model.getPositionDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		fundDAO = model.getFundDAO();
 	}
 
 	public String getName() {
-		return "e_viewAccount.do";
+		return "c_sellFundAll.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -45,12 +41,7 @@ public class E_ViewAccountAction extends Action {
 		try {
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
 					"customer");
-			if (cb == null) {
-				System.out.println("no customer");
-				return "e_viewAllAccount.jsp";
-			}
 			request.setAttribute("user", cb);
-			Transaction.begin();
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
@@ -62,8 +53,8 @@ public class E_ViewAccountAction extends Action {
 							.getLastDateBeanByFundId(fundID);
 					if (fphBean != null) {
 						FundBean fundBean = fundDAO.getFundByFundId(fundID);
-						// lfb.setFund_id(fundID);
 						lfb.setName(fundBean.getName());
+						lfb.setFund_id(fundBean.getFund_id());
 						lfb.setSymbol(fundBean.getSymbol());
 						lfb.setShares(pBean[i].getShares());
 						lfb.setPrice_date(fphBean.getDate());
@@ -72,27 +63,18 @@ public class E_ViewAccountAction extends Action {
 					}
 				}
 			}
-			request.setAttribute("day", list.size() == 0 ? "No trading day"
-					: list.get(0).getPrice_date());
-			System.out.print("!!!3");
 			request.setAttribute("userFundList", list);
 			System.out.print("return");
-			Transaction.commit();
-			return "e_viewAccount.jsp";
+			return "c_sellFundAll.jsp";
 		} catch (RollbackException e) {
-			System.out.print("e1");
+			System.out.print("" + e.toString());
 			errors.add(e.toString());
 			return "error-list.jsp";
 		} catch (ParseException e) {
-			System.out.print("e2");
+			System.out.print("" + e.toString());
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";
 		}
-		finally {
-			if (Transaction.isActive())
-				Transaction.rollback();
-		}
 	}
-
 }
