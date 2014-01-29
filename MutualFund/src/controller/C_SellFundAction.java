@@ -54,6 +54,7 @@ public class C_SellFundAction extends Action {
 			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
+			Transaction.begin();
 			FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
 			System.out.println("fund id " + fundBean.getFund_id());
 			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
