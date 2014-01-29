@@ -45,6 +45,21 @@ public class C_SellFundAction extends Action {
 		request.setAttribute("errors", errors);
 
 		try {
+			String name = request.getParameter("name");
+			String price = request.getParameter("price");
+			System.out.println(name);
+			if (name == null || price == null) {
+				return "c_sellFund.jsp";
+			}
+			HttpSession session = request.getSession();
+			CustomerBean c = (CustomerBean) session.getAttribute("customer");
+			FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
+			System.out.println("fund id " + fundBean.getFund_id());
+			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
+					c.getCustomer_id(), fundBean.getFund_id());
+			request.setAttribute("position", positionBean);
+			
+
 			SellFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 
@@ -60,22 +75,11 @@ public class C_SellFundAction extends Action {
 			if (errors.size() != 0) {
 				return "c_sellFund.jsp";
 			}
-			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
+			/*if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				errors.add("No such fund exists");
 				return "c_sellFund.jsp";
-			}
-			String name = request.getParameter("name");
-			String price = request.getParameter("price");
-			if (name == null || price == null) {
-				return "c_sellFund.jsp";
-			}
-			HttpSession session = request.getSession();
-			CustomerBean c = (CustomerBean) session.getAttribute("customer");
-			FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
-			System.out.println("fund id " + fundBean.getFund_id());
-			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
-					c.getCustomer_id(), fundBean.getFund_id());
-			request.setAttribute("position", positionBean);
+			}*/
+			
 			long tmpShares = positionBean.getTempshares();
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
