@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="template-top2.jsp" />
 
 <div class="page-header">
@@ -44,9 +46,11 @@
 		<dt>Last Trading Day:</dt>
 		<dd>${day}</dd>
 	</dl>
-	<dl class="dl-horizontal">
+	<dl class="dl-horizontal" >
 		<dt>Cash Balance:</dt>
-		<dd>${user.cash}</dd>
+		<dd>
+		<fmt:formatNumber type="number" 
+            pattern="###.##" value="${user.cash}" /></dd>
 	</dl>
 </div>
 

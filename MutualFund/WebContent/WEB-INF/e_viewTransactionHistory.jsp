@@ -2,6 +2,7 @@
 <jsp:include page="error-list.jsp" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="page-header">
   <h1>View ${searcheduser.username}'s Transaction History:</h1>
 </div>
