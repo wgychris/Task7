@@ -45,7 +45,7 @@ public class E_ViewTransaction extends Action{
 	@Override
 	public String getName() {
 		
-		return "eviewtransaction.do";
+		return "e_viewTransactionHistory.do";
 	}
 
 	@Override
