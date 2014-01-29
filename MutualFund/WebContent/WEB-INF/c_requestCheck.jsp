@@ -23,8 +23,7 @@ td.right {
 				</tr>
 				<tr>
 					<td></td>
-					<td class="right"><input type="button" value="Cancel"
-						class="btn btn-default btn-lg active" /><input type="submit"
+					<td class="right"><input type="submit"
 						class="btn btn-primary btn-lg active" name="submitCheck"
 						value="Next"></td>
 				</tr>
