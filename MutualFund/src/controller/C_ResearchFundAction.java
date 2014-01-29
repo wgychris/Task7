@@ -53,28 +53,28 @@ public class C_ResearchFundAction extends Action {
 				return "c_researchFund.jsp";
 			}
 
-			System.out.print("!!ticker"+form.getFundTicker()+"\n");
+			//System.out.print("!!ticker"+form.getFundTicker()+"\n");
 			// Any validation errors?
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
-				System.out.print("!! not exist !! \n");
+				//System.out.print("!! not exist !! \n");
 				errors.add("No such fund exists");
 			}
-			System.out.print("come here! \n");
+			//System.out.print("come here! \n");
 			
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				return "c_researchFund.jsp";
 			}
 			
-			System.out.print("come here2! \n");
+			//System.out.print("come here2! \n");
 			String ticker = form.getFundTicker();
 			FundBean fb  = fundDAO.getFundByTicker(ticker);
-			System.out.print("come here3!"+fb.getSymbol()+" \n");
+			//System.out.print("come here3!"+fb.getSymbol()+" \n");
 			FundPriceHistoryBean[] fphBean = fphDAO.getFundPriceHistoryByFundId(fb.getFund_id());
-			System.out.print("cprice history!"+fphBean.length+" \n");
-			for(FundPriceHistoryBean b: fphBean) {
-				System.out.print(b.getFund_id()+b.getDate()+"\n");
-			}
+			//System.out.print("cprice history!"+fphBean.length+" \n");
+			//for(FundPriceHistoryBean b: fphBean) {
+				//System.out.print(b.getFund_id()+b.getDate()+"\n");
+			//}
 			request.setAttribute("fundInfo", fphBean);
 			
 			return "c_researchFund.jsp";

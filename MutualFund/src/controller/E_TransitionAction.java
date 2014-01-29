@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.mybeans.form.FormBeanFactory;
 import utils.dataConversion;
 import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
+import databeans.FundWithLastPriceBean;
 import databeans.PositionBean;
 import databeans.TransactionBean;
 import formbeans.TransitionForm;
@@ -68,7 +70,21 @@ public class E_TransitionAction extends Action {
 	            return "e_transitionDay.jsp";
 	        }
 
-	        request.setAttribute("funds",funds);
+	        FundWithLastPriceBean[] fundsWithPrice=new FundWithLastPriceBean[funds.length];
+	        for(int i=0;i<fundsWithPrice.length;i++){
+	        	FundWithLastPriceBean fw=new FundWithLastPriceBean();
+	        	fw.setFund_id(funds[i].getFund_id());
+	        	fw.setName(funds[i].getName());
+	        	FundPriceHistoryBean fb=fundPriceHistoryDAO.getLastDateBeanByFundId(funds[i].getFund_id());
+	        	long price=0;
+	        	if(fb!=null){
+	        		price=fb.getPrice();
+	        	}
+	        	fw.setPrice(price);
+	        	fw.setSymbol(funds[i].getSymbol());
+	        	fundsWithPrice[i]= fw;
+	        }
+	        request.setAttribute("funds",fundsWithPrice);
 	     // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
@@ -83,6 +99,21 @@ public class E_TransitionAction extends Action {
 	        
 	        String[] price=form.getPrice();
 	        String[] fund_id=form.getFund_id();
+	        //here,we have to control the update price
+	        /*for(int i=0;i<price.length;i++){
+	        	FundPriceHistoryBean fb=fundPriceHistoryDAO.getLastDateBeanByFundId(Integer.parseInt(fund_id[i]));
+	        	if(fb!=null){
+	        		long lastPrice=fb.getPrice();
+	        		long newPrice=Long.parseLong(price[i]);
+	        		if(newPrice/lastPrice>2 || newPrice/lastPrice<0.5){
+	        			errors.add("The new price is out of control");
+	        	        if (errors.size() != 0) {
+	        	            return "e_transitionDay.jsp";
+	        	        }
+	        		}
+	        	}
+	        }*/
+	        
 	        HashMap<String,String> map=new HashMap<String, String>();
 	        //First, we update the fund_price_history according to the price info
 	        for(int i=0;i<price.length;i++){
@@ -94,6 +125,9 @@ public class E_TransitionAction extends Action {
 	        	fundPriceHistoryDAO.create(historyBean);
 	        	map.put(fund_id[i], price[i]);
 	        }
+	        
+	        
+	        
 	        //Second, we update all the transaction in queue
 	        //For the deposit and request transaction, we need to update the transaction date and customer cash
 	        //Then for the buy fund, we need to update the transaction date and share
@@ -163,6 +197,10 @@ public class E_TransitionAction extends Action {
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error-list.jsp";
-        }
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+        	errors.add(e.getMessage());
+			return "error-list.jsp";
+		}
     }
 }

@@ -20,6 +20,7 @@
 					<tr>
 						<th>FundName</th>
 						<th>Ticker</th>
+						<th>Last Closing Price</th>
 						<th>New Closing Price</th>
 					</tr>
 				</thead>
@@ -30,7 +31,13 @@
 						<tr>
 							<td>${fund.name}</td>
 							<td>${fund.symbol}</td>
-							
+							<c:if test="${fund.price!=0}">
+							<td><fmt:formatNumber type="number" 
+            pattern="###.##" value="${fund.price}" /></td>
+							</c:if>
+							<c:if test="${fund.price==0}">
+							<td>No price yet</td>
+							</c:if>
 							<td><input type="text" placeholder="0.00" name="price" value="" />
 							<input type="hidden" name="fund_id" value="${fund.fund_id }"></td>
 						</tr>

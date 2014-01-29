@@ -74,7 +74,7 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 				id));
 		java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat(
 				"yyyy-mm-dd");
-		System.out.print("In getLastDateByFundId: ");
+		//System.out.print("In getLastDateByFundId: ");
 		if (newBeanArray.length > 0) {
 			Date lastDate = sFormat.parse(newBeanArray[0].getDate());
 			int lastDayIndex = 0;
@@ -88,10 +88,10 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 				}
 			}
 
-			System.out.print("find lastDate successfully \n");
+			//System.out.print("find lastDate successfully \n");
 			return newBeanArray[lastDayIndex];
 		}
-		System.out.print("find lastDate falied \n");
+		//System.out.print("find lastDate falied \n");
 		return null;
 
 	}

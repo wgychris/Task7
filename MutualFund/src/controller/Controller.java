@@ -78,22 +78,23 @@ public class Controller extends HttpServlet {
 			return Action.perform(action, request);
 		}
 		
-		/*if (customerBean != null && action.matches("c+"))
+		if (customerBean != null && action.startsWith("c_"))
 			return Action.perform(action, request);
-		else if (employeeBean != null && action.matches("e+"))
+		else if (employeeBean != null && action.startsWith("e_"))
 			return Action.perform(action, request);
-		else
-			return Action.perform("c_login.do", request);*/
+		else{
+			return Action.perform("c_login.do", request);
+		}
 
-		if (customerBean == null) {
+		/*if (customerBean == null) {
 			// If the user hasn't logged in, direct him to the login page
 			if (employeeBean == null)
 				return Action.perform("c_login.do", request);
 			else
 				return Action.perform(action, request);
-		}
+		}*/
 		// Let the logged in user run his chosen action
-		return Action.perform(action, request);
+		//return Action.perform(action, request);
 	}
 
 	/*

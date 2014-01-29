@@ -1,7 +1,56 @@
 <!-- Daisy Wang Jan 16 Version 1.0 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top.jsp" />
 <jsp:include page="error-list.jsp" />
 <%@ page import="databeans.FundPriceHistoryBean"%>
+<%
+	if (request.getAttribute("fundInfo") != null) {
+%>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    
+    
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+    	var data = new google.visualization.DataTable();
+    	var jsArr = new Array();  
+  	    var jsArr2 = new Array();
+  	    
+  	    <%
+  	    FundPriceHistoryBean[] fps= (FundPriceHistoryBean[])request.getAttribute("fundInfo");
+  	    for (int i=0; i < fps.length; i++) {  
+  	    %>  
+  	    jsArr[<%= i %>] = '<%=fps[i].getDate() %>'; 
+  	    <%}%>
+  	    <%  
+  	    for (int i=0; i < fps.length; i++) {  
+  	    %>  
+  	    jsArr2[<%= i %>] = '<%=fps[i].getPrice() %>'; 
+  	    <%}%>
+    	  data.addColumn('string','Date');
+    	  data.addColumn('number', 'Price');
+    	  data.addRows(jsArr.length);
+    	  //alert(jsArr.length);
+    	  <%  
+    	    for (int i=0; i < fps.length; i++) {  
+    	    %>
+    	    data.setValue(<%= i %>,0, jsArr[<%= i %>]);
+    	    data.setValue(<%= i %>,1, parseInt(jsArr2[<%= i %>]));
+    	    <%}%>
+    	  
+        var options = {
+          title: 'Price history'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    <%
+	}
+%>
 <style type="text/css">
 #tfheader {
 	background-color: #c3dfef;
@@ -72,7 +121,8 @@
 	<div class="tfclear"></div>
 </div>
 <div id="tfheader2">
-	<table class="table table-hover">
+<div id="chart_div" style="padding-left: 100px; width: 900px; height: 450px;"></div>
+	<!--  <table class="table table-hover">
 	<%
 	if (request.getAttribute("fundInfo") != null) {
 %>
@@ -91,7 +141,7 @@
 		}
 %>
 
-	</table>
+	</table>-->
 	<%
     } 
 %>
