@@ -29,7 +29,7 @@
 			<td>${transaction.shares}</td>
 			<td>${transaction.transaction_type}</td>
 			<td><fmt:formatNumber type="number" 
-            pattern="###,###.##" value="${transaction.amount}" /></td>
+            pattern="###,###.00" value="${transaction.amount}" /></td>
 			
 			
 		</tr>
