@@ -41,6 +41,10 @@ public class CreateCustomerForm extends FormBean{
 		if (password == null || password.length() == 0) {
 			errors.add("password is required");
 		}
+		
+		if(!password.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$")){
+			errors.add("password must contain both character and number, the length is between 6 to 16");
+		}
 		return errors;
 	}
 	

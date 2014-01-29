@@ -28,7 +28,7 @@
 			<!-- Navigation bar is one table cell down the left side -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand"><a href="#">Menu</a>
+                <li class="sidebar-brand">Menu
                 </li>
                 <li><a href="e_change-pwd.do">Change Password</a>
                 </li>
@@ -36,12 +36,6 @@
                 </li>
                 <li><a href="e_create_customer.do">Create Customer Account</a>
                 </li>
-<!--                 <li><a href="e_reset-pwd.do">Reset Customer Password</a>
-                </li>
-                <li><a href="e_viewAllAccount.do">View Customer Account</a>
-                </li>
-               <li><a href="e_viewTransactionHistory.do">View Customer Transaction History</a>
-                </li> -->
                 <li><a href="e_customermanage.do">Customer Management</a>
                 </li>
                 <li><a href="e_depositCheck.do">Deposit Check</a>

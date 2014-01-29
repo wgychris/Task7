@@ -62,6 +62,7 @@
 	clear: both;
 }
 </style>
+
 <div class="page-header">
 	<h1>Customer Management</h1>
 </div>
