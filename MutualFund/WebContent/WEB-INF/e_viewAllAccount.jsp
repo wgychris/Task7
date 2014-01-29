@@ -1,7 +1,7 @@
 <jsp:include page="template-top2.jsp" />
 
 <div class="page-header">
-  <h1>Reset Password For Customers</h1>
+  <h1>View All Account</h1>
 </div>
 
 <jsp:include page="error-list.jsp" />

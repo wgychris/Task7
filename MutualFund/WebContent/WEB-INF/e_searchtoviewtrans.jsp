@@ -63,7 +63,7 @@
 }
 </style>
 <div id="tfheader">
-	<form id="tfnewsearch" method="post" action="eviewtransaction.do">
+	<form id="tfnewsearch" method="post" action="e_viewTransactionHistory.do">
 		Research Customer User Name : <input type="text" class="tftextinput" name="username" size="21" maxlength="120">
 		<input type="submit" value="search" class="tfbutton">
 	</form>
