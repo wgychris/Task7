@@ -64,7 +64,7 @@ public class C_LoginAction extends Action {
 	        CustomerBean customer = customerDAO.login(form.getUserName(),form.getPassword());
 	        
 	        if (customer == null) {
-	            errors.add("User Name not found");
+	            errors.add("User Name and Password is not matched!!");
 	            Transaction.commit();
 	            return "c_login.jsp";
 	        }
