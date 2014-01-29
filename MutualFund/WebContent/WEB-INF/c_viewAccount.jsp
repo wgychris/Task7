@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="template-top.jsp" />
 
 <div class="page-header">
@@ -46,7 +48,8 @@
 	</dl>
 	<dl class="dl-horizontal">
 		<dt>Cash Balance:</dt>
-		<dd>${user.cash}</dd>
+		<dd><fmt:formatNumber type="number" 
+            pattern="###,###.##" value="${user.cash}" /></dd>
 	</dl>
 </div>
 
@@ -65,8 +68,10 @@
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
 				<td>${userFund.shares}</td>
-				<td>${userFund.price}</td>
-				<td>${userFund.price * userFund.shares}</td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,###.##" value="${userFund.price}" /></td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,###.##" value="${userFund.price * userFund.shares}" /></td>
 				<td><a type="button" class="btn btn-default"
 					href="c_buyFund.do">Buy</a> <a type="button"
 					class="btn btn-default" href="c_sellFund.do">Sell</a></td>
