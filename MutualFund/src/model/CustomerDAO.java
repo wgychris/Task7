@@ -51,8 +51,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	 */
 	public void changePassword(int customer_id, String password)
 			throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			CustomerBean dbCustomer = read(customer_id);
 
 			if (dbCustomer == null) {
@@ -62,11 +62,12 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 			dbCustomer.setPassword(password);
 
 			update(dbCustomer);
-			Transaction.commit();
+	/*		Transaction.commit();
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*
@@ -135,8 +136,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	 * @return void
 	 */
 	public void updataCash(int customer_id, long cash) throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			CustomerBean dbCustomer = read(customer_id);
 
 			if (dbCustomer == null) {
@@ -146,11 +147,12 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 			dbCustomer.setCash(cash);
 
 			update(dbCustomer);
-			Transaction.commit();
+	/*		Transaction.commit();
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	/*
@@ -163,31 +165,33 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	 * @return void
 	 */
 	public void createNewCustomer(CustomerBean cb) throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			create(cb);
-			Transaction.commit();
+	/*		Transaction.commit();
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 	public CustomerBean login(String userName, String password)
 			throws RollbackException {
-		try {
-			Transaction.begin();
+//		try {
+	//		Transaction.begin();
 			CustomerBean[] beans = match(new MatchArg[] {
 					MatchArg.equals("username", userName),
 					MatchArg.equals("password", password) });
 			if (beans.length == 0)
 				return null;
-			Transaction.commit();
+//			Transaction.commit();
 			return beans[0];
-		} finally {
+/*		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 	
 	/*
@@ -200,8 +204,8 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	 * @return void
 	 */
 	public void updataTempCash(int customer_id, long tempcash) throws RollbackException {
-		try {
-			Transaction.begin();
+	//	try {
+		//	Transaction.begin();
 			CustomerBean dbCustomer = read(customer_id);
 
 			if (dbCustomer == null) {
@@ -211,11 +215,12 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 			dbCustomer.setTempcash(tempcash);
 
 			update(dbCustomer);
-			Transaction.commit();
+/*			Transaction.commit();
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
+		*/
 	}
 
 }

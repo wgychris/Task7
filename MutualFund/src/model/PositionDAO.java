@@ -22,13 +22,14 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 	 * @return void
 	 */
 	public void createNewPosition(PositionBean pb) throws RollbackException{
-		try{
-			Transaction.begin();
+	//	try{
+		//	Transaction.begin();
 			create(pb);
-			Transaction.commit();
+/*			Transaction.commit();
 		}finally{
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	
 	/*
@@ -37,8 +38,8 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 	 * @return void
 	 */
 	public void updataCash(PositionBean pb) throws RollbackException{
-		try{
-			Transaction.begin();
+	//	try{
+	//		Transaction.begin();
 			PositionBean newpb = read(pb.getFund_id(),pb.getFund_id());
 			
 			if(newpb==null) {
@@ -46,10 +47,11 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 			}
 			
 			update(newpb);
-			Transaction.commit();
+	/*		Transaction.commit();
 		}finally {
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	/*
 	 * Update position
@@ -57,8 +59,8 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 	 * @return void
 	 */
 	public void updataTempCash(PositionBean pb) throws RollbackException{
-		try{
-			Transaction.begin();
+	//	try{
+		//	Transaction.begin();
 			PositionBean newpb = read(pb.getFund_id(),pb.getFund_id());
 			
 			if(newpb==null) {
@@ -66,10 +68,11 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 			}
 			
 			update(newpb);
-			Transaction.commit();
+	/*		Transaction.commit();
 		}finally {
 			if(Transaction.isActive()) Transaction.rollback();
 		}
+		*/
 	}
 	/*
 	 * Get position
