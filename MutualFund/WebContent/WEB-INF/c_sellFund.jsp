@@ -14,10 +14,10 @@
 		<label id="fundname">Fund Name : </label><br /> <label>${name} </label><br /> 
 		<label id="price">Last price : </label><br /> <label>${price}</label><br /> 
 		<label id="shares">Shares : </label><br /> <label></label>
-		<fmt:formatNumber type="number" pattern="###.##"
+		<fmt:formatNumber type="number" pattern="###.000"
 			value="${position.shares/1000}" />
 		<br /> <label id="availableshares">Available Shares : </label> <br /> <label></label>
-		<fmt:formatNumber type="number" pattern="###.##"
+		<fmt:formatNumber type="number" pattern="###.000"
 			value="${position.tempshares/1000}" />
 	</div>
 	<div style="position: relative; float: left">
@@ -34,14 +34,17 @@
 
 		<tr>
 			<td>#fund Ticker${cusInfo.fundTicker}</td>
-			<td>#shares${cusInfo.shares}</td>
-			<td>#amount${cusInfo.amount}</td>
-			<td>#price${cusInfo.price}</td>
+			<td><fmt:formatNumber type="number" pattern="###.000"
+			value="#shares${cusInfo.shares/1000}" /></td>
+			<td><fmt:formatNumber type="number" pattern="###.00"
+			value="#amount${cusInfo.amount/100}" /></td>
+			<td><fmt:formatNumber type="number" pattern="###.00"
+			value="#price${cusInfo.price/100}" /></td>
 			<td>#status${cusInfo.status}</td>
 		</tr>
 		<tr>
 			<td>123</td>
-			<td>20</td>
+			<td>20.000</td>
 			<td>pending</td>
 			<td>800.00</td>
 			<td>pending</td>
