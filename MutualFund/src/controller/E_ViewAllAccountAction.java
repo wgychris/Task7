@@ -51,7 +51,7 @@ public class E_ViewAllAccountAction extends Action {
 			}
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "e_viewAllAccount.jsp";
+				return "e_customermanage.jsp";
 			}
 			request.setAttribute("customer", cb);
 			HttpSession session = request.getSession();

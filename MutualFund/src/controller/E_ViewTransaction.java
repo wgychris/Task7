@@ -67,7 +67,7 @@ public class E_ViewTransaction extends Action {
 			// check any other errors from JSP
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "e_searchtoviewtrans.jsp";
+				return "e_customermanage.jsp";
 			}
 			// check if the customer username exist
 			// return -1 means this user not existed
