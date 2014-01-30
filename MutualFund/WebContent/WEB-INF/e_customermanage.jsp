@@ -1,3 +1,6 @@
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <jsp:include page="template-top2.jsp" />
 
 <jsp:include page="error-list.jsp" />
@@ -96,12 +99,11 @@
 				<td>${users.username}</td>
 				<td>${users.firstname}</td>
 				<td>${users.lastname}</td>
-				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${users.cash/100}" /></td>
+				<td><fmt:formatNumber type="number" pattern="###,##0.00" value="${users.cash/100}"/></td>
 				<td><fmt:formatNumber type="number" 
             pattern="###,##0.00" value="${users.tempcash/100}" /></td>
 				<th>
-					<form action="e_reset-pfc.do" method = "get">
+					<form action="e_reset-pfc.do" method = "post">
 					<input type="hidden" name="username" value="${users.username }" />
 					<input type="submit" value="ChangePassword" class="tfbutton">
 					</form>
