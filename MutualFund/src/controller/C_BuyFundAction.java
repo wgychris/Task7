@@ -109,8 +109,8 @@ public class C_BuyFundAction extends Action {
 			System.out
 					.println("getTempcash() before " + customer.getTempcash());
 			customer.setTempcash((customer.getTempcash()) - inputAmount);
-			System.out.println("inputAmount " + inputAmount);
-			System.out.println("getTempcash() " + customer.getTempcash());
+			//System.out.println("inputAmount " + inputAmount);
+			//System.out.println("getTempcash() " + customer.getTempcash());
 			customerDAO.updataTempCash(customer.getCustomer_id(),
 					customer.getTempcash() - inputAmount);
 			transactionDAO.create(t);
@@ -119,11 +119,12 @@ public class C_BuyFundAction extends Action {
 			Transaction.commit();
 			return "c_success.jsp";
 
-		} catch (FormBeanException e) {
-			errors.add(e.getMessage());
-			return "error-list.jsp";
 		} catch (RollbackException e) {
-			return "error-list.jsp";
+			errors.add(e.getMessage());
+			return "c_buyFund.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "c_buyFund.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
