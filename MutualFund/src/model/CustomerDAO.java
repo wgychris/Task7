@@ -222,4 +222,11 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 		*/
 	}
 
+	public CustomerBean[] getRelateCustomers(String username) throws RollbackException {
+		// TODO Auto-generated method stub
+		CustomerBean[] customers = match(MatchArg.contains("username", username));
+		//System.out.println(customers.length);
+		return customers;
+	}
+
 }
