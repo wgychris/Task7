@@ -7,7 +7,7 @@
   <h1>View ${searcheduser.username}'s Transaction History:</h1>
 </div>
 
-<jsp:include page="error-list.jsp" />
+
 
 <table class="table table-hover">
 		<tr>

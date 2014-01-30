@@ -29,6 +29,7 @@ public class E_ResetPfcAction extends Action {
 	}
 
 	public String getName() {
+		
 		return "e_reset-pfc.do";
 	}
 
@@ -43,11 +44,11 @@ public class E_ResetPfcAction extends Action {
 		 * into session. next time we can get the value from session.
 		 */
 		request.setAttribute("errors", errors);
-		String username;// = (String) request.getParameter("username");
+		String username = null;// = (String) request.getParameter("username");
 	//	System.out.println("username is "+ username);
 
-	//	request.getSession().setAttribute("username", username);
 		
+
 		try {
 
 			// Load the form parameters into a form bean
@@ -59,6 +60,10 @@ public class E_ResetPfcAction extends Action {
 			if (!form.isPresent()) {
 				username = (String) request.getParameter("username");
 
+				if(username==null || username=="" ){
+					errors.add("Please Give User Name in the Search Bar");
+					return "e_customermanage.jsp";
+				}
 				request.getSession().setAttribute("username", username);
 				//System.out.println("session:" + username);
 				//request.getSession().setAttribute("user", username);
