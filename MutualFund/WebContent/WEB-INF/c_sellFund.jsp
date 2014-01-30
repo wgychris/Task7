@@ -29,28 +29,6 @@
 		<fmt:formatNumber type="number" pattern="###,##0.000"
 			value="${position.tempshares/1000}" />
 	</div>
-
-	<table class="table table-hover">
-
-		<tr>
-			<td>#fund Ticker${cusInfo.fundTicker}</td>
-			<td>#shares${cusInfo.shares}</td>
-			<td>#amount${cusInfo.amount}</td>
-			<td>#price${cusInfo.price}</td>
-			<td>#status${cusInfo.status}</td>
-		</tr>
-		<tr>
-			<td>123</td>
-			<td>20.000</td>
-			<td>pending</td>
-			<td>800.00</td>
-			<td>pending</td>
-		</tr>
-
-	</table>
-
-
-
 </div>
 
 <jsp:include page="template-bottom.jsp" />
