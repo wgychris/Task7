@@ -33,7 +33,7 @@ public class DepositCheckForm extends FormBean {
 		}
 		if(!amount.matches("-?\\d+(\\.\\d+)?")){
 			errors.add("amount is not a number");
-		}else if(dataConversion.validDoubleMoreThanZero(amount)){
+		}else if(!dataConversion.validDoubleMoreThanZero(amount)){
 			errors.add("amount is not a valid number");
 		}
 		if (customer == null || customer.length() == 0) {

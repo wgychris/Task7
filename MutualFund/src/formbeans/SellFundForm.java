@@ -22,7 +22,7 @@ public class SellFundForm extends FormBean {
 		List<String> errors = new ArrayList<String>();
 		if (share == null || share.length() == 0) {
 			errors.add("Number of shares is required");
-		}else if(dataConversion.validDoubleMoreThanZero(share)){
+		}else if(!dataConversion.validDoubleMoreThanZero(share)){
 			errors.add("share is not a valid number");
 		} 
 		return errors;
