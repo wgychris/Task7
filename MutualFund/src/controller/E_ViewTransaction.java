@@ -82,66 +82,69 @@ public class E_ViewTransaction extends Action {
 			// TransactionBean[] tbarray =
 			// transactionDAO.getTransactionByCustomerId(1); //test user id is 1
 
-			int length = transactionDAO.getTransactionByCustomerId(cb
-					.getCustomer_id()).length;
 			// ERROR if the transaction is empty!!!!
 			// int length = transactionDAO.getTransactionByCustomerId(1).length;
 
 			ArrayList<TempTransaction> al = new ArrayList<TempTransaction>();
 			TransactionBean tb = new TransactionBean();
-			for (int i = 0; i < length; i++) {
-				TempTransaction tt = new TempTransaction(); // need to
-															// create
-															// new object
-															// for
-															// each loop!!!
-				int fundid = transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getFund_id();
-				// These are for testing
-				// tt.setAmount(transactionDAO.getTransactionByCustomerId(1)[i].getAmount()/100);
-				// tt.setShares(transactionDAO.getTransactionByCustomerId(1)[i].getShares()/1000);
-				// tt.setCustomer_id(transactionDAO.getTransactionByCustomerId(1)[i].getCustomer_id());
-				// tt.setExecute_date((transactionDAO.getTransactionByCustomerId(1)[i].getExecute_date()));
-				// tt.setFund_id((transactionDAO.getTransactionByCustomerId(1)[i].getFund_id()));
-				// tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_id());
-				// tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_type()));
-				// tt.setName(fundDAO.getFundByFundId(fundid).getName());
-				// tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
-
-				tt.setAmount(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getAmount());
-				tt.setShares(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getShares());
-				tt.setCustomer_id(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getCustomer_id());
-				if ((transactionDAO.getTransactionByCustomerId(customer_id)[i]
-						.getExecute_date() == null)) {
-					tt.setExecute_date("Pending");
-				} else {
-					tt.setExecute_date((transactionDAO
+			if (tbarray != null) {
+				for (int i = 0; i < tbarray.length; i++) {
+					TempTransaction tt = new TempTransaction(); // need to
+																// create
+																// new object
+																// for
+																// each loop!!!
+					int fundid = transactionDAO
 							.getTransactionByCustomerId(customer_id)[i]
-							.getExecute_date()));
+							.getFund_id();
+					// These are for testing
+					// tt.setAmount(transactionDAO.getTransactionByCustomerId(1)[i].getAmount()/100);
+					// tt.setShares(transactionDAO.getTransactionByCustomerId(1)[i].getShares()/1000);
+					// tt.setCustomer_id(transactionDAO.getTransactionByCustomerId(1)[i].getCustomer_id());
+					// tt.setExecute_date((transactionDAO.getTransactionByCustomerId(1)[i].getExecute_date()));
+					// tt.setFund_id((transactionDAO.getTransactionByCustomerId(1)[i].getFund_id()));
+					// tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_id());
+					// tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_type()));
+					// tt.setName(fundDAO.getFundByFundId(fundid).getName());
+					// tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
+
+					tt.setAmount(transactionDAO
+							.getTransactionByCustomerId(customer_id)[i]
+							.getAmount());
+					tt.setShares(transactionDAO
+							.getTransactionByCustomerId(customer_id)[i]
+							.getShares());
+					tt.setCustomer_id(transactionDAO
+							.getTransactionByCustomerId(customer_id)[i]
+							.getCustomer_id());
+					if ((transactionDAO.getTransactionByCustomerId(customer_id)[i]
+							.getExecute_date() == null)) {
+						tt.setExecute_date("Pending");
+					} else {
+						tt.setExecute_date((transactionDAO
+								.getTransactionByCustomerId(customer_id)[i]
+								.getExecute_date()));
+					}
+					tt.setFund_id((transactionDAO
+							.getTransactionByCustomerId(customer_id)[i]
+							.getFund_id()));
+					tt.setTransaction_id(transactionDAO
+							.getTransactionByCustomerId(customer_id)[i]
+							.getTransaction_id());
+					tt.setTransaction_type((transactionDAO
+							.getTransactionByCustomerId(customer_id)[i]
+							.getTransaction_type()));
+					if (tt.getFund_id() == 0) {
+						tt.setName("-");
+						tt.setSymbol("-");
+					} else {
+						tt.setName(fundDAO.getFundByFundId(fundid).getName());
+						tt.setSymbol(fundDAO.getFundByFundId(fundid)
+								.getSymbol());
+					}
+					al.add(tt);
+					// System.out.println("al "+i+" "+al.get(i).getTransaction_id());
 				}
-				tt.setFund_id((transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getFund_id()));
-				tt.setTransaction_id(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getTransaction_id());
-				tt.setTransaction_type((transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getTransaction_type()));
-				if (tt.getFund_id() == 0) {
-					tt.setName("-");
-					tt.setSymbol("-");
-				} else {
-					tt.setName(fundDAO.getFundByFundId(fundid).getName());
-					tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
-				}
-				al.add(tt);
-				// System.out.println("al "+i+" "+al.get(i).getTransaction_id());
 			}
 
 			request.setAttribute("temptransactions", al); // send arraylist of

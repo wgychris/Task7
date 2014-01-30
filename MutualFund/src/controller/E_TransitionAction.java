@@ -104,9 +104,10 @@ public class E_TransitionAction extends Action {
 			}
 			String lastdate;
 			if (count == 0) {
-				lastdate = "null";
+				lastdate = "no last trading day";
+			}else{
+				lastdate = temp[count - 1].getExecute_date();
 			}
-			lastdate = temp[count - 1].getExecute_date();
 			// lastdate = temp[4].getExecute_date();
 			request.setAttribute("lastdate", lastdate);
 			// If no params were passed, return with no errors so that the form
@@ -259,6 +260,7 @@ public class E_TransitionAction extends Action {
 					CustomerBean cb = customerDAO.getCustomerInfo(tbs[i]
 							.getCustomer_id());
 					cb.setCash(currentCash + am);
+					customerDAO.update(cb);
 //					customerDAO.getCustomerInfo(tbs[i].getCustomer_id()).setCash(currentCash + am);
 				}
 			}

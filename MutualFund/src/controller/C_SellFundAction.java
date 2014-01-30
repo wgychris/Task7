@@ -112,13 +112,11 @@ public class C_SellFundAction extends Action {
 			t.setTransaction_type("sell");
 			t.setFund_id(fundBean.getFund_id());
 			transactionDAO.createAutoIncrement(t);
-			PositionBean p = new PositionBean();
-			p.setCustomer_id(c.getCustomer_id());
+			//PositionBean p = new PositionBean();
 			// p.setCustomer_id(1);//test
-			p.setFund_id(fundBean.getFund_id());
-			p.setShares(tmpShares - inputShares);// should use ;
+			positionBean.setTempshares(tmpShares - inputShares);// should use ;
 			// positionDAO.create(p);
-			positionDAO.updataTempCash(p);
+			positionDAO.updataTempCash(positionBean);
 
 			request.setAttribute("message", "fund has been sold");
 			Transaction.commit();

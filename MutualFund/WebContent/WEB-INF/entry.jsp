@@ -27,7 +27,7 @@
 		<!-- Spacer row -->
 
 		<tr>
-			<td bgcolor="#eeeeee" valign="top" height="500" width="180px">
+			<td valign="top" height="500" width="180px">
 				<!-- Navigation bar is one table cell down the left side -->
 				<div id="sidebar-wrapper">
 					<ul class="sidebar-nav">
@@ -43,11 +43,16 @@
 				<div class="text-center">
 					<div class="page-header">
 						<h1>Carnegie Financial Services</h1>
-						<h4 class="form-signin-heading">Please choose your entry</h4>
+						<br> <br>
+						<h4 class="form-signin-heading">Please choose your entrance</h4>
 					</div>
 					<div class="text-center">
-						<a type="button" class="btn btn-primary btn-lg" href="c_login.do">Customer</a>
-						<a type="button" class="btn btn-primary btn-lg"
-							href="admin_login.do">Employee</a>
+						<ul class="list-inline">
+							<li><a type="button" class="btn btn-primary btn-lg"
+								href="c_login.do">Customer</a></li>
+							<li></li>
+							<li><a type="button" class="btn btn-primary btn-lg"
+								href="admin_login.do">Employee</a></li>
+						</ul>
 					</div>
 				</div> <jsp:include page="template-bottom.jsp" />
