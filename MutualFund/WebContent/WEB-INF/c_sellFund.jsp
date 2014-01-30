@@ -20,13 +20,13 @@
 		style="position: relative; float: left; margin-left: 100px;">
 		<label id="fundname">Fund Name : </label><br /> <label>${fund.name}
 		</label><br /> <label id="price">Last price : </label><br /> <label>$</label>
-		<fmt:formatNumber type="number" pattern="###.##" value="${price/100}" />
+		<fmt:formatNumber type="number" pattern="###,##0.00" value="${price/100}" />
 		<br /> <label id="shares">Shares : </label><br /> <label></label>
-		<fmt:formatNumber type="number" pattern="###.##"
+		<fmt:formatNumber type="number" pattern="###,##0.000"
 			value="${position.shares/1000}" />
 		<br /> <label id="availableshares">Available Shares : </label> <br />
 		<label></label>
-		<fmt:formatNumber type="number" pattern="###.##"
+		<fmt:formatNumber type="number" pattern="###,##0.000"
 			value="${position.tempshares/1000}" />
 	</div>
 
@@ -41,7 +41,7 @@
 		</tr>
 		<tr>
 			<td>123</td>
-			<td>20</td>
+			<td>20.000</td>
 			<td>pending</td>
 			<td>800.00</td>
 			<td>pending</td>
