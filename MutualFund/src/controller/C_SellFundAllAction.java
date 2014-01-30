@@ -66,15 +66,16 @@ public class C_SellFundAllAction extends Action {
 				}
 			}
 			request.setAttribute("userFundList", list);
+<<<<<<< HEAD
 			System.out.print("return");
 			Transaction.commit();
+=======
+>>>>>>> branch 'master' of git@github.com:wgychris/Task7.git
 			return "c_sellFundAll.jsp";
 		} catch (RollbackException e) {
-			System.out.print("" + e.toString());
 			errors.add(e.toString());
 			return "error-list.jsp";
 		} catch (ParseException e) {
-			System.out.print("" + e.toString());
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";

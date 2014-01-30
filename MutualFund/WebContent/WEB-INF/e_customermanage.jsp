@@ -96,8 +96,10 @@
 				<td>${users.username}</td>
 				<td>${users.firstname}</td>
 				<td>${users.lastname}</td>
-				<td>${users.cash}</td>
-				<td>${users.tempcash}</td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,##0.00" value="${users.cash}" /></td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,##0.00" value="${users.tempcash/100}" /></td>
 				<th>
 					<form action="e_reset-pfc.do" method = "get">
 					<input type="hidden" name="username" value="${users.username }" />

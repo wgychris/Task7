@@ -66,8 +66,10 @@ public class E_DepositCheckAction extends Action {
 			}
 
 			int customerId = -1;
+			Transaction.begin();
 			customerId = customerDAO.getCustomerId(form.getCustomer());
 			if (customerId == -1) {
+				Transaction.commit();
 				errors.add("cannot find customerId with customerName");
 				return "e_depositCheck.jsp";
 			}
@@ -77,7 +79,7 @@ public class E_DepositCheckAction extends Action {
 			tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form
 					.getAmount()));
 			tb.setCustomer_id(customerId);
-			Transaction.begin();
+			//Transaction.begin();
 			transactionDAO.createNewTransaction(tb);
 			request.setAttribute("message", "the transaction is in process");
 			Transaction.commit();
