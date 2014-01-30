@@ -88,8 +88,5 @@
 	</c:if>
 </table>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of git@github.com:wgychris/Task7.git
 <jsp:include page="template-bottom.jsp" />
