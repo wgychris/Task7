@@ -94,12 +94,12 @@ public class E_CreateCustomerAction extends Action {
 			return "e_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "e_create_customer.jsp";
 		} catch (RollbackException e) {
-			return "error-list.jsp";
+			return "e_create_customer.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_create_customer.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

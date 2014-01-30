@@ -85,12 +85,12 @@ public class E_CreateEmployeeAction extends Action {
 			return "e_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "e_create_employee.jsp";
 		} catch (RollbackException e) {
-			return "error-list.jsp";
+			return "e_create_employee.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_create_employee.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

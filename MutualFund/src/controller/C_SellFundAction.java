@@ -125,16 +125,16 @@ public class C_SellFundAction extends Action {
 			return "c_success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "c_sellFund.jsp";
 		} catch (NumberFormatException e) {
 			System.out.print("catched");
 			errors.add("Input Amount is too large");
-			return "c_requestCheck.jsp";
+			return "c_sellFund.jsp";
 		} catch (RollbackException e) {
-			return "error-list.jsp";
+			return "c_sellFund.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_sellFund.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

@@ -86,12 +86,12 @@ public class C_ResearchFundAction extends Action {
 			return "c_researchFund.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "c_researchFund.jsp";
 		} catch (RollbackException e) {
-			return "error-list.jsp";
+			return "c_researchFund.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_researchFund.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

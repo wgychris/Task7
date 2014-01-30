@@ -79,7 +79,7 @@ public class E_CreateFundAction extends Action {
 			return "e_createFund.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_createFund.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
