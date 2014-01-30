@@ -97,16 +97,17 @@ public class E_TransitionAction extends Action {
 			request.setAttribute("funds", fundsWithPrice);
 			TransactionBean[] temp = transactionDAO.getAllTransactions();
 			int count;
-			for(count = 0;count<transactionDAO.getCount();count++){
-				if(temp[count].getExecute_date().length()==0){
+			for (count = 0; count < transactionDAO.getCount(); count++) {
+				if (temp[count].getExecute_date() == null) {
 					break;
 				}
 			}
 			String lastdate;
-			if(count==0){
+			if (count == 0) {
 				lastdate = "null";
 			}
-			lastdate = temp[count-1].getExecute_date();
+			lastdate = temp[count - 1].getExecute_date();
+			// lastdate = temp[4].getExecute_date();
 			request.setAttribute("lastdate", lastdate);
 			// If no params were passed, return with no errors so that the form
 			// will be
@@ -126,15 +127,16 @@ public class E_TransitionAction extends Action {
 			java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat(
 					"yyyy-MM-dd");
 			Date newDate = sFormat.parse(form.getTransitionDay());
-			//System.out.println(newDate);
+			// System.out.println(newDate);
 			int randomId = Integer.parseInt(form.getFund_id()[0]);
-			FundPriceHistoryBean  d=fundPriceHistoryDAO
-			.getLastDateBeanByFundId(randomId);
-			if(d!=null){
+			FundPriceHistoryBean d = fundPriceHistoryDAO
+					.getLastDateBeanByFundId(randomId);
+			if (d != null) {
 				Date lastDate = sFormat.parse(d.getDate());
-				//System.out.println(lastDate);
-				if (lastDate!=null && !newDate.after(lastDate)) {
-					errors.add("The date is not valid.New date should be after "+sFormat.format(lastDate));
+				// System.out.println(lastDate);
+				if (lastDate != null && !newDate.after(lastDate)) {
+					errors.add("The date is not valid.New date should be after "
+							+ sFormat.format(lastDate));
 					Transaction.commit();
 					return "e_transitionDay.jsp";
 				}
@@ -188,9 +190,9 @@ public class E_TransitionAction extends Action {
 				} else if (tbs[i].getTransaction_type().equals("request")) {
 					transactionDAO.updateTransactionDate(tbs[i],
 							form.getTransitionDay());
-					long depositCash = tbs[i].getAmount();
+					long requestCash = tbs[i].getAmount();
 					customerDAO.updataCash(tbs[i].getCustomer_id(), currentCash
-							+ depositCash);
+							- requestCash);
 				} else if (tbs[i].getTransaction_type().equals("buy")) {
 					int fundid = tbs[i].getFund_id();
 					int cusid = tbs[i].getCustomer_id();
@@ -219,8 +221,13 @@ public class E_TransitionAction extends Action {
 						pb.setShares(pb.getShares() + sh);
 						positionDAO.update(pb);
 					}
-					customerDAO.updataCash(tbs[i].getCustomer_id(), currentCash
-							- tbs[i].getAmount());
+					/**
+					 * customerDAO.updataCash(tbs[i].getCustomer_id(),
+					 * currentCash - tbs[i].getAmount());
+					 */
+					CustomerBean cb = customerDAO.getCustomerInfo(tbs[i]
+							.getCustomer_id());
+					cb.setCash(currentCash - tbs[i].getAmount());
 				} else if (tbs[i].getTransaction_type().equals("sell")) {
 					int fundid = tbs[i].getFund_id();
 					int cusid = tbs[i].getCustomer_id();
@@ -229,9 +236,9 @@ public class E_TransitionAction extends Action {
 									+ fundid));
 					// Because the updatePrice has two digit as long integer, so
 					// the share is correct
-					double amount = tbs[i].getShares() * updatePrice;
+					double amount = tbs[i].getShares() * updatePrice / 1000;
 					long am = dataConversion
-							.convertFromDoubleToTwoDigitLong(amount/100000);
+							.convertFromDoubleToTwoDigitLong(amount / 100);
 					tbs[i].setAmount(am);
 					tbs[i].setExecute_date(form.getTransitionDay());
 					transactionDAO.update(tbs[i]);
@@ -245,8 +252,14 @@ public class E_TransitionAction extends Action {
 						pb.setShares(pb.getShares() - tbs[i].getShares());
 						positionDAO.update(pb);
 					}
-					customerDAO.updataCash(tbs[i].getCustomer_id(), currentCash
-							+ am);
+					/**
+					 * customerDAO.updataCash(tbs[i].getCustomer_id(),
+					 * currentCash + am);
+					 */
+					CustomerBean cb = customerDAO.getCustomerInfo(tbs[i]
+							.getCustomer_id());
+					cb.setCash(currentCash + am);
+//					customerDAO.getCustomerInfo(tbs[i].getCustomer_id()).setCash(currentCash + am);
 				}
 			}
 			// finally, we have to update the temp cash for every customer

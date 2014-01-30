@@ -12,15 +12,20 @@ import org.genericdao.*;
  */
 public class E_LogoutAction extends Action {
 
-	public E_LogoutAction(Model model) { }
+	public E_LogoutAction(Model model) {
+	}
 
-	public String getName() { return "e_logout.do"; }
+	public String getName() {
+		return "e_logout.do";
+	}
 
 	public String perform(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        session.setAttribute("employee",null);
+		HttpSession session = request.getSession(false);
+		session.setAttribute("employee", null);
 
-		request.setAttribute("message","You are now logged out");
-        return "e_success.jsp";
-    }
+		request.setAttribute(
+				"message",
+				"You are now logged out <br></br><a type=\"button\" class=\"btn btn-primary btn-lg\" href=\"entry.do\">Homepage</a>");
+		return "e_success.jsp";
+	}
 }

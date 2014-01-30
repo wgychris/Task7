@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="template-top.jsp" />
 
 <div class="page-header">
@@ -48,8 +48,10 @@
 	</dl>
 	<dl class="dl-horizontal">
 		<dt>Cash Balance:</dt>
-		<dd><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${user.cash/100}" /></dd>
+		<dd>
+			<fmt:formatNumber type="number" pattern="###,##0.00"
+				value="${user.cash/100}" />
+		</dd>
 	</dl>
 </div>
 
@@ -67,19 +69,18 @@
 			<tr>
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
-				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.000" value="${userFund.shares/1000}" /></td>
-				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${userFund.price/100}" /></td>
-				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${userFund.price/100 * userFund.shares/1000}" /></td>
-				
-				<td>
-				<a type="button" class="btn btn-default"
-					href="c_buyFund.do">Buy</a>
-				<a type="button" class="btn btn-default"
-					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price/100}">Sell</a></td>
-				
+				<td><fmt:formatNumber type="number" pattern="###,##0.000"
+						value="${userFund.shares/1000}" /></td>
+				<td><fmt:formatNumber type="number" pattern="###,##0.00"
+						value="${userFund.price/100}" /></td>
+				<td><fmt:formatNumber type="number" pattern="###,##0.00"
+						value="${userFund.price/100 * userFund.shares/1000}" /></td>
+
+				<td><a type="button" class="btn btn-default"
+					href="c_buyFund.do">Buy</a> <a type="button"
+					class="btn btn-default"
+					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
+
 				<!-- <td><a type="button" class="btn btn-default"
 					href="c_buyFund.do">Buy</a> <a type="button"
 					class="btn btn-default" href="c_sellFund.do">Sell</a></td> -->

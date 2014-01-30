@@ -89,10 +89,11 @@ public class E_ViewTransaction extends Action {
 
 			ArrayList<TempTransaction> al = new ArrayList<TempTransaction>();
 			TransactionBean tb = new TransactionBean();
-
 			for (int i = 0; i < length; i++) {
-				TempTransaction tt = new TempTransaction(); // need to create
-															// new object for
+				TempTransaction tt = new TempTransaction(); // need to
+															// create
+															// new object
+															// for
 															// each loop!!!
 				int fundid = transactionDAO
 						.getTransactionByCustomerId(customer_id)[i]
@@ -133,11 +134,12 @@ public class E_ViewTransaction extends Action {
 						.getTransactionByCustomerId(customer_id)[i]
 						.getTransaction_type()));
 				if (tt.getFund_id() == 0) {
-					al.add(tt);
-					continue;
+					tt.setName("-");
+					tt.setSymbol("-");
+				} else {
+					tt.setName(fundDAO.getFundByFundId(fundid).getName());
+					tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
 				}
-				tt.setName(fundDAO.getFundByFundId(fundid).getName());
-				tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
 				al.add(tt);
 				// System.out.println("al "+i+" "+al.get(i).getTransaction_id());
 			}

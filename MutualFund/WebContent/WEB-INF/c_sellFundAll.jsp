@@ -29,7 +29,7 @@
 				<td><fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${userFund.price * userFund.shares/100}" /></td>
 				<td><a type="button" class="btn btn-default"
-					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price/100}">Sell</a></td>
+					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
 			</tr>
 		</c:forEach>
 	</c:if>

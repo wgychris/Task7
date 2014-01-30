@@ -4,6 +4,7 @@
 <meta http-equiv="pragma" content="no-cache">
 <link href="css/main.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+
 <title>Mutual Fund</title>
 </head>
 
@@ -39,19 +40,14 @@
 				<!-- Padding (blank space) between navbar and content -->
 			</td>
 			<td valign="top"><jsp:include page="error-list.jsp" />
-
-				<div style="position: relative;">
+				<div class="text-center">
 					<div class="page-header">
 						<h1>Carnegie Financial Services</h1>
-						<h4 class="form-signin-heading">
-							Please choose your entry
-							</h2>
+						<h4 class="form-signin-heading">Please choose your entry</h4>
 					</div>
-					<div id="left" style="position: relative; float: left;">
-						<a type="button" class="btn btn-primary" href="c_login.do">Customer</a>
-					</div>
-					<div id="right"
-						style="position: relative; float: left; margin-left: 100px;">
-						<a type="button" class="btn btn-primary" href="admin_login.do">Employee</a>
+					<div class="text-center">
+						<a type="button" class="btn btn-primary btn-lg" href="c_login.do">Customer</a>
+						<a type="button" class="btn btn-primary btn-lg"
+							href="admin_login.do">Employee</a>
 					</div>
 				</div> <jsp:include page="template-bottom.jsp" />

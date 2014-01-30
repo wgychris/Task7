@@ -1,8 +1,8 @@
 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="template-top2.jsp" />
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="error-list.jsp" />
 <style type="text/css">
@@ -67,66 +67,67 @@
 }
 </style>
 <div style="position: relative;">
-<div class="page-header">
-	<h1>Customer Management</h1>
-</div>
+	<div class="page-header">
+		<h1>Customer Management</h1>
+	</div>
 
-<div id="tfheader">
-	<form id="tfnewsearch" method="post" action="e_customermanage.do">
-		Research Customer User Name : 
-		<input type="text" class="tftextinput" name="username" size="21" maxlength="120"> 
-		<input type="submit" value="search" class="tfbutton">
-	</form>
-	<div class="tfclear"></div>
-</div>
+	<div id="tfheader">
+		<form id="tfnewsearch" method="post" action="e_customermanage.do">
+			Research Customer User Name : <input type="text" class="tftextinput"
+				name="username" size="21" maxlength="120"> <input
+				type="submit" value="search" class="tfbutton">
+		</form>
+		<div class="tfclear"></div>
+	</div>
 
-<table class="table table-hover">
-	<c:if test="${requestScope.users!= null}">
-		<thead>
-			<th>C-ID</th>
-			<th>UserName</th>
-			<th>FirstName</th>
-			<th>LastName</th>
-			<th>Cash</th>
-			<th>Avaliable Cash</th>
-			<th>ChangePassword</th>
-			<th>ViewAccount</th>
-			<th>TransactionHistory</th>
-		</thead>
-	<c:forEach items="${users}" var="user">
-			<tr>
-			
-				<td>${users.customer_id}</td>
-				<td>${users.username}</td>
-				<td>${users.firstname}</td>
-				<td>${users.lastname}</td>
-				<td><fmt:formatNumber type="number" pattern="###,##0.00" value="${users.cash/100}"/></td>
-				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${users.tempcash/100}" /></td>
-				<th>
-					<form action="e_reset-pfc.do" method = "post">
-					<input type="hidden" name="username" value="${users.username }" />
-					<input type="submit" value="ChangePassword" class="tfbutton">
-					</form>
-				</th>
-				
-				<th>
-					<form action="e_viewAllAccount.do" method = "post">
-					<input type="hidden" name="username" value="${users.username}" />
-					<input type="submit" value="ViewAccount" class="tfbutton">
-					</form>
-				</th>
-				
-				<th>
-					<form action="e_viewTransactionHistory.do" method = "post">
-					<input type="hidden" name="username" value="${ users.username }" />
-					<input type="submit" value="TransactionHistory" class="tfbutton">
-					</form>
-				</th>
-			
-			</tr>
-		</c:forEach>
-	</c:if>
-</table>
+	<table class="table table-hover">
+		<c:if test="${requestScope.users!= null}">
+			<thead>
+				<th>C-ID</th>
+				<th>UserName</th>
+				<th>FirstName</th>
+				<th>LastName</th>
+				<th>Cash</th>
+				<th>Avaliable Cash</th>
+				<th>ChangePassword</th>
+				<th>ViewAccount</th>
+				<th>TransactionHistory</th>
+			</thead>
+			<c:forEach items="${users}" var="user">
+				<tr>
+
+					<td>${users.customer_id}</td>
+					<td>${users.username}</td>
+					<td>${users.firstname}</td>
+					<td>${users.lastname}</td>
+					<td><fmt:formatNumber type="number" pattern="###,##0.00"
+							value="${users.cash/100}" /></td>
+					<td><fmt:formatNumber type="number" pattern="###,##0.00"
+							value="${users.tempcash/100}" /></td>
+					<th>
+						<form action="e_reset-pfc.do" method="post">
+							<input type="hidden" name="username" value="${users.username }" />
+							<input type="submit" value="ChangePassword" class="tfbutton">
+						</form>
+					</th>
+
+					<th>
+						<form action="e_viewAllAccount.do" method="post">
+							<input type="hidden" name="username" value="${users.username}" />
+							<input type="submit" value="ViewAccount" class="tfbutton">
+						</form>
+					</th>
+
+					<th>
+						<form action="e_viewTransactionHistory.do" method="post">
+							<input type="hidden" name="username" value="${ users.username }" />
+							<input type="submit" value="TransactionHistory" class="tfbutton">
+						</form>
+					</th>
+
+				</tr>
+			</c:forEach>
+		</c:if>
+	</table>
 </div>
 <jsp:include page="template-bottom.jsp" />
