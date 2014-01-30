@@ -44,13 +44,11 @@ public class E_ResetPfcAction extends Action {
 		 * into session. next time we can get the value from session.
 		 */
 		request.setAttribute("errors", errors);
-		String username = (String) request.getParameter("username");
-		System.out.println(username);
+		String username = null;// = (String) request.getParameter("username");
+	//	System.out.println("username is "+ username);
 
-		if(username==""){
-			errors.add("Please Give User Name in the Search Bar");
-			return "e_customermanage.jsp";
-		}
+		
+
 		try {
 
 			// Load the form parameters into a form bean
@@ -60,15 +58,22 @@ public class E_ResetPfcAction extends Action {
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				System.out.println("session:" + username);
-				request.getSession().setAttribute("user", username);
+				username = (String) request.getParameter("username");
+
+				if(username==null || username=="" ){
+					errors.add("Please Give User Name in the Search Bar");
+					return "e_customermanage.jsp";
+				}
+				request.getSession().setAttribute("username", username);
+				//System.out.println("session:" + username);
+				//request.getSession().setAttribute("user", username);
 				return "e_reset-pfc.jsp";
 			}
 
 			// Check for any validation errors
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				request.getSession().setAttribute("user", username);
+				//request.getSession().setAttribute("user", username);
 				return "e_reset-pfc.jsp";
 			}
 
@@ -79,8 +84,9 @@ public class E_ResetPfcAction extends Action {
 			 */
 			// CustomerBean customer = (CustomerBean)
 			// request.getAttribute("customer");
-			username = (String) request.getSession().getAttribute("user");
+			username = (String) request.getSession().getAttribute("username");
 
+			System.out.println("username2:" + username+ "\n");
 			Transaction.begin();
 			CustomerBean customer = customerDAO.getCustomerInfo(customerDAO
 					.getCustomerId(username));
@@ -89,7 +95,7 @@ public class E_ResetPfcAction extends Action {
 				Transaction.commit();
 				return "e_reset-pfc.jsp";
 			}
-			System.out.println(customer.toString());
+			System.out.println("to string "+customer.toString());
 			// Change the password
 			customerDAO.changePassword(customer.getCustomer_id(),
 					form.getNewPassword());
