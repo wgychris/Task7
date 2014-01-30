@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import utils.dataConversion;
+
 public class CreateCustomerForm extends FormBean{
 	private String userName;
 	private String password;
@@ -25,6 +27,8 @@ public class CreateCustomerForm extends FormBean{
 		}
 		if(!cash.matches("-?\\d+(\\.\\d+)?")){
 			errors.add("cash is not a number");
+		}else if(!dataConversion.validDoubleNotNegative(cash)){
+			errors.add("cash is not a valid number");
 		}
 		if (firstName == null || firstName.length() == 0) {
 			errors.add("firstName is required");
