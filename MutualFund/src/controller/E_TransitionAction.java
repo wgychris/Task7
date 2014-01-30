@@ -109,14 +109,19 @@ public class E_TransitionAction extends Action {
 			}
 			// validate the date here
 			java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat(
-					"yyyy-mm-dd");
+					"yyyy-MM-dd");
 			Date newDate = sFormat.parse(form.getTransitionDay());
+			//System.out.println(newDate);
 			int randomId = Integer.parseInt(form.getFund_id()[0]);
-			Date lastDate = sFormat.parse(fundPriceHistoryDAO
-					.getLastDateBeanByFundId(randomId).getDate());
-			if (!newDate.after(lastDate)) {
-				errors.add("The date is not valid.New date should be after "+sFormat.format(lastDate));
-				return "e_transitionDay.jsp";
+			FundPriceHistoryBean  d=fundPriceHistoryDAO
+			.getLastDateBeanByFundId(randomId);
+			if(d!=null){
+				Date lastDate = sFormat.parse(d.getDate());
+				//System.out.println(lastDate);
+				if (lastDate!=null && !newDate.after(lastDate)) {
+					errors.add("The date is not valid.New date should be after "+sFormat.format(lastDate));
+					return "e_transitionDay.jsp";
+				}
 			}
 			String[] price = form.getPrice();
 			String[] fund_id = form.getFund_id();
