@@ -64,14 +64,11 @@ public class C_SellFundAllAction extends Action {
 				}
 			}
 			request.setAttribute("userFundList", list);
-			System.out.print("return");
 			return "c_sellFundAll.jsp";
 		} catch (RollbackException e) {
-			System.out.print("" + e.toString());
 			errors.add(e.toString());
 			return "error-list.jsp";
 		} catch (ParseException e) {
-			System.out.print("" + e.toString());
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";

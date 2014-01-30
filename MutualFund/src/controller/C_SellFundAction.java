@@ -48,20 +48,14 @@ public class C_SellFundAction extends Action {
 		try {
 			String name = request.getParameter("name");
 			String price = request.getParameter("price");
-			System.out.println();
-			System.out.println("fund name is "+name);
-//			if (name == null || price == null) {
-//				return "c_sellFund.jsp";
-//			}
 			HttpSession session = request.getSession();
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
 			Transaction.begin();
-			
+
 			PositionBean positionBean;
-			
-			FundBean fundBean;	
-			
-			
+
+			FundBean fundBean;
+
 			SellFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 
@@ -69,60 +63,39 @@ public class C_SellFundAction extends Action {
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				
+
 				request.setAttribute("price", price);
-				
-				 fundBean = (FundBean) fundDAO.getFundByName(name);
-				System.out.println("fund id " + fundBean.getFund_id());
-				positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(), fundBean.getFund_id());
-				
-				
-				
+
+				fundBean = (FundBean) fundDAO.getFundByName(name);
+				positionBean = (PositionBean) positionDAO.getPosition(
+						c.getCustomer_id(), fundBean.getFund_id());
+
 				request.setAttribute("position", positionBean);
 				request.setAttribute("fund", fundBean);
 				request.getSession().setAttribute("position2", positionBean);
 				request.getSession().setAttribute("fund2", fundBean);
-				request.getSession().setAttribute("fundname", name);	
-				System.out.println("fund name beofre return is" + name);
+				request.getSession().setAttribute("fundname", name);
 				return "c_sellFund.jsp";
 			}
-			
-			System.out.println("skip is present");
+
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				System.out.println("error!!");
-				
 				request.setAttribute("price", price);
-				
-				 fundBean = (FundBean) fundDAO.getFundByName(name);
-				System.out.println("fund id " + fundBean.getFund_id());
-				 positionBean = (PositionBean) positionDAO.getPosition(c.getCustomer_id(), fundBean.getFund_id());
-				
-				
-				
+				fundBean = (FundBean) fundDAO.getFundByName(name);
+				positionBean = (PositionBean) positionDAO.getPosition(
+						c.getCustomer_id(), fundBean.getFund_id());
 				request.setAttribute("position", positionBean);
 				request.setAttribute("fund", fundBean);
 				request.getSession().setAttribute("position2", positionBean);
 				request.getSession().setAttribute("fund2", fundBean);
-				request.getSession().setAttribute("fundname", name);	
-				System.out.println("fund name beofre return is" + name);
-				
-				
+				request.getSession().setAttribute("fundname", name);
 
 				return "c_sellFund.jsp";
 			}
-			String testname = (String) request.getSession().getAttribute("fundname");
-			System.out.print("test name is" + testname);
-			
-			
-			
-			positionBean = (PositionBean) request.getSession().getAttribute("position2");
+			positionBean = (PositionBean) request.getSession().getAttribute(
+					"position2");
 			fundBean = (FundBean) request.getSession().getAttribute("fund2");
-			
-			
-			
-			
 			long tmpShares = positionBean.getTempshares();
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
@@ -155,8 +128,7 @@ public class C_SellFundAction extends Action {
 			return "error-list.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
-		}
-		finally {
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

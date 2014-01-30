@@ -5,7 +5,6 @@ import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
-import org.genericdao.Transaction;
 
 import databeans.*;
 
@@ -145,13 +144,8 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	 * @return TransactionBean[]
 	 */
 	public TransactionBean[] getTransactionByCustomerId(int customer_id) throws RollbackException{
-		
-			System.out.print("@@");
-			
-			System.out.print("##");
 //			TransactionBean[] newBeanArray = match(MatchArg.equals("execute_date",execute_date));
 			TransactionBean[] newBeanArray = match(MatchArg.equals("customer_id", customer_id));
-			System.out.print("??");
 			if(newBeanArray != null && newBeanArray.length > 0)
 			return newBeanArray;
 			else

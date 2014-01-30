@@ -49,7 +49,7 @@
 	<dl class="dl-horizontal">
 		<dt>Cash Balance:</dt>
 		<dd><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${user.cash/100}" /></dd>
+            pattern="###,###.00" value="${user.cash/100}" /></dd>
 	</dl>
 </div>
 
@@ -67,15 +67,21 @@
 			<tr>
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
+				<td>${userFund.shares}</td>
 				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.000" value="${userFund.shares/1000}" /></td>
+            pattern="###,###.##" value="${userFund.price}" /></td>
 				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${userFund.price/100}" /></td>
-				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${userFund.price/100 * userFund.shares/1000}" /></td>
-				<td><a type="button" class="btn btn-default"
+            pattern="###,###.##" value="${userFund.price * userFund.shares}" /></td>
+				
+				<td>
+				<a type="button" class="btn btn-default"
+					href="c_buyFund.do">Buy</a>
+				<a type="button" class="btn btn-default"
+					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
+				
+				<!-- <td><a type="button" class="btn btn-default"
 					href="c_buyFund.do">Buy</a> <a type="button"
-					class="btn btn-default" href="c_sellFund.do">Sell</a></td>
+					class="btn btn-default" href="c_sellFund.do">Sell</a></td> -->
 			</tr>
 		</c:forEach>
 	</c:if>
