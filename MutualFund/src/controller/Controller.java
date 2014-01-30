@@ -88,7 +88,7 @@ public class Controller extends HttpServlet {
 				return Action.perform("admin_login.do", request);
 		}
 		if (action.equals("admin_login.do")) {
-			return Action.perform(employeeBean != null ? "e_viewAccount.do"
+			return Action.perform(employeeBean != null ? "e_customermanage.do"
 					: action, request);
 		}
 		if (action.equals("c_login.do") && customerBean == null) {
