@@ -79,6 +79,11 @@ public class E_ResetPfcAction extends Action {
 			Transaction.begin();
 			CustomerBean customer = customerDAO.getCustomerInfo(customerDAO
 					.getCustomerId(username));
+			if(customer == null) {
+				errors.add("customer does not exist");
+				Transaction.commit();
+				return "e_reset-pfc.jsp";
+			}
 			System.out.println(customer.toString());
 			// Change the password
 			customerDAO.changePassword(customer.getCustomer_id(),
