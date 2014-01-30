@@ -8,7 +8,7 @@
  <p>
 	<form class="form-signin" method="post" action="admin_login.do">
         <h4 class="form-signin-heading">Dear employee, please sign in</h2>
-        <input type="text" class="form-control" name="userName" placeholder="Email address" vale="${form.userName}" autofocus="">
+        <input type="text" class="form-control" name="userName" placeholder="User Name" vale="${form.userName}" autofocus="">
         <br/>
         <input type="password" class="form-control" name ="password" placeholder="Password" value="">
         <br/>
