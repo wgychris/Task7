@@ -23,11 +23,11 @@
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
 				<td><fmt:formatNumber type="number" pattern="###.###"
-						value="${userFund.shares/100}" /></td>
-				<td><fmt:formatNumber type="number" pattern="###.###"
-						value="${userFund.price/1000}" /></td>
-				<td><fmt:formatNumber type="number" pattern="###.###"
-						value="${userFund.price * userFund.shares/1000}" /></td>
+						value="${userFund.shares/1000}" /></td>
+				<td><fmt:formatNumber type="number" pattern="###.##"
+						value="${userFund.price/100}" /></td>
+				<td><fmt:formatNumber type="number" pattern="###.##"
+						value="${userFund.price * userFund.shares/100}" /></td>
 				<td><a type="button" class="btn btn-default"
 					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
 			</tr>
@@ -35,7 +35,5 @@
 	</c:if>
 </table>
 
-<a type="button" class="btn btn-default btn-lg active"
-	href="c_viewAccount.do">Back</a>
 
 <jsp:include page="template-bottom.jsp" />

@@ -34,7 +34,7 @@
 							<td>${fund.symbol}</td>
 							<c:if test="${fund.price!=0}">
 							<td><fmt:formatNumber type="number" 
-            pattern="###.##" value="${fund.price}" /></td>
+            pattern="###.00" value="${fund.price/100}" /></td>
 							</c:if>
 							<c:if test="${fund.price==0}">
 							<td>No price yet</td>
@@ -47,8 +47,7 @@
 
 			</table>
 
-			<input type="button" value="Cancel"
-				class="btn btn-default btn-lg active" /><input type="submit"
+			<input type="submit"
 				class="btn btn-primary btn-lg active" name="submitCheck"
 				value="Next">
 		</form>

@@ -29,6 +29,10 @@ public class CreateEmployeeForm extends FormBean{
 		if (password == null || password.length() == 0) {
 			errors.add("password is required");
 		}
+		
+		if(!password.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$")){
+			errors.add("password must contain both character and number, the length is between 6 to 16");
+		}
 		return errors;
 	}
 	
@@ -36,25 +40,25 @@ public class CreateEmployeeForm extends FormBean{
 		return userName;
 	}
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.userName = trimAndConvert(userName,"<>\"");
 	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = trimAndConvert(password,"<>\"");
 	}
 	public String getFirstName() {
 		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = trimAndConvert(firstName,"<>\"");
 	}
 	public String getLastName() {
 		return lastName;
 	}
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = trimAndConvert(lastName,"<>\"");;
 	}
 	
 	
