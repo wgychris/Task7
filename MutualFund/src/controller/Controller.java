@@ -43,7 +43,7 @@ public class Controller extends HttpServlet {
 		Action.add(new E_ViewAccountAction(model));
 		Action.add(new C_SellFundAllAction(model));
 		Action.add(new E_CustomerManage(model));
-		Action.add(new EntryAction(model));
+		//Action.add(new EntryAction(model));
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
