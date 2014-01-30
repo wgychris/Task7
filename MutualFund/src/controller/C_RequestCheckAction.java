@@ -17,6 +17,7 @@ import utils.dataConversion;
 import databeans.CustomerBean;
 import databeans.TransactionBean;
 import formbeans.RequestCheckForm;
+
 import org.genericdao.*;
 
 public class C_RequestCheckAction extends Action {
@@ -77,6 +78,13 @@ public class C_RequestCheckAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "c_requestCheck.jsp";
+		} catch (NumberFormatException e) {
+			// System.out.print("catched");
+			errors.add("Input Amount is too large");
+			return "c_requestCheck.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

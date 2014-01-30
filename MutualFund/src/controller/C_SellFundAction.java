@@ -126,8 +126,15 @@ public class C_SellFundAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
+		} catch (NumberFormatException e) {
+			System.out.print("catched");
+			errors.add("Input Amount is too large");
+			return "c_requestCheck.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

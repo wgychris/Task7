@@ -19,6 +19,7 @@ import databeans.TransactionBean;
 import formbeans.DepositCheckForm;
 
 import org.genericdao.*;
+
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the
@@ -79,7 +80,7 @@ public class E_DepositCheckAction extends Action {
 			tb.setAmount(dataConversion.convertFromStringToThreeDigitLong(form
 					.getAmount()));
 			tb.setCustomer_id(customerId);
-			//Transaction.begin();
+			// Transaction.begin();
 			transactionDAO.createNewTransaction(tb);
 			request.setAttribute("message", "the transaction is in process");
 			Transaction.commit();
@@ -90,8 +91,14 @@ public class E_DepositCheckAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "e_depositCheck.jsp";
-		}
-		finally {
+		} catch (NumberFormatException e) {
+			System.out.print("catched");
+			errors.add("Input Amount is too large");
+			return "c_requestCheck.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

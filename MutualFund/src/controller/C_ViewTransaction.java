@@ -16,6 +16,7 @@ import databeans.TransactionBean;
 import model.FundDAO;
 import model.Model;
 import model.TransactionDAO;
+
 import org.genericdao.*;
 
 /**
@@ -144,6 +145,9 @@ public class C_ViewTransaction extends Action {
 		} catch (RollbackException e) {
 			errors.add(e.toString());
 			return "error.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

@@ -14,6 +14,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import formbeans.ChangePwdForm;
+
 import org.genericdao.*;
 
 public class C_ChangePwdAction extends Action {
@@ -72,6 +73,9 @@ public class C_ChangePwdAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
 			return "error.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

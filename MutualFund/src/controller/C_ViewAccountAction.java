@@ -21,7 +21,9 @@ import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
 import databeans.PositionBean;
 import databeans.LastFundBean;
+
 import org.genericdao.*;
+
 public class C_ViewAccountAction extends Action {
 
 	private FundDAO fundDAO;
@@ -45,7 +47,7 @@ public class C_ViewAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		try {
-			
+
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
 					"customer");
 			request.setAttribute("user", cb);
@@ -61,7 +63,7 @@ public class C_ViewAccountAction extends Action {
 							.getLastDateBeanByFundId(fundID);
 					if (fphBean != null) {
 						FundBean fundBean = fundDAO.getFundByFundId(fundID);
-//						lfb.setFund_id(fundID);
+						// lfb.setFund_id(fundID);
 						lfb.setName(fundBean.getName());
 						lfb.setSymbol(fundBean.getSymbol());
 						lfb.setShares(pBean[i].getShares());
@@ -83,8 +85,10 @@ public class C_ViewAccountAction extends Action {
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";
-		}
-		finally {
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

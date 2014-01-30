@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,7 @@ import databeans.FundBean;
 import formbeans.CreateFundForm;
 
 import org.genericdao.*;
+
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the
@@ -28,55 +28,61 @@ import org.genericdao.*;
  * his photos.
  */
 public class E_CreateFundAction extends Action {
-	private FormBeanFactory<CreateFundForm> formBeanFactory = FormBeanFactory.getInstance(CreateFundForm.class);
-	
+	private FormBeanFactory<CreateFundForm> formBeanFactory = FormBeanFactory
+			.getInstance(CreateFundForm.class);
+
 	private FundDAO fundDAO;
 
 	public E_CreateFundAction(Model model) {
-		fundDAO=model.getFundDAO();
+		fundDAO = model.getFundDAO();
 	}
 
-	public String getName() { return "e_createFund.do"; }
-    
-    public String perform(HttpServletRequest request) {
-        List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        
-        try {
-	    	CreateFundForm form = formBeanFactory.create(request);
-	        request.setAttribute("form",form);
+	public String getName() {
+		return "e_createFund.do";
+	}
 
-	        // If no params were passed, return with no errors so that the form will be
-	        // presented (we assume for the first time).
-	        if (!form.isPresent()) {
-	            return "e_createFund.jsp";
-	        }
+	public String perform(HttpServletRequest request) {
+		List<String> errors = new ArrayList<String>();
+		request.setAttribute("errors", errors);
 
-	        // Any validation errors?
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
-	            return "e_createFund.jsp";
-	        }
+		try {
+			CreateFundForm form = formBeanFactory.create(request);
+			request.setAttribute("form", form);
 
-	        // Look up the user
-	        FundBean fb=new FundBean();
-	        fb.setName(form.getFundname());
-	        fb.setSymbol(form.getSymbol());
-	        Transaction.begin();
-	        fundDAO.createAutoIncrement(fb);
-	        request.setAttribute("message","the fund has been created");
-	        Transaction.commit();
-	        return "e_success.jsp";
-        } catch (RollbackException e) {
-        	errors.add(e.getMessage());
-        	return "e_createFund.jsp";
-        } catch (FormBeanException e) {
-        	errors.add(e.getMessage());
-        	return "e_createFund.jsp";
-        }
-        finally {
+			// If no params were passed, return with no errors so that the form
+			// will be
+			// presented (we assume for the first time).
+			if (!form.isPresent()) {
+				return "e_createFund.jsp";
+			}
+
+			// Any validation errors?
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
+				return "e_createFund.jsp";
+			}
+
+			// Look up the user
+			FundBean fb = new FundBean();
+			fb.setName(form.getFundname());
+			fb.setSymbol(form.getSymbol());
+			Transaction.begin();
+			fundDAO.createAutoIncrement(fb);
+			request.setAttribute("message", "the fund has been created");
+			Transaction.commit();
+			return "e_success.jsp";
+		} catch (RollbackException e) {
+			errors.add(e.getMessage());
+			return "e_createFund.jsp";
+		} catch (FormBeanException e) {
+			errors.add(e.getMessage());
+			return "e_createFund.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
-    }
+	}
 }
