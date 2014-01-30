@@ -63,7 +63,7 @@ public class C_ChangePwdAction extends Action {
 					form.getNewPassword());
 
 			request.setAttribute("message",
-					"Password changed for " + customer.getCustomer_id());
+					"Password changed for " + customer.getUsername());
 			Transaction.commit();
 			return "c_success.jsp";
 

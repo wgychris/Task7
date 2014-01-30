@@ -8,7 +8,7 @@
 
 <p>
 	<form method="POST" action="e_create_employee.do">
-		<table>
+		<table class="table table-hover">
 			<tr>
 				<td> Employee Name: *</td>
 				<td><input type="text" name="userName" value=""/></td>
@@ -18,11 +18,11 @@
 				<td><input type="text" name="password" value=""/></td>
 			</tr>
 			<tr>
-				<td> First Name: </td>
+				<td> First Name: *</td>
 				<td><input type="text" name="firstName" value=""/></td>
 			</tr>
 			<tr>
-				<td> Last Name: </td>
+				<td> Last Name: *</td>
 				<td><input type="text" name="lastName" value=""/></td>
 			</tr>
 			

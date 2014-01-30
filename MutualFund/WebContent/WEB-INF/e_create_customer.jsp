@@ -8,9 +8,9 @@
 
 <p>
 	<form method="POST" action="e_create_customer.do">
-		<table>
+		<table class="table table-hover">
 			<tr>
-				<td> userName: *</td>
+				<td> Username: *</td>
 				<td><input type="text" name="userName" value=""/></td>
 			</tr>
 			<tr>

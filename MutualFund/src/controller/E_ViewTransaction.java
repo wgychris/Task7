@@ -34,14 +34,12 @@ public class E_ViewTransaction extends Action {
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private PositionDAO positionDAO;
 	private CustomerDAO customerDAO;
 
 	// ini DAOs
 	public E_ViewTransaction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
-		positionDAO = model.getPositionDAO();
 		customerDAO = model.getCustomerDAO();
 	}
 
@@ -111,9 +109,9 @@ public class E_ViewTransaction extends Action {
 				// tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
 
 				tt.setAmount(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getAmount() / 100);
+						.getTransactionByCustomerId(customer_id)[i].getAmount());
 				tt.setShares(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getShares() / 1000);
+						.getTransactionByCustomerId(customer_id)[i].getShares());
 				tt.setCustomer_id(transactionDAO
 						.getTransactionByCustomerId(customer_id)[i]
 						.getCustomer_id());
