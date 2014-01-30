@@ -72,10 +72,14 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 			throws RollbackException, ParseException {
 		FundPriceHistoryBean[] newBeanArray = match(MatchArg.equals("fund_id",
 				id));
+		for(FundPriceHistoryBean f:newBeanArray){
+			System.out.println(f.getDate());
+		}
 		java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat(
-				"yyyy-mm-dd");
+				"yyyy-MM-dd");
 		if (newBeanArray.length > 0) {
 			Date lastDate = new Date(0000-00-00);
+			//System.out.println(lastDate);
 			int lastDayIndex = 0;
 			for (int i = 0; i < newBeanArray.length; i++) {
 				if (newBeanArray[i].getDate() != null) {
@@ -84,6 +88,7 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 						lastDate = nextDate;
 						lastDayIndex = i;
 					}
+					//System.out.println("cur day:"+nextDate+"    last day:"+ lastDate);
 				}
 			}
 			return newBeanArray[lastDayIndex];

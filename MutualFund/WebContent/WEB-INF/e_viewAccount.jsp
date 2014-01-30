@@ -78,8 +78,6 @@
 	</c:if>
 </table>
 
-<a type="button" class="btn btn-default btn-lg active"
-	href="e_viewAllAccount.do">Back</a>
 
 
 <jsp:include page="template-bottom.jsp" />

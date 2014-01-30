@@ -83,9 +83,9 @@ public class C_ViewTransaction extends Action {
 				System.out.println("fundid is" + fundid);
 				System.out.print("3");
 				tt.setAmount(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getAmount() / 100);
+						.getTransactionByCustomerId(customer_id)[i].getAmount());
 				tt.setShares(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getShares() / 1000);
+						.getTransactionByCustomerId(customer_id)[i].getShares());
 				tt.setCustomer_id(transactionDAO
 						.getTransactionByCustomerId(customer_id)[i]
 						.getCustomer_id());

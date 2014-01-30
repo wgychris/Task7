@@ -88,7 +88,8 @@
 	</c:if>
 </table>
 
-<a type="button" class="btn btn-default btn-lg active"
-	href="c_viewAccount.do">Back</a>
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of git@github.com:wgychris/Task7.git
 <jsp:include page="template-bottom.jsp" />
