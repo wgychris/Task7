@@ -8,9 +8,9 @@
 
 <p>
 	<form method="POST" action="e_create_customer.do">
-		<table>
+		<table class="table table-hover">
 			<tr>
-				<td> userName: *</td>
+				<td> Username: *</td>
 				<td><input type="text" name="userName" value=""/></td>
 			</tr>
 			<tr>
@@ -52,8 +52,7 @@
 			<tr><td>&nbsp;  <td></tr>
 			<tr><td>&nbsp;  <td></tr>
 		</table>	
-		
-			   <button type="button" class="btn btn-default btn-lg active">Reset</button>
+	
 				<button type="submit" class="btn btn-primary btn-lg active">Submit</button>
 	</form>
 </p>

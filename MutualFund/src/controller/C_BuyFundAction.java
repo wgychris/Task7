@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import model.CustomerDAO;
 import model.FundDAO;
 import model.Model;
 import model.TransactionDAO;
@@ -35,15 +34,12 @@ import org.genericdao.*;
 public class C_BuyFundAction extends Action {
 	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory
 			.getInstance(BuyFundForm.class);
-
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private CustomerDAO customerDAO;
 
 	public C_BuyFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
-		customerDAO = model.getCustomerDAO();
 	}
 
 	public String getName() {
@@ -96,15 +92,14 @@ public class C_BuyFundAction extends Action {
 					.getFundTicker());
 			int fund_id = fundBean.getFund_id();
 			TransactionBean t = new TransactionBean();
-			// FundBean fundBean = (FundBean)
-			// fundDAO.getFundByTicker(form.getFundTicker());
 			t.setFund_id(fundBean.getFund_id());
 			t.setAmount(inputAmount);
 			t.setCustomer_id(customer.getCustomer_id());
 			t.setFund_id(fund_id);
 			t.setTransaction_type("buy");
-			customerDAO.updataTempCash(customer.getCustomer_id(),
-					customer.getTempcash() - inputAmount);
+			customer.setTempcash(customer.getTempcash() - inputAmount);
+			// customerDAO.updataTempCash(customer.getCustomer_id(),
+			// customer.getTempcash() - inputAmount);
 			transactionDAO.create(t);
 
 			request.setAttribute("message", "new fund has been bought");
