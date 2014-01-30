@@ -152,17 +152,17 @@ public class E_ViewTransaction extends Action {
 
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "e_viewTransactionHistory.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "e_viewTransactionHistory.jsp";
 		} catch (NumberFormatException e) {
 			System.out.print("catched");
 			errors.add("Input Amount is too large");
-			return "c_requestCheck.jsp";
+			return "e_viewTransactionHistory.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_viewTransactionHistory.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

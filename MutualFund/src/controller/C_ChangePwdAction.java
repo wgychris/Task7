@@ -69,13 +69,13 @@ public class C_ChangePwdAction extends Action {
 
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "c_change-pwd.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "c_change-pwd.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_change-pwd.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

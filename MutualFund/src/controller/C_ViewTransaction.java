@@ -144,10 +144,10 @@ public class C_ViewTransaction extends Action {
 			return "c_viewTransactionHistory.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "c_viewTransactionHistory.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_viewTransactionHistory.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

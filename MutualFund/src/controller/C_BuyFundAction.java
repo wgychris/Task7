@@ -116,11 +116,11 @@ public class C_BuyFundAction extends Action {
 			return "c_buyFund.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "c_requestCheck.jsp";
+			return "c_buyFund.jsp";
 		} catch (NumberFormatException e) {
 			System.out.print("catched");
 			errors.add("Input Amount is too large");
-			return "c_requestCheck.jsp";
+			return "c_buyFund.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
 			return "c_buyFund.jsp";

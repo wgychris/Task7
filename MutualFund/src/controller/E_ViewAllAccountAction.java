@@ -60,13 +60,13 @@ public class E_ViewAllAccountAction extends Action {
 		} catch (RollbackException e) {
 			System.out.print("e1");
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "e_viewAllAccount.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "e_viewAllAccount.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_viewAllAccount.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

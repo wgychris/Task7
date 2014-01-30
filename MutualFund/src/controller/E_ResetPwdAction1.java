@@ -91,13 +91,13 @@ public class E_ResetPwdAction1 extends Action {
 			return "e_reset-pfc.do";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "e_reset-pwd.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "e_reset-pwd.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_reset-pwd.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

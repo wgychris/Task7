@@ -94,10 +94,10 @@ public class E_DepositCheckAction extends Action {
 		} catch (NumberFormatException e) {
 			System.out.print("catched");
 			errors.add("Input Amount is too large");
-			return "c_requestCheck.jsp";
+			return "e_depositCheck.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_depositCheck.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

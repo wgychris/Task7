@@ -115,7 +115,7 @@ public class E_TransitionAction extends Action {
 			Date lastDate = sFormat.parse(fundPriceHistoryDAO
 					.getLastDateBeanByFundId(randomId).getDate());
 			if (!newDate.after(lastDate)) {
-				errors.add("The date is not valid");
+				errors.add("The date is not valid.New date should be after "+sFormat.format(lastDate));
 				return "e_transitionDay.jsp";
 			}
 			String[] price = form.getPrice();
@@ -240,14 +240,14 @@ public class E_TransitionAction extends Action {
 			return "e_success.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_transitionDay.jsp";
 		} catch (NumberFormatException e) {
 			System.out.print("catched");
 			errors.add("Input Amount is too large");
-			return "c_requestCheck.jsp";
+			return "e_transitionDay.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_transitionDay.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

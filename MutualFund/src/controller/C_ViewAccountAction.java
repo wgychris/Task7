@@ -80,14 +80,14 @@ public class C_ViewAccountAction extends Action {
 			return "c_viewAccount.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "c_viewAccount.jsp";
 		} catch (ParseException e) {
 			e.printStackTrace();
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "c_viewAccount.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_viewAccount.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
