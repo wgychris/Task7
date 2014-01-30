@@ -2,6 +2,7 @@ package controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import utils.dataConversion;
+import databeans.CustomerBean;
 import databeans.FundBean;
 import databeans.FundPriceHistoryBean;
 import databeans.FundWithLastPriceBean;
@@ -97,17 +99,24 @@ public class E_TransitionAction extends Action {
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				Transaction.commit();
 				return "e_transitionDay.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				Transaction.commit();
 				return "e_transitionDay.jsp";
 			}
-
+			//validate the date here
+			java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat(
+					"yyyy-mm-dd");
+			Date newDate = sFormat.parse(form.getTransitionDay());
+			int randomId=Integer.parseInt(form.getFund_id()[0]);
+			Date lastDate=sFormat.parse(fundPriceHistoryDAO.getLastDateBeanByFundId(randomId).getDate());
+			if (!newDate.after(lastDate)) {
+				errors.add("The date is not valid");
+				return "e_transitionDay.jsp";
+			}
 			String[] price = form.getPrice();
 			String[] fund_id = form.getFund_id();
 			// here,we have to control the update price
@@ -218,21 +227,22 @@ public class E_TransitionAction extends Action {
 							+ am);
 				}
 			}
+			//finally, we have to update the temp cash for every customer
+			CustomerBean[] customers=customerDAO.getAllCustomers();
+			for(int i=0;i<customers.length;i++){
+				customerDAO.updataTempCash(customers[i].getCustomer_id(), customers[i].getCash());
+			}
 			request.setAttribute("message",
 					"the transitionDay is updated successfully");
 			Transaction.commit();
 			return "e_success.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
-		} catch (FormBeanException e) {
+			return "e_transitionDay.jsp.jsp";
+		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			errors.add(e.getMessage());
-			return "error-list.jsp";
-		} finally {
+			return "e_transitionDay.jsp.jsp";
+		}  finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

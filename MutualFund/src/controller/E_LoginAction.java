@@ -78,6 +78,7 @@ public class E_LoginAction extends Action {
 	
 	        // Attach (this copy of) the user bean to the session
 	        HttpSession session = request.getSession();
+	        session.setMaxInactiveInterval(600);
 	        session.setAttribute("employee",employee);
 
 	        Transaction.commit();
