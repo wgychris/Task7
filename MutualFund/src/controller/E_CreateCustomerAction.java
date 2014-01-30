@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import model.CustomerDAO;
 import model.Model;
 
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
@@ -53,12 +54,23 @@ public class E_CreateCustomerAction extends Action {
 	        if (!form.isPresent()) {
 	            return "e_create_customer.jsp";
 	        }
-
+	        
+	      
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
 	            return "e_create_customer.jsp";
 	        }
+	       
+	        
+	        Transaction.begin();
+	        if(customerDAO.getCustomerId(form.getUserName())!=-1){
+	        	errors.add("UserName is already existed!");
+	            return "e_create_customer.jsp";
+	        }
+	        Transaction.commit();
+	        
+	        
 
 	        // Look up the user
 	        CustomerBean cb=new CustomerBean();

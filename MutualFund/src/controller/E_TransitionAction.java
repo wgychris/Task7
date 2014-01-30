@@ -132,7 +132,7 @@ public class E_TransitionAction extends Action {
 				long updatePrice = dataConversion
 						.convertFromStringToTwoDigitLong(price[i]);
 				historyBean.setPrice(updatePrice);
-				fundPriceHistoryDAO.create(historyBean);
+				fundPriceHistoryDAO.createNewFundPriceHistory(historyBean);
 				map.put(fund_id[i], price[i]);
 			}
 

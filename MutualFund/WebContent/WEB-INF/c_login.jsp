@@ -12,9 +12,7 @@
         <br/>
         <input type="password" class="form-control" name ="password" placeholder="Password" value="">
         
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> <h5>Remember me</h5>
-        </label>
+       <br/>
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
