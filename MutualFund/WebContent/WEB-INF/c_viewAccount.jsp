@@ -67,7 +67,8 @@
 			<tr>
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
-				<td>${userFund.shares}</td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,##0.000" value="${userFund.shares/1000}" /></td>
 				<td><fmt:formatNumber type="number" 
             pattern="###,##0.00" value="${userFund.price/100}" /></td>
 				<td><fmt:formatNumber type="number" 
