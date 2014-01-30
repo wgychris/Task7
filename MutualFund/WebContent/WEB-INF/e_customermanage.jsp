@@ -96,30 +96,30 @@
 	<c:forEach items="${users}" var="user">
 			<tr>
 			
-				<td>${user.customer_id}</td>
-				<td>${user.username}</td>
-				<td>${user.firstname}</td>
-				<td>${user.lastname}</td>
-				<td><fmt:formatNumber type="number" pattern="###,##0.00" value="${user.cash/100}"/></td>
+				<td>${users.customer_id}</td>
+				<td>${users.username}</td>
+				<td>${users.firstname}</td>
+				<td>${users.lastname}</td>
+				<td><fmt:formatNumber type="number" pattern="###,##0.00" value="${users.cash/100}"/></td>
 				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${user.tempcash/100}" /></td>
+            pattern="###,##0.00" value="${users.tempcash/100}" /></td>
 				<th>
 					<form action="e_reset-pfc.do" method = "post">
-					<input type="hidden" name="username" value="${user.username }" />
+					<input type="hidden" name="username" value="${users.username }" />
 					<input type="submit" value="ChangePassword" class="tfbutton">
 					</form>
 				</th>
 				
 				<th>
 					<form action="e_viewAllAccount.do" method = "post">
-					<input type="hidden" name="username" value="${user.username}" />
+					<input type="hidden" name="username" value="${users.username}" />
 					<input type="submit" value="ViewAccount" class="tfbutton">
 					</form>
 				</th>
 				
 				<th>
 					<form action="e_viewTransactionHistory.do" method = "post">
-					<input type="hidden" name="username" value="${ user.username }" />
+					<input type="hidden" name="username" value="${ users.username }" />
 					<input type="submit" value="TransactionHistory" class="tfbutton">
 					</form>
 				</th>

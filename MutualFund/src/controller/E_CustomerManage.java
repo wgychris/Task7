@@ -63,27 +63,23 @@ public class E_CustomerManage extends Action {
 			// check if the customer username exist
 			// return -1 means this user not existed
 			Transaction.begin();
-			//int customer_id = customerDAO.getCustomerId(form.getUsername());
+			int customer_id = customerDAO.getCustomerId(form.getUsername());
 
-			CustomerBean [] cbs = customerDAO.getRelateCustomers(form.getUsername());
-			/*if (customer_id == -1) {
+			// CustomerBean [] cbs = customerDAO.getAllCustomers();
+			if (customer_id == -1) {
 				errors.add("Invalid User Name");
 				Transaction.commit();
 				return "e_customermanage.jsp";
-			}*/
-			//System.out.println(form.getUsername());
-			//CustomerBean cb = customerDAO.read(customer_id);
-			//System.out.println(cb.getUsername() + "by bean");
+			}
+			System.out.println(form.getUsername());
+			CustomerBean cb = customerDAO.read(customer_id);
+			System.out.println(cb.getUsername() + "by bean");
 
 			/*
 			 * send customer bean to jsp as "users" could add other params like
 			 * first name, last name
 			 */
-			if(cbs.length==0){
-				errors.add("No related customer");
-				return "e_customermanage.jsp";
-			}
-			request.setAttribute("users", cbs);
+			request.setAttribute("users", cb);
 			// request.setAttribute("users", cbs);
 			Transaction.commit();
 			return "e_customermanage.jsp";
