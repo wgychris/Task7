@@ -1,4 +1,8 @@
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <jsp:include page="template-top2.jsp" />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="error-list.jsp" />
 <style type="text/css">
@@ -62,7 +66,7 @@
 	clear: both;
 }
 </style>
-
+<div style="position: relative;">
 <div class="page-header">
 	<h1>Customer Management</h1>
 </div>
@@ -79,7 +83,7 @@
 <table class="table table-hover">
 	<c:if test="${requestScope.users!= null}">
 		<thead>
-			<th>Customer ID</th>
+			<th>C-ID</th>
 			<th>UserName</th>
 			<th>FirstName</th>
 			<th>LastName</th>
@@ -87,7 +91,7 @@
 			<th>Avaliable Cash</th>
 			<th>ChangePassword</th>
 			<th>ViewAccount</th>
-			<th>ViewTransactionHistory</th>
+			<th>TransactionHistory</th>
 		</thead>
 	<c:forEach items="${users}" var="user">
 			<tr>
@@ -96,12 +100,11 @@
 				<td>${users.username}</td>
 				<td>${users.firstname}</td>
 				<td>${users.lastname}</td>
-				<td><fmt:formatNumber type="number" 
-            pattern="###,##0.00" value="${users.cash}" /></td>
+				<td><fmt:formatNumber type="number" pattern="###,##0.00" value="${users.cash/100}"/></td>
 				<td><fmt:formatNumber type="number" 
             pattern="###,##0.00" value="${users.tempcash/100}" /></td>
 				<th>
-					<form action="e_reset-pfc.do" method = "get">
+					<form action="e_reset-pfc.do" method = "post">
 					<input type="hidden" name="username" value="${users.username }" />
 					<input type="submit" value="ChangePassword" class="tfbutton">
 					</form>
@@ -117,7 +120,7 @@
 				<th>
 					<form action="e_viewTransactionHistory.do" method = "post">
 					<input type="hidden" name="username" value="${ users.username }" />
-					<input type="submit" value="ViewTransactionHistory" class="tfbutton">
+					<input type="submit" value="TransactionHistory" class="tfbutton">
 					</form>
 				</th>
 			
@@ -125,5 +128,5 @@
 		</c:forEach>
 	</c:if>
 </table>
-
+</div>
 <jsp:include page="template-bottom.jsp" />

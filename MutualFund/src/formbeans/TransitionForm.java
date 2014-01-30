@@ -42,6 +42,14 @@ public class TransitionForm extends FormBean {
 		if (!dataConversion.isDate(transitionDay)) {
 			errors.add("TransitionDay is not valid");
 		}
+		for(String s:price){
+			if (s == null || s.length() == 0) {
+				errors.add("Prices for all funds are required");
+			}
+		}
+		if(fund_id.length!=price.length){
+			errors.add("You have to enter price for each fund");
+		}
 		return errors;
 	}
 }

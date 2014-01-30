@@ -58,6 +58,17 @@ public class E_CreateEmployeeAction extends Action {
 	            return "e_create_employee.jsp";
 	        }
 
+	        /*
+	         * duplicated username is not allowed;
+	         */
+	        Transaction.begin();
+	        if(employeeDAO.getCustomerInfo(form.getUserName())!=null){
+	        	errors.add("UserName is already existed!");
+	            return "e_create_employee.jsp";
+	        }
+	        Transaction.commit();
+	        
+	        
 	        // Look up the user
 	        EmployeeBean cb=new EmployeeBean();
 	        cb.setUsername(form.getUserName());

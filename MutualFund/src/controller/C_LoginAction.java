@@ -77,6 +77,7 @@ public class C_LoginAction extends Action {
 	
 	        // Attach (this copy of) the user bean to the session
 	        HttpSession session = request.getSession();
+	        session.setMaxInactiveInterval(600);
 	        session.setAttribute("customer",customer);
 	        Transaction.commit();
 	        return "c_viewAccount.do";
