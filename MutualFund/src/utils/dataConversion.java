@@ -119,6 +119,6 @@ public class dataConversion {
 	}
 	
 	public static void main(String args[]) {
-		System.out.println(validDoubleMoreThanZero("10000000.000"));
+		System.out.println(convertFromStringToTwoDigitLong("33.3354"));
 	}
 }

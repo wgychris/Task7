@@ -231,7 +231,7 @@ public class E_TransitionAction extends Action {
 					// the share is correct
 					double amount = tbs[i].getShares() * updatePrice;
 					long am = dataConversion
-							.convertFromDoubleToTwoDigitLong(amount);
+							.convertFromDoubleToTwoDigitLong(amount/100000);
 					tbs[i].setAmount(am);
 					tbs[i].setExecute_date(form.getTransitionDay());
 					transactionDAO.update(tbs[i]);
