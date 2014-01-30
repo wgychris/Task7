@@ -73,17 +73,13 @@ public class C_ViewAccountAction extends Action {
 			}
 			request.setAttribute("day", list.size() == 0 ? "No trading day"
 					: list.get(0).getPrice_date());
-			System.out.print("!!!3");
 			request.setAttribute("userFundList", list);
-			System.out.print("return");
 			Transaction.commit();
 			return "c_viewAccount.jsp";
 		} catch (RollbackException e) {
-			System.out.print("" + e.toString());
 			errors.add(e.toString());
 			return "error-list.jsp";
 		} catch (ParseException e) {
-			System.out.print("" + e.toString());
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";

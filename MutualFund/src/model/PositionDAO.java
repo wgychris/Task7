@@ -5,9 +5,7 @@ import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
-import org.genericdao.Transaction;
 
-import databeans.CustomerBean;
 import databeans.PositionBean;
 
 public class PositionDAO extends GenericDAO<PositionBean>{
@@ -90,13 +88,9 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 	public PositionBean[] getAllPositionsByCustomerIdBeans (int customer_id) throws RollbackException {
 //		Transaction.begin();
 		PositionBean[] newBeanArray = match(MatchArg.equals("customer_id", customer_id));
-		System.out.print("In getAllPositionsByCustomerIdBeans:");
 		if(newBeanArray != null && newBeanArray.length > 0) {
-			System.out.print("get position successfully \n");
 			return newBeanArray;
 		}
-		System.out.print("get position failed \n");
-		
 		return null;
 
 	}

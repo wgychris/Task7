@@ -36,10 +36,10 @@ td.right {
 	<div id="right"
 		style="position: relative; float: left; margin-left: 100px;">
 		<label id="cashbalance">Cash Balance : </label><br /> <label>$</label>
-		<fmt:formatNumber type="number" pattern="###.##"
+		<fmt:formatNumber type="number" pattern="###,##0.00"
 			value="${sessionScope.customer.cash/100}" />
 		<br /> <label id="availablecash">Available Cash : </label> <br /> <label>$</label>
-		<fmt:formatNumber type="number" pattern="###.##"
+		<fmt:formatNumber type="number" pattern="###,##0.00"
 			value="${sessionScope.customer.tempcash/100}" />
 	</div>
 </div>

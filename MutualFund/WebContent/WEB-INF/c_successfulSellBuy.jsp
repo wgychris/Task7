@@ -19,9 +19,12 @@
 					</form> -->
 					${cusInfo.fundId}
 				</td>
-				<td>${cusInfo.shares}</td>
-				<td>${cusInfo.amount}</td>
-				<td>${cusInfo.price}</td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,##0.000" value="${cusInfo.shares/1000}" /></td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,##0.00" value="${cusInfo.amount/100}" /></td>
+				<td><fmt:formatNumber type="number" 
+            pattern="###,##0.00" value="${cusInfo.price/100}" /></td>
 				<td>${cusInfo.status}</td>
 			</tr>
 		</c:forEach>

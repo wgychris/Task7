@@ -8,7 +8,6 @@ import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
-import org.genericdao.Transaction;
 
 import databeans.*;
 
@@ -75,7 +74,6 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 				id));
 		java.text.SimpleDateFormat sFormat = new java.text.SimpleDateFormat(
 				"yyyy-mm-dd");
-		//System.out.print("In getLastDateByFundId: ");
 		if (newBeanArray.length > 0) {
 			Date lastDate = new Date(0000-00-00);
 			int lastDayIndex = 0;
@@ -88,11 +86,8 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 					}
 				}
 			}
-
-			//System.out.print("find lastDate successfully \n");
 			return newBeanArray[lastDayIndex];
 		}
-		//System.out.print("find lastDate falied \n");
 		return null;
 
 	}

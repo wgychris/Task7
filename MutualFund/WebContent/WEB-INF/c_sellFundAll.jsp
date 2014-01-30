@@ -22,14 +22,14 @@
 			<tr>
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
-				<td><fmt:formatNumber type="number" pattern="###.###"
+				<td><fmt:formatNumber type="number" pattern="###,##0.000"
 						value="${userFund.shares/1000}" /></td>
-				<td><fmt:formatNumber type="number" pattern="###.##"
+				<td><fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${userFund.price/100}" /></td>
-				<td><fmt:formatNumber type="number" pattern="###.##"
+				<td><fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${userFund.price * userFund.shares/100}" /></td>
 				<td><a type="button" class="btn btn-default"
-					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
+					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price/100}">Sell</a></td>
 			</tr>
 		</c:forEach>
 	</c:if>
