@@ -23,8 +23,8 @@ public class CreateCustomerForm extends FormBean{
 		if (userName == null || userName.length() == 0) {
 			errors.add("customer name is required");
 		}
-		if(!cash.matches("-?\\d+(\\.\\d+)?")){
-			errors.add("cash is not a number");
+		if(!cash.matches("-?\\d+(\\.\\d+)?")&&cash.length()!=0){
+			errors.add("Cash is not a number");
 		}
 		if (firstName == null || firstName.length() == 0) {
 			errors.add("firstName is required");
