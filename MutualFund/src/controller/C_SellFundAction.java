@@ -84,6 +84,7 @@ public class C_SellFundAction extends Action {
 				request.getSession().setAttribute("fund2", fundBean);
 				request.getSession().setAttribute("fundname", name);	
 				System.out.println("fund name beofre return is" + name);
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			
@@ -110,6 +111,7 @@ public class C_SellFundAction extends Action {
 				
 				
 
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 			String testname = (String) request.getSession().getAttribute("fundname");
