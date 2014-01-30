@@ -1,7 +1,7 @@
 <jsp:include page="template-top2.jsp" />
 <body>
 	<p style="font-size: medium">
-	<h2>Reset Password For ${cb.username }</h2>
+	<h2>Reset Password For ${user}</h2>
 
 	<jsp:include page="error-list.jsp" />
 
