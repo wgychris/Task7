@@ -5,14 +5,14 @@
 <jsp:include page="error-list.jsp" />
 
 <div>
-	<h1>Transition Day</h1>
+	<h1>Transition Day </h1>
 	<div>
 		<form action="e_transitionDay.do" method="POST">
 			<table class="table">
 				<tr>
 					<td>Trading Day:</td>
 					<td><input type="text" name="transitionDay"
-						placeholder="later than the previously ended trading day" value="" /></td>
+						placeholder="later than ${lastdate}" value="" /></td>
 				</tr>
 			</table>
 

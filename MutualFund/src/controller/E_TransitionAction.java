@@ -95,16 +95,31 @@ public class E_TransitionAction extends Action {
 				fundsWithPrice[i] = fw;
 			}
 			request.setAttribute("funds", fundsWithPrice);
+			TransactionBean[] temp = transactionDAO.getAllTransactions();
+			int count;
+			for(count = 0;count<transactionDAO.getCount();count++){
+				if(temp[count].getExecute_date().length()==0){
+					break;
+				}
+			}
+			String lastdate;
+			if(count==0){
+				lastdate = "null";
+			}
+			lastdate = temp[count-1].getExecute_date();
+			request.setAttribute("lastdate", lastdate);
 			// If no params were passed, return with no errors so that the form
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
+				Transaction.commit();
 				return "e_transitionDay.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
+				Transaction.commit();
 				return "e_transitionDay.jsp";
 			}
 			// validate the date here
@@ -116,6 +131,7 @@ public class E_TransitionAction extends Action {
 					.getLastDateBeanByFundId(randomId).getDate());
 			if (!newDate.after(lastDate)) {
 				errors.add("The date is not valid.New date should be after "+sFormat.format(lastDate));
+				Transaction.commit();
 				return "e_transitionDay.jsp";
 			}
 			String[] price = form.getPrice();
