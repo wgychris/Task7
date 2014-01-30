@@ -19,6 +19,7 @@ import model.PositionDAO;
 import model.TransactionDAO;
 
 import org.genericdao.*;
+
 public class E_CustomerManage extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);
@@ -64,7 +65,7 @@ public class E_CustomerManage extends Action {
 			Transaction.begin();
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
 
-//			CustomerBean [] cbs = customerDAO.getAllCustomers();
+			// CustomerBean [] cbs = customerDAO.getAllCustomers();
 			if (customer_id == -1) {
 				errors.add("Invalid User Name");
 				Transaction.commit();
@@ -72,14 +73,14 @@ public class E_CustomerManage extends Action {
 			}
 			System.out.println(form.getUsername());
 			CustomerBean cb = customerDAO.read(customer_id);
-			System.out.println(cb.getUsername()+"by bean");
-			
+			System.out.println(cb.getUsername() + "by bean");
+
 			/*
-			 * send customer bean to jsp as "users"
-			 * could add other params like first name, last name
+			 * send customer bean to jsp as "users" could add other params like
+			 * first name, last name
 			 */
 			request.setAttribute("users", cb);
-//			request.setAttribute("users", cbs);
+			// request.setAttribute("users", cbs);
 			Transaction.commit();
 			return "e_customermanage.jsp";
 		} catch (RollbackException e) {
@@ -88,8 +89,10 @@ public class E_CustomerManage extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
-		}
-		finally {
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

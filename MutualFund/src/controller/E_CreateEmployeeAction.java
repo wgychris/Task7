@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,7 @@ import databeans.EmployeeBean;
 import formbeans.CreateEmployeeForm;
 
 import org.genericdao.*;
+
 /*
  * Processes the parameters from the form in login.jsp.
  * If successful, set the "user" session attribute to the
@@ -28,67 +28,72 @@ import org.genericdao.*;
  * his photos.
  */
 public class E_CreateEmployeeAction extends Action {
-	private FormBeanFactory<CreateEmployeeForm> formBeanFactory = FormBeanFactory.getInstance(CreateEmployeeForm.class);
-	
+	private FormBeanFactory<CreateEmployeeForm> formBeanFactory = FormBeanFactory
+			.getInstance(CreateEmployeeForm.class);
+
 	private EmployeeDAO employeeDAO;
 
 	public E_CreateEmployeeAction(Model model) {
 		employeeDAO = model.getEmployeeDAO();
 	}
 
-	public String getName() { return "e_create_employee.do"; }
-    
-    public String perform(HttpServletRequest request) {
-        List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        
-        try {
-	    	CreateEmployeeForm form = formBeanFactory.create(request);
-	        request.setAttribute("form",form);
+	public String getName() {
+		return "e_create_employee.do";
+	}
 
-	        // If no params were passed, return with no errors so that the form will be
-	        // presented (we assume for the first time).
-	        if (!form.isPresent()) {
-	            return "e_create_employee.jsp";
-	        }
+	public String perform(HttpServletRequest request) {
+		List<String> errors = new ArrayList<String>();
+		request.setAttribute("errors", errors);
 
-	        // Any validation errors?
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
-	            return "e_create_employee.jsp";
-	        }
+		try {
+			CreateEmployeeForm form = formBeanFactory.create(request);
+			request.setAttribute("form", form);
 
-	        /*
-	         * duplicated username is not allowed;
-	         */
-	        Transaction.begin();
-	        if(employeeDAO.getCustomerInfo(form.getUserName())!=null){
-	        	errors.add("UserName is already existed!");
-	            return "e_create_employee.jsp";
-	        }
-	        Transaction.commit();
-	        
-	        
-	        // Look up the user
-	        EmployeeBean cb=new EmployeeBean();
-	        cb.setUsername(form.getUserName());
-	        cb.setFirstname(form.getFirstName());
-	        cb.setLastname(form.getLastName());
-	        cb.setPassword(form.getPassword());
-	        Transaction.begin();
-	        employeeDAO.create(cb);
-	        request.setAttribute("message","new employee has been added");
-	        Transaction.commit();
-	        return "e_success.jsp";
-        } catch (FormBeanException e) {
-        	errors.add(e.getMessage());
-        	return "error-list.jsp";
-        } catch (RollbackException e) {
-        	return "error-list.jsp";
-		}
-        finally {
+			// If no params were passed, return with no errors so that the form
+			// will be
+			// presented (we assume for the first time).
+			if (!form.isPresent()) {
+				return "e_create_employee.jsp";
+			}
+
+			// Any validation errors?
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
+				return "e_create_employee.jsp";
+			}
+
+			/*
+			 * duplicated username is not allowed;
+			 */
+			Transaction.begin();
+			if (employeeDAO.getCustomerInfo(form.getUserName()) != null) {
+				errors.add("UserName is already existed!");
+				return "e_create_employee.jsp";
+			}
+			Transaction.commit();
+
+			// Look up the user
+			EmployeeBean cb = new EmployeeBean();
+			cb.setUsername(form.getUserName());
+			cb.setFirstname(form.getFirstName());
+			cb.setLastname(form.getLastName());
+			cb.setPassword(form.getPassword());
+			Transaction.begin();
+			employeeDAO.create(cb);
+			request.setAttribute("message", "new employee has been added");
+			Transaction.commit();
+			return "e_success.jsp";
+		} catch (FormBeanException e) {
+			errors.add(e.getMessage());
+			return "error-list.jsp";
+		} catch (RollbackException e) {
+			return "error-list.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
-    }
+	}
 }

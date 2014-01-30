@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import databeans.CustomerBean;
 import databeans.EmployeeBean;
 import model.Model;
-import org.genericdao.*;
+
 @SuppressWarnings("serial")
 public class Controller extends HttpServlet {
 
@@ -43,6 +43,7 @@ public class Controller extends HttpServlet {
 		Action.add(new E_ViewAccountAction(model));
 		Action.add(new C_SellFundAllAction(model));
 		Action.add(new E_CustomerManage(model));
+		//Action.add(new EntryAction(model));
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -75,28 +76,35 @@ public class Controller extends HttpServlet {
 
 		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
 
-		if (action.equals("c_login.do") || action.equals("admin_login.do")) {
-			// Allow these actions without logging in
-			return Action.perform(action, request);
+		if (action.startsWith("c_") && customerBean != null) {
+			return Action.perform(
+					action.equals("c_login.do") ? "c_viewAccount.do" : action,
+					request);
 		}
-		
-		if (customerBean != null && action.startsWith("c_"))
+		if (action.startsWith("e_")) {
+			if (employeeBean != null) {
+				return Action.perform(action, request);
+			} else
+				return Action.perform("admin_login.do", request);
+		}
+		if (action.equals("admin_login.do")) {
+			return Action.perform(employeeBean != null ? "e_viewAccount.do"
+					: action, request);
+		}
+		if (action.equals("c_login.do") && customerBean == null) {
 			return Action.perform(action, request);
-		else if (employeeBean != null && action.startsWith("e_"))
-			return Action.perform(action, request);
-		else{
-			return Action.perform("c_login.do", request);
 		}
 
-		/*if (customerBean == null) {
-			// If the user hasn't logged in, direct him to the login page
-			if (employeeBean == null)
-				return Action.perform("c_login.do", request);
-			else
-				return Action.perform(action, request);
-		}*/
+		return Action.perform("entry.do", request);
+
+		/*
+		 * if (customerBean == null) { // If the user hasn't logged in, direct
+		 * him to the login page if (employeeBean == null) return
+		 * Action.perform("c_login.do", request); else return
+		 * Action.perform(action, request); }
+		 */
 		// Let the logged in user run his chosen action
-		//return Action.perform(action, request);
+		// return Action.perform(action, request);
 	}
 
 	/*

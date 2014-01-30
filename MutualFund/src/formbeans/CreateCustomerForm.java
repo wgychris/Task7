@@ -25,7 +25,7 @@ public class CreateCustomerForm extends FormBean{
 		if (userName == null || userName.length() == 0) {
 			errors.add("customer name is required");
 		}
-		if(!cash.matches("-?\\d+(\\.\\d+)?")){
+		if(!cash.matches("-?\\d+(\\.\\d+)?")&&cash.length()!=0){
 			errors.add("cash is not a number");
 		}else if(!dataConversion.validDoubleNotNegative(cash)){
 			errors.add("cash is not a valid number");

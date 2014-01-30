@@ -24,6 +24,7 @@ import databeans.PositionBean;
 import databeans.LastFundBean;
 
 import org.genericdao.*;
+
 public class E_ViewAccountAction extends Action {
 	private PositionDAO positionDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
@@ -88,8 +89,10 @@ public class E_ViewAccountAction extends Action {
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";
-		}
-		finally {
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

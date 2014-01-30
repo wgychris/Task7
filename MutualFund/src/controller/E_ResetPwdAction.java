@@ -22,6 +22,7 @@ import formbeans.CreateCustomerForm;
 import formbeans.SearchCustomerName;
 
 import org.genericdao.*;
+
 public class E_ResetPwdAction extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);
@@ -94,8 +95,10 @@ public class E_ResetPwdAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
 			return "error.jsp";
-		}
-		finally {
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

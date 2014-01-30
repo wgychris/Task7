@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="template-top.jsp" />
-
+<jsp:include page="error-list.jsp" />
 <div style="position: relative;">
 	<style type="text/css">
 td.right {

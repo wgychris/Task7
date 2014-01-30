@@ -59,7 +59,7 @@ public class C_ResearchFundAction extends Action {
 			// Any validation errors?
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				// System.out.print("!! not exist !! \n");
-				
+
 				errors.add("No such fund exists");
 			}
 			// System.out.print("come here! \n");
@@ -89,6 +89,9 @@ public class C_ResearchFundAction extends Action {
 			return "error-list.jsp";
 		} catch (RollbackException e) {
 			return "error-list.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

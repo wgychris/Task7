@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,61 +17,68 @@ import databeans.EmployeeBean;
 import formbeans.ChangePwdForm;
 
 import org.genericdao.*;
+
 public class E_ChangePwdAction extends Action {
-	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
-	
+	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory
+			.getInstance(ChangePwdForm.class);
+
 	private EmployeeDAO employeeDAO;
 
 	public E_ChangePwdAction(Model model) {
 		employeeDAO = model.getEmployeeDAO();
 	}
 
-	public String getName() { return "e_change-pwd.do"; }
-    
-	
-    public String perform(HttpServletRequest request) {
-    	// Set up error list
-        List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
+	public String getName() {
+		return "e_change-pwd.do";
+	}
 
-        try {
+	public String perform(HttpServletRequest request) {
+		// Set up error list
+		List<String> errors = new ArrayList<String>();
+		request.setAttribute("errors", errors);
 
-	        
-	        // Load the form parameters into a form bean
-	        ChangePwdForm form = formBeanFactory.create(request);
-	        
-	        // If no params were passed, return with no errors so that the form will be
-	        // presented (we assume for the first time).
-	        if (!form.isPresent()) {
-	            return "e_change-pwd.jsp";
-	        }
-	
-	        // Check for any validation errors
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
-	            return "e_change-pwd.jsp";
-	        }
-	
-	        EmployeeBean employee = (EmployeeBean) request.getSession().getAttribute("employee");
-	
+		try {
+
+			// Load the form parameters into a form bean
+			ChangePwdForm form = formBeanFactory.create(request);
+
+			// If no params were passed, return with no errors so that the form
+			// will be
+			// presented (we assume for the first time).
+			if (!form.isPresent()) {
+				return "e_change-pwd.jsp";
+			}
+
+			// Check for any validation errors
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
+				return "e_change-pwd.jsp";
+			}
+
+			EmployeeBean employee = (EmployeeBean) request.getSession()
+					.getAttribute("employee");
+
 			// Change the password
-	        Transaction.begin();
-        	employeeDAO.changePassword(employee.getUsername(),form.getNewPassword());
-	
-			request.setAttribute("message","Password changed for "+employee.getUsername());
+			Transaction.begin();
+			employeeDAO.changePassword(employee.getUsername(),
+					form.getNewPassword());
+
+			request.setAttribute("message",
+					"Password changed for " + employee.getUsername());
 			Transaction.commit();
-	        return "e_success.jsp";
-        } catch (RollbackException e) {
-        	errors.add(e.toString());
-        	return "error.jsp";
-        } catch (FormBeanException e) {
-        	errors.add(e.toString());
-        	return "error.jsp";
-        }
-        finally {
+			return "e_success.jsp";
+		} catch (RollbackException e) {
+			errors.add(e.toString());
+			return "error.jsp";
+		} catch (FormBeanException e) {
+			errors.add(e.toString());
+			return "error.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}
-    }
+	}
 }
-
