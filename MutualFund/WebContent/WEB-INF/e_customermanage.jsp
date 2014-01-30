@@ -1,4 +1,5 @@
 <jsp:include page="template-top2.jsp" />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="error-list.jsp" />
 <style type="text/css">
