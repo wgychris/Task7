@@ -21,6 +21,7 @@ import databeans.CustomerBean;
 import formbeans.SearchCustomerName;
 
 import org.genericdao.*;
+
 public class E_ViewAllAccountAction extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);
@@ -44,7 +45,7 @@ public class E_ViewAllAccountAction extends Action {
 			int customer_id = customerDAO.getCustomerId(form.getUsername());
 			CustomerBean cb = customerDAO.getCustomerInfo(customer_id);
 
-			Transaction.commit();//??
+			Transaction.commit();// ??
 			if (!form.isPresent()) {
 				return "e_viewAllAccount.jsp";
 			}
@@ -63,8 +64,10 @@ public class E_ViewAllAccountAction extends Action {
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
 			return "error-list.jsp";
-		}
-		finally {
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
 		}

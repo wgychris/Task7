@@ -12,6 +12,7 @@ import model.Model;
 import model.PositionDAO;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
 import databeans.CustomerBean;
 import databeans.FundBean;
@@ -42,6 +43,7 @@ public class C_SellFundAllAction extends Action {
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
 					"customer");
 			request.setAttribute("user", cb);
+			Transaction.begin();
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
@@ -64,14 +66,26 @@ public class C_SellFundAllAction extends Action {
 				}
 			}
 			request.setAttribute("userFundList", list);
+			Transaction.commit();
+
 			return "c_sellFundAll.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
 			return "error-list.jsp";
+		} catch (NumberFormatException e) {
+			System.out.print("catched");
+			errors.add("Input Amount is too large");
+			return "c_requestCheck.jsp";
 		} catch (ParseException e) {
 			e.printStackTrace();
 			errors.add(e.toString());
 			return "error-list.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "e_transitionDay.jsp.jsp";
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }
