@@ -90,13 +90,13 @@ public class E_ResetPfcAction extends Action {
 			return "c_success_forE.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "e_reset-pfc.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "e_reset-pfc.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_reset-pfc.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

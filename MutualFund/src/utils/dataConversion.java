@@ -82,7 +82,43 @@ public class dataConversion {
 		return sb.toString();
 	}
 
-//	public static void main(String args[]) {
-//		System.out.println(convertFromLongToTwoDigString(10000000));
-//	}
+	public static boolean validLongMoreThanZero(String price) {
+		try {
+			long p=Long.parseLong(price);
+			if(p<=0){
+				return false;
+			}
+		} catch (Exception ex) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean validDoubleMoreThanZero(String price) {
+		try {
+			double p=Double.parseDouble(price);
+			if(p<=0){
+				return false;
+			}
+		} catch (Exception ex) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean validDoubleNotNegative(String price) {
+		try {
+			double p=Double.parseDouble(price);
+			if(p<0){
+				return false;
+			}
+		} catch (Exception ex) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static void main(String args[]) {
+		System.out.println(validDoubleMoreThanZero("10000000.000"));
+	}
 }

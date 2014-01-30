@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import utils.dataConversion;
+
 public class DepositCheckForm extends FormBean {
 	private String customer;
 	private String amount;
@@ -31,6 +33,8 @@ public class DepositCheckForm extends FormBean {
 		}
 		if(!amount.matches("-?\\d+(\\.\\d+)?")){
 			errors.add("amount is not a number");
+		}else if(dataConversion.validDoubleMoreThanZero(amount)){
+			errors.add("amount is not a valid number");
 		}
 		if (customer == null || customer.length() == 0) {
 			errors.add("customer is required");

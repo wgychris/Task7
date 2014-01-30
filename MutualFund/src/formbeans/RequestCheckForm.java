@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import utils.dataConversion;
+
 public class RequestCheckForm extends FormBean {
 	private String checkAmt;
 	private String amountId;
@@ -31,6 +33,8 @@ public class RequestCheckForm extends FormBean {
 		}
 		if(!checkAmt.matches("-?\\d+(\\.\\d+)?")){
 			errors.add("Invalid amount");
+		}else if(dataConversion.validDoubleMoreThanZero(checkAmt)){
+			errors.add("check amount is not a valid number");
 		}
 		
 		return errors;

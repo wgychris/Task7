@@ -85,13 +85,13 @@ public class E_CustomerManage extends Action {
 			return "e_customermanage.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error.jsp";
+			return "e_customermanage.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "e_customermanage.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "e_customermanage.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

@@ -71,18 +71,18 @@ public class C_SellFundAllAction extends Action {
 			return "c_sellFundAll.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "c_sellFundAll.jsp";
 		} catch (NumberFormatException e) {
 			System.out.print("catched");
 			errors.add("Input Amount is too large");
-			return "c_requestCheck.jsp";
+			return "c_sellFundAll.jsp";
 		} catch (ParseException e) {
 			e.printStackTrace();
 			errors.add(e.toString());
-			return "error-list.jsp";
+			return "c_sellFundAll.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_sellFundAll.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

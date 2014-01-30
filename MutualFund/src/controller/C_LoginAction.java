@@ -88,12 +88,12 @@ public class C_LoginAction extends Action {
 			return "c_viewAccount.do";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "c_login.jsp";
 		} catch (RollbackException e) {
-			return "error-list.jsp";
+			return "c_login.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_login.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

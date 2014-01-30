@@ -84,7 +84,7 @@ public class C_RequestCheckAction extends Action {
 			return "c_requestCheck.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "e_transitionDay.jsp.jsp";
+			return "c_requestCheck.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
