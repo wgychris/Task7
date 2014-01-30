@@ -46,6 +46,10 @@ public class TransitionForm extends FormBean {
 			if (s == null || s.length() == 0) {
 				errors.add("Prices for all funds are required");
 			}
+			if(!dataConversion.validDoubleMoreThanZero(s)){
+				errors.add("Prices are not valid");
+				break;
+			}
 		}
 		if(fund_id.length!=price.length){
 			errors.add("You have to enter price for each fund");

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import utils.dataConversion;
+
 public class BuyFundForm extends FormBean {
 	private String fundTicker;
 	private String amount;
@@ -33,6 +35,8 @@ public class BuyFundForm extends FormBean {
 		if (amount == null || amount.length() == 0) {
 			errors.add("Amount is required");
 		} else if(!amount.matches("-?\\d+(\\.\\d+)?")){
+			errors.add("Invalid amount");
+		} else if(!dataConversion.validDoubleMoreThanZero(amount)){
 			errors.add("Invalid amount");
 		}
 		return errors;
