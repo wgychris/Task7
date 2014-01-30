@@ -84,8 +84,7 @@ public class C_BuyFundAction extends Action {
 			long inputAmount = dataConversion
 					.convertFromStringToTwoDigitLong(form.getAmount());
 			if (inputAmount > customer.getTempcash()) {
-				errors.add("Amount should not be greater than"
-						+ customer.getTempcash());
+				errors.add("Amount should not be greater than available cash");
 				return "c_buyFund.jsp";
 
 			}
@@ -111,11 +110,12 @@ public class C_BuyFundAction extends Action {
 			Transaction.commit();
 			return "c_success.jsp";
 
-		} catch (FormBeanException e) {
-			errors.add(e.getMessage());
-			return "error-list.jsp";
 		} catch (RollbackException e) {
-			return "error-list.jsp";
+			errors.add(e.getMessage());
+			return "c_buyFund.jsp";
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return "c_buyFund.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
