@@ -29,6 +29,7 @@ public class E_ResetPfcAction extends Action {
 	}
 
 	public String getName() {
+		
 		return "e_reset-pfc.do";
 	}
 
@@ -46,6 +47,10 @@ public class E_ResetPfcAction extends Action {
 		String username = (String) request.getParameter("username");
 		System.out.println(username);
 
+		if(username==""){
+			errors.add("Please Give User Name in the Search Bar");
+			return "e_customermanage.jsp";
+		}
 		try {
 
 			// Load the form parameters into a form bean
