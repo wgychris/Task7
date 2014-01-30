@@ -34,11 +34,17 @@
     	  data.addRows(jsArr.length);
     	  //alert(jsArr.length);
     	  <%  
-    	    for (int i=0; i < fps.length; i++) {  
+    	    for (int i=0; i < fps.length; i++) {
+    	    	if(i==0 || i==fps.length-1){
     	    %>
     	    data.setValue(<%= i %>,0, jsArr[<%= i %>]);
     	    data.setValue(<%= i %>,1, parseInt(jsArr2[<%= i %>]));
-    	    <%}%>
+    	    <%}else{%>
+    	    data.setValue(<%= i %>,0, "");
+    	    data.setValue(<%= i %>,1, parseInt(jsArr2[<%= i %>]));
+    	    <%}
+    	    }
+    	  %>
     	  
         var options = {
           title: 'Price history'

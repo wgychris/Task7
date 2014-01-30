@@ -48,7 +48,7 @@
 							</h2>
 					</div>
 					<div id="left" style="position: relative; float: left;">
-						<a type="button" class="btn btn-primary" href="c_login.do">Custom</a>
+						<a type="button" class="btn btn-primary" href="c_login.do">Customer</a>
 					</div>
 					<div id="right"
 						style="position: relative; float: left; margin-left: 100px;">

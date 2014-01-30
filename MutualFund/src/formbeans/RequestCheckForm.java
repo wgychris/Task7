@@ -33,7 +33,7 @@ public class RequestCheckForm extends FormBean {
 		}
 		if(!checkAmt.matches("-?\\d+(\\.\\d+)?")){
 			errors.add("Invalid amount");
-		}else if(dataConversion.validDoubleMoreThanZero(checkAmt)){
+		}else if(!dataConversion.validDoubleMoreThanZero(checkAmt)){
 			errors.add("check amount is not a valid number");
 		}
 		

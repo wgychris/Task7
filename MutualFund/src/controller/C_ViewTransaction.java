@@ -59,49 +59,29 @@ public class C_ViewTransaction extends Action {
 					.getTransactionByCustomerId(customer_id);
 			// TransactionBean[] tbarray =
 			// transactionDAO.getTransactionByCustomerId(1); //test user id is 1
+			System.out.print("-1");
+			//System.out.println(tbarray[0].getTransaction_id());
 
-			System.out.println(tbarray[0].getTransaction_id());
-
-			int length = transactionDAO.getTransactionByCustomerId(customer_id).length;
+			int length = 0;
+			if(transactionDAO.getTransactionByCustomerId(customer_id) != null){
+				 length = transactionDAO.getTransactionByCustomerId(customer_id).length;
+			}
 			// int length = transactionDAO.getTransactionByCustomerId(1).length;
 			System.out.println("length is " + length);
 			ArrayList<TempTransaction> al = new ArrayList<TempTransaction>();
-
+			System.out.print("1");
 			for (int i = 0; i < length; i++) {
 				TempTransaction tt = new TempTransaction(); // need to create
 															// new object for
 															// each loop!!!
 				// int fundid =
 				// transactionDAO.getTransactionByCustomerId(1)[i].getFund_id();
+				System.out.print("2");
 				int fundid = transactionDAO
 						.getTransactionByCustomerId(customer_id)[i]
 						.getFund_id();
 				System.out.println("fundid is" + fundid);
-
-				/*
-				 * These are for testing
-				 * tt.setAmount(transactionDAO.getTransactionByCustomerId
-				 * (1)[i].getAmount()/100);
-				 * tt.setShares(transactionDAO.getTransactionByCustomerId
-				 * (1)[i].getShares()/1000);
-				 * 
-				 * tt.setCustomer_id(transactionDAO.getTransactionByCustomerId(1)
-				 * [i].getCustomer_id());
-				 * tt.setExecute_date((transactionDAO.getTransactionByCustomerId
-				 * (1)[i].getExecute_date()));
-				 * tt.setFund_id((transactionDAO.getTransactionByCustomerId
-				 * (1)[i].getFund_id()));
-				 * tt.setTransaction_id(transactionDAO.getTransactionByCustomerId
-				 * (1)[i].getTransaction_id()); //
-				 * System.out.println("transaction id is "
-				 * +transactionDAO.getTransactionByCustomerId
-				 * (1)[i].getTransaction_id());
-				 * tt.setTransaction_type((transactionDAO
-				 * .getTransactionByCustomerId(1)[i].getTransaction_type()));
-				 * 
-				 * tt.setName(fundDAO.getFundByFundId(fundid).getName());
-				 * tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
-				 */
+				System.out.print("3");
 				tt.setAmount(transactionDAO
 						.getTransactionByCustomerId(customer_id)[i].getAmount() / 100);
 				tt.setShares(transactionDAO
@@ -146,6 +126,7 @@ public class C_ViewTransaction extends Action {
 			errors.add(e.toString());
 			return "c_viewTransactionHistory.jsp";
 		} catch (Exception e) {
+			System.out.print("in exception" + e.getMessage());
 			errors.add(e.getMessage());
 			return "c_viewTransactionHistory.jsp";
 		} finally {
