@@ -1,7 +1,7 @@
 <jsp:include page="template-top2.jsp" />
 
 <div class="page-header">
-  <h1>Create Employee Account:</h1>
+  <h1>Create Employee Account</h1>
 </div>
 
 <jsp:include page="error-list.jsp" />
@@ -34,7 +34,7 @@
 		    <tr><td>&nbsp;  <td></tr>
 			<tr><td>&nbsp;  <td></tr>
 		</table>
-			   <button type="button" class="btn btn-default btn-lg active">Reset</button>
+
 				<button type="submit" class="btn btn-primary btn-lg active">Submit</button>
 			
 		

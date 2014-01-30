@@ -34,8 +34,7 @@ String myPage = "c_viewAccount.do";
 			<td>
 		</tr>
 	</table>
-	<input type="button" onclick="javascript:cancelAction();" class="btn btn-default btn-lg active" value="Cancel"></a>
-	<input type="button" value="Add" onClick="javascript:window.location='<%= myPage %>';"> 
+	
 	<button type="submit" class="btn btn-primary btn-lg active">Submit</button>
 </form>
 </p>
