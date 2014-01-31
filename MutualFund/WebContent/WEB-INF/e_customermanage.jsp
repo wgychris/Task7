@@ -1,6 +1,6 @@
 
 <%@page import="databeans.CustomerBean"%>
-<%@page import="com.apple.eawt.AppEvent.UserSessionEvent"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="template-top2.jsp" />
