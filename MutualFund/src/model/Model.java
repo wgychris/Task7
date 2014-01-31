@@ -45,7 +45,6 @@ public class Model {
 		}catch (DAOException e) {
 			throw new ServletException(e);
 		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
