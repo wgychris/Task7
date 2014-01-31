@@ -45,6 +45,7 @@ public class dataConversion {
 		try {
 			java.text.SimpleDateFormat sf = new java.text.SimpleDateFormat(
 					"yyyy-mm-dd");
+			if(s.compareTo("2999-12-31")>0) throw new Exception("Date should not later than 2999-12-31");
 			sf.parse(s);
 		} catch (Exception ex) {
 			return false;
