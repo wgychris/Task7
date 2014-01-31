@@ -68,6 +68,7 @@ public class E_CreateCustomerAction extends Action {
 			Transaction.begin();
 			if (customerDAO.getCustomerId(form.getUserName()) != -1) {
 				errors.add("UserName is already existed!");
+				Transaction.commit();
 				return "e_create_customer.jsp";
 			}
 			Transaction.commit();

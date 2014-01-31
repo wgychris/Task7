@@ -26,7 +26,6 @@ public class Model {
 			
 			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL);
 			//+"?user=yusiz&password=leoryzu521"
-			//
 			cDAO  = new CustomerDAO("customer", pool);
 			eDAO = new EmployeeDAO("employee",pool);
 			positionDAO = new PositionDAO("position",pool);
@@ -46,7 +45,6 @@ public class Model {
 		}catch (DAOException e) {
 			throw new ServletException(e);
 		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

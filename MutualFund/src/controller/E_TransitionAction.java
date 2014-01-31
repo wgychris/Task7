@@ -104,7 +104,14 @@ public class E_TransitionAction extends Action {
 			} else {
 				lastdate = temp[count - 1].getExecute_date();
 			}
-			request.setAttribute("lastdate", lastdate);
+			
+			//check number of items in the fundpricehistory table, return the last indext.
+			//its date is the last trading day.
+			//becuse each transition day the pricehistory table will chang, transaction table may not.
+			int itemcount = fundPriceHistoryDAO.getCount();
+			String lastpricedate = fundPriceHistoryDAO.getAllFundPriceHistory()[itemcount-1].getDate();
+			request.setAttribute("lastdate", lastpricedate);
+			
 			// If no params were passed, return with no errors so that the form
 			// will be presented (we assume for the first time).
 			if (!form.isPresent()) {
