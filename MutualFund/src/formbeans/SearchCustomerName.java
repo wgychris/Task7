@@ -10,9 +10,9 @@ import org.mybeans.form.FormBean;
 
 /**
  * @author yusizhang
- *
+ * 
  */
-public class SearchCustomerName extends FormBean{
+public class SearchCustomerName extends FormBean {
 	private String username;
 
 	public String getUsername() {
@@ -20,12 +20,13 @@ public class SearchCustomerName extends FormBean{
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = trimAndConvert(username, "<>\"");
+		;
 	}
-	
-	public List<String> getValidationErrors(){
+
+	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
-		if(username==null || username.length()==0){
+		if (username == null || username.length() == 0) {
 			errors.add("User Name is required");
 		}
 		return errors;

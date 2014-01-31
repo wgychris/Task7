@@ -17,15 +17,15 @@ public class ChangePwdForm extends FormBean {
 	public String getNewPassword() {
 		return newPassword;
 	}
-	
+
 	public void setConfirmPassword(String s) {
-		confirmPassword = s.trim();
+		confirmPassword = trimAndConvert(s, "<>\"");
 	}
 
 	public void setNewPassword(String s) {
-		newPassword = s.trim();
+		newPassword = trimAndConvert(s, "<>\"");
 	}
-	
+
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 
@@ -36,11 +36,12 @@ public class ChangePwdForm extends FormBean {
 		if (confirmPassword == null || confirmPassword.length() == 0) {
 			errors.add("Confirm Pwd is required");
 		}
-		
-		if(!newPassword.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$")){
+
+		if (!newPassword
+				.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$")) {
 			errors.add("password must contain both character and number, the length is between 6 to 16");
 		}
-		
+
 		if (!newPassword.equals(confirmPassword)) {
 			errors.add("Passwords do not match");
 		}
@@ -51,5 +52,4 @@ public class ChangePwdForm extends FormBean {
 		return errors;
 	}
 
-	
 }
