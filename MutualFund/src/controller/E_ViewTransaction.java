@@ -98,16 +98,6 @@ public class E_ViewTransaction extends Action {
 				int fundid = transactionDAO
 						.getTransactionByCustomerId(customer_id)[i]
 						.getFund_id();
-				// These are for testing
-				// tt.setAmount(transactionDAO.getTransactionByCustomerId(1)[i].getAmount()/100);
-				// tt.setShares(transactionDAO.getTransactionByCustomerId(1)[i].getShares()/1000);
-				// tt.setCustomer_id(transactionDAO.getTransactionByCustomerId(1)[i].getCustomer_id());
-				// tt.setExecute_date((transactionDAO.getTransactionByCustomerId(1)[i].getExecute_date()));
-				// tt.setFund_id((transactionDAO.getTransactionByCustomerId(1)[i].getFund_id()));
-				// tt.setTransaction_id(transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_id());
-				// tt.setTransaction_type((transactionDAO.getTransactionByCustomerId(1)[i].getTransaction_type()));
-				// tt.setName(fundDAO.getFundByFundId(fundid).getName());
-				// tt.setSymbol(fundDAO.getFundByFundId(fundid).getSymbol());
 
 				tt.setAmount(transactionDAO
 						.getTransactionByCustomerId(customer_id)[i].getAmount());
