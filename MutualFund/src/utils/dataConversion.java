@@ -118,6 +118,18 @@ public class dataConversion {
 		return true;
 	}
 	
+	public static boolean validLessThanMillion(String price) {
+		try {
+			double p=Double.parseDouble(price);
+			if(p>1000000){
+				return false;
+			}
+		} catch (Exception ex) {
+			return false;
+		}
+		return true;
+	}
+	
 	public static void main(String args[]) {
 		System.out.println(convertFromStringToTwoDigitLong("33.3354"));
 	}

@@ -50,6 +50,10 @@ public class TransitionForm extends FormBean {
 				errors.add("Prices are not valid");
 				break;
 			}
+			if(!dataConversion.validLessThanMillion(s)){
+				errors.add("Prices are too large, please check it again");
+				break;
+			}
 		}
 		if(fund_id.length!=price.length){
 			errors.add("You have to enter price for each fund");
