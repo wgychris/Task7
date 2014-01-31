@@ -50,25 +50,41 @@ public class C_SellFundAction extends Action {
 		try {
 			SellFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
-
+			
 			// If no params were passed, return with no errors so that the form
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
+				Transaction.begin();
 				name = request.getParameter("name");
 				price = request.getParameter("price");
 				if (name == null || name == "" || price == null || price == "") {
 					errors.add("Please choose a fund to sell");
 					return "c_sellFundAll.jsp";
 				}
+				
 				FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
 				CustomerBean c = (CustomerBean) request.getSession().getAttribute("customer");
 				PositionBean positionBean = (PositionBean) positionDAO.getPosition(
 						c.getCustomer_id(), fundBean.getFund_id());
-				request.setAttribute("fund", fundBean);
-				request.setAttribute("position", positionBean);
+				//first time we get here, put into session immediatelly
 				request.getSession().setAttribute("price", price);
 				request.getSession().setAttribute("name", name);
+				//next time we revisit the page, we retrive info from session
+				HttpSession session = request.getSession();
+				name = (String) session.getAttribute("name");
+				price = (String) session.getAttribute("price");
+				
+				//set fundBean c position from by name from session
+				fundBean = (FundBean) fundDAO.getFundByName(name);
+				c = (CustomerBean) session.getAttribute("customer");
+				positionBean = (PositionBean) positionDAO.getPosition(
+						c.getCustomer_id(), fundBean.getFund_id());
+				
+				
+				request.setAttribute("fund", fundBean);
+				request.setAttribute("position", positionBean);
+				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
 
