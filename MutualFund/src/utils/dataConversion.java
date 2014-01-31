@@ -130,6 +130,14 @@ public class dataConversion {
 		return true;
 	}
 	
+	public static boolean validStringLength(String str) {
+		if(str==null || str.length()==0 || str.length()>30){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	public static void main(String args[]) {
 		System.out.println(convertFromStringToTwoDigitLong("33.3354"));
 	}

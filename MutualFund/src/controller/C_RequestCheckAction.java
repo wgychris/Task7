@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.CustomerDAO;
 import model.Model;
 import model.TransactionDAO;
 
@@ -25,9 +26,11 @@ public class C_RequestCheckAction extends Action {
 			.getInstance(RequestCheckForm.class);
 
 	private TransactionDAO transactionDAO;
+	private CustomerDAO customerDAO;
 
 	public C_RequestCheckAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
+		customerDAO=model.getCustomerDAO();
 	}
 
 	public String getName() {
@@ -41,22 +44,29 @@ public class C_RequestCheckAction extends Action {
 		try {
 			RequestCheckForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
+			Transaction.begin();
+			HttpSession session = request.getSession();
+			CustomerBean cb = (CustomerBean) session.getAttribute("customer");
+			int id=cb.getCustomer_id();
+			CustomerBean c=customerDAO.getCustomerInfo(id);
+			session.setAttribute("customer", c);
 			if (!form.isPresent()) {
+				Transaction.commit();
 				return "c_requestCheck.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
+				Transaction.commit();
 				return "c_requestCheck.jsp";
 			}
 			long inpuntAmount = dataConversion
 					.convertFromStringToTwoDigitLong(form.getCheckAmt());
-			HttpSession session = request.getSession();
-			CustomerBean c = (CustomerBean) session.getAttribute("customer");
 			long tmpCash = c.getTempcash();
 			if (inpuntAmount > tmpCash) {
 				errors.add("Amount should not be greater than " + tmpCash);
+				Transaction.commit();
 				return "c_requestCheck.jsp";
 			}
 			TransactionBean tb = new TransactionBean();
@@ -64,11 +74,9 @@ public class C_RequestCheckAction extends Action {
 			tb.setTransaction_type("request");
 			tb.setAmount(inpuntAmount);
 			tb.setCustomer_id(1);
-
-			Transaction.begin();
-
 			transactionDAO.createNewTransaction(tb);
 			request.setAttribute("message", "the transaction is in process");
+			session.setAttribute("customer", c);
 			Transaction.commit();
 			return "c_success.jsp";
 
