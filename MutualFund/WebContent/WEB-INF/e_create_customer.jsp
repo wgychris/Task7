@@ -43,7 +43,7 @@
 			</tr>
 			<tr>
 				<td> Zip: *</td>
-				<td><input type="text" name="zipCode" value=""/></td>
+				<td><input type="text" name="zip" value=""/></td>
 			</tr>
 			<tr>
 				<td> Cash: </td>
