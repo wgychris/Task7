@@ -25,28 +25,28 @@
 					<tr>
 						<th>FundName</th>
 						<th>Ticker</th>
-						<th>Last Closing Price</th>
-						<th>New Closing Price</th>
+						<th class="text-right">Last Closing Price</th>
+						<th class="text-right">New Closing Price</th>
 					</tr>
 				</thead>
-				<tboday> <c:if test="${requestScope.funds!= null}">
+				<tbody> <c:if test="${requestScope.funds!= null}">
 					<c:forEach items="${requestScope.funds}" var="fund">
 						<tr>
 							<td>${fund.name}</td>
 							<td>${fund.symbol}</td>
 							<c:if test="${fund.price!=0}">
-								<td><fmt:formatNumber type="number" pattern="###,##0.00"
+								<td align="right">$<fmt:formatNumber type="number" pattern="###,##0.00"
 										value="${fund.price/100}" /></td>
 							</c:if>
 							<c:if test="${fund.price==0}">
-								<td>No price yet</td>
+								<td align="right">No price yet</td>
 							</c:if>
-							<td><input type="text" placeholder="0.00" name="price"
+							<td align="right"><input type="text" placeholder="0.00" name="price"
 								value="" /> <input type="hidden" name="fund_id"
 								value="${fund.fund_id }"></td>
 						</tr>
 					</c:forEach>
-				</c:if> </tboday>
+				</c:if> </tbody>
 
 			</table>
 

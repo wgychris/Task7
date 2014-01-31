@@ -41,14 +41,13 @@ public class ChangePwdForm extends FormBean {
 			errors.add("password must contain both character and number, the length is between 6 to 16");
 		}
 		
-		if (errors.size() > 0) {
-			return errors;
-		}
-
 		if (!newPassword.equals(confirmPassword)) {
 			errors.add("Passwords do not match");
 		}
 
+		if (errors.size() > 0) {
+			return errors;
+		}
 		return errors;
 	}
 
