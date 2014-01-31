@@ -16,7 +16,7 @@
         <td width="20px" bgcolor="#2c3742" >&nbsp;</td>
         <td width="500px" bgcolor="#2c3742">
         
-            	<h1 style="color:white"><p class="text-center">Mutual Fund</p></h1>
+            	<h1 style="color:white"><p class="text-center">Carnegie Financial Services</p></h1>
             	
 		</td>
     </tr>

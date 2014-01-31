@@ -13,16 +13,16 @@
 
 <c:if test="${! empty temptransactions}">
 	<table class="table table-hover">
-		<tr>
-			<td>Transaction_ID</td>
-			<td>Fund Name</td>
-			<td>Fund Ticker</td>
-			<td>Execute Date</td>
-			<td>Shares</td>
-			<td>Type</td>
-			<td>Amount</td>
+		<thead>
+			<th>Transaction_ID</td>
+			<th>Fund Name</td>
+			<th>Fund Ticker</td>
+			<th>Execute Date</td>
+			<th class="text-right">Shares</td>
+			<th>Type</td>
+			<th class="text-right">Amount</td>
 
-		</tr>
+		</thead>
 
 		<c:forEach var="transaction" items="${temptransactions}">
 			<tr>
@@ -32,14 +32,14 @@
 				<td>${transaction.symbol}</td>
 				<td>${transaction.execute_date}</td>
 				<c:if test="${transaction.shares != 0}">
-					<td><fmt:formatNumber type="number" pattern="###,##0.000"
+					<td align="right"><fmt:formatNumber type="number" pattern="###,##0.000"
 							value="${transaction.shares/1000}" /></td>
 				</c:if>
 				<c:if test="${transaction.shares == 0}">
-					<td>-</td>
+					<td align="right">-</td>
 				</c:if>
 				<td>${transaction.transaction_type}</td>
-				<td><fmt:formatNumber type="number" pattern="###,##0.00"
+				<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${transaction.amount/100}" /></td>
 
 			</tr>
