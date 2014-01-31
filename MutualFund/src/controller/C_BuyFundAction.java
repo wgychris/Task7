@@ -54,6 +54,7 @@ public class C_BuyFundAction extends Action {
 		request.setAttribute("errors", errors);
 
 		try {
+			Transaction.begin();
 			BuyFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 
@@ -73,7 +74,8 @@ public class C_BuyFundAction extends Action {
 
 			CustomerBean customer = (CustomerBean) session
 					.getAttribute("customer");
-
+			int id=customer.getCustomer_id();
+			CustomerBean cb=customerDAO.getCustomerInfo(id);
 			if (!fundDAO.checkFundByTicker(form.getFundTicker())) {
 				errors.add("Invalid ticker");
 				return "c_buyFund.jsp";
@@ -83,14 +85,12 @@ public class C_BuyFundAction extends Action {
 			// .convertFromStringToThreeDigitLong(form.getAmount());
 			long inputAmount = dataConversion
 					.convertFromStringToTwoDigitLong(form.getAmount());
-			if (inputAmount > customer.getTempcash()) {
+			if (inputAmount > cb.getTempcash()) {
 				errors.add("Amount should not be greater than available cash");
 				return "c_buyFund.jsp";
 
 			}
 
-			// try {
-			Transaction.begin();
 			FundBean fundBean = (FundBean) fundDAO.getFundByTicker(form
 					.getFundTicker());
 			int fund_id = fundBean.getFund_id();
@@ -107,7 +107,9 @@ public class C_BuyFundAction extends Action {
 			transactionDAO.create(t);
 
 			request.setAttribute("message", "new fund has been bought");
+			session.setAttribute("customer", customer);
 			Transaction.commit();
+			
 			return "c_success.jsp";
 
 		} catch (RollbackException e) {

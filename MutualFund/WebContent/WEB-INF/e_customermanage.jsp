@@ -1,10 +1,8 @@
 
 <%@page import="databeans.CustomerBean"%>
-<%@page import="com.apple.eawt.AppEvent.UserSessionEvent"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="template-top2.jsp" />
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="error-list.jsp" />
 <style type="text/css">
@@ -101,7 +99,6 @@
 			%>
 			<tr>
 
-<<<<<<< HEAD
 				<td><%=user.getCustomer_id() %></td>
 				<td><%=user.getUsername() %></td>
 				<td><%=user.getFirstname() %></td>
@@ -116,7 +113,7 @@
 						<input type="submit" value="ChangePassword" class="tfbutton">
 					</form>
 				</th>
-=======
+
 					<td>${users.customer_id}</td>
 					<td>${users.username}</td>
 					<td>${users.firstname}</td>
