@@ -19,7 +19,7 @@
         </init-param>
         <init-param>
           <param-name>    jdbcURL                 </param-name> 
-	      <!-- <param-value>   jdbc:mysql:///mutual    </param-value> -->
+	      <!--  <param-value>   jdbc:mysql:///mutual    </param-value>  -->
 	      
        <param-value>   jdbc:mysql://aa1tacu8b2o73o8.caqnzxxu2pxb.us-east-1.rds.amazonaws.com:3306/ebdb</param-value>
         </init-param>

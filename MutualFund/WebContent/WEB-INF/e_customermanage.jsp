@@ -1,8 +1,10 @@
 
 <%@page import="databeans.CustomerBean"%>
+<%@page import="com.apple.eawt.AppEvent.UserSessionEvent"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="template-top2.jsp" />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="error-list.jsp" />
 <style type="text/css">
@@ -98,7 +100,6 @@
 			for(CustomerBean user:users){
 			%>
 			<tr>
-
 				<td><%=user.getCustomer_id() %></td>
 				<td><%=user.getUsername() %></td>
 				<td><%=user.getFirstname() %></td>
@@ -113,23 +114,6 @@
 						<input type="submit" value="ChangePassword" class="tfbutton">
 					</form>
 				</th>
-
-					<td>${users.customer_id}</td>
-					<td>${users.username}</td>
-					<td>${users.firstname}</td>
-					<td>${users.lastname}</td>
-					<td align="right">$<fmt:formatNumber type="number" pattern="###,##0.00"
-							value="${users.cash/100}" /></td>
-					<td align="right">$<fmt:formatNumber type="number" pattern="###,##0.00"
-							value="${users.tempcash/100}" /></td>
-					<th>
-						<form action="e_reset-pfc.do" method="post">
-							<input type="hidden" name="username" value="${users.username }" />
-							<input type="submit" value="ChangePassword" class="tfbutton">
-						</form>
-					</th>
->>>>>>> branch 'master' of git@github.com:wgychris/Task7.git
-
 				<th>
 					<form action="e_viewAllAccount.do" method="post">
 						<input type="hidden" name="username" value="<%=user.getUsername() %>" />
