@@ -14,9 +14,9 @@
 		<td>Fund Name</td>
 		<td>Fund Ticker</td>
 		<td>Execute Date</td>
-		<td>Shares</td>
+		<td align="right">Shares</td>
 		<td>Type</td>
-		<td>Amount</td>
+		<td align="right">Amount</td>
 
 	</tr>
 	<c:forEach var="transaction" items="${temptransactions}">
@@ -26,10 +26,10 @@
 			<td>${transaction.name}</td>
 			<td>${transaction.symbol}</td>
 			<td>${transaction.execute_date}</td>
-			<td><fmt:formatNumber type="number" pattern="###,##0.000"
+			<td align="right"><fmt:formatNumber type="number" pattern="###,##0.000"
 					value="${transaction.shares/1000}" /></td>
 			<td>${transaction.transaction_type}</td>
-			<td><fmt:formatNumber type="number" pattern="###,##0.00"
+			<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
 					value="${transaction.amount/100}" /></td>
 		</tr>
 	</c:forEach>
