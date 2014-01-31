@@ -200,6 +200,7 @@ public class E_TransitionAction extends Action {
 						PositionBean pb = positionDAO
 								.getPosition(cusid, fundid);
 						pb.setShares(pb.getShares() + sh);
+						pb.setTempshares(pb.getShares());
 						positionDAO.update(pb);
 					}
 					customerDAO.updataCash(tbs[i].getCustomer_id(),currentCash - tbs[i].getAmount());
@@ -225,6 +226,7 @@ public class E_TransitionAction extends Action {
 								"system error with sell fund");
 					} else {
 						pb.setShares(pb.getShares() - tbs[i].getShares());
+						pb.setTempshares(pb.getShares());
 						positionDAO.update(pb);
 					}
 					
