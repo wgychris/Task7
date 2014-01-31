@@ -35,7 +35,7 @@
 							<td>${fund.name}</td>
 							<td>${fund.symbol}</td>
 							<c:if test="${fund.price!=0}">
-								<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
+								<td align="right">$<fmt:formatNumber type="number" pattern="###,##0.00"
 										value="${fund.price/100}" /></td>
 							</c:if>
 							<c:if test="${fund.price==0}">
