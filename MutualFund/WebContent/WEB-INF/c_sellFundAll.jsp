@@ -13,22 +13,22 @@
 		<thead>
 			<th>Fund name</th>
 			<th>Fund ticker</th>
-			<th>Shares</th>
-			<th>Last price</th>
-			<th>Value</th>
-			<th>Operation</th>
+			<th class="text-right">Shares</th>
+			<th class="text-right">Last price</th>
+			<th class="text-right">Value</th>
+			<th class="text-right">Operation</th>
 		</thead>
 		<c:forEach items="${requestScope.userFundList}" var="userFund">
 			<tr>
 				<td>${userFund.name}</td>
 				<td>${userFund.symbol}</td>
-				<td><fmt:formatNumber type="number" pattern="###,##0.000"
+				<td align="right"><fmt:formatNumber type="number" pattern="###,##0.000"
 						value="${userFund.shares/1000}" /></td>
-				<td><fmt:formatNumber type="number" pattern="###,##0.00"
+				<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${userFund.price/100}" /></td>
-				<td><fmt:formatNumber type="number" pattern="###,##0.00"
+				<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${userFund.price * userFund.shares/100000}" /></td>
-				<td><a type="button" class="btn btn-default"
+				<td align="right"><a type="button" class="btn btn-default"
 					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
 			</tr>
 		</c:forEach>

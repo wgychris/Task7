@@ -87,8 +87,8 @@
 				<th>UserName</th>
 				<th>FirstName</th>
 				<th>LastName</th>
-				<th>Cash</th>
-				<th>Avaliable Cash</th>
+				<th class="text-right">Cash</th>
+				<th class="text-right">Avaliable Cash</th>
 				<th>ChangePassword</th>
 				<th>ViewAccount</th>
 				<th>TransactionHistory</th>
@@ -100,9 +100,9 @@
 					<td>${users.username}</td>
 					<td>${users.firstname}</td>
 					<td>${users.lastname}</td>
-					<td><fmt:formatNumber type="number" pattern="###,##0.00"
+					<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
 							value="${users.cash/100}" /></td>
-					<td><fmt:formatNumber type="number" pattern="###,##0.00"
+					<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
 							value="${users.tempcash/100}" /></td>
 					<th>
 						<form action="e_reset-pfc.do" method="post">

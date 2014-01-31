@@ -57,11 +57,21 @@ public class E_CreateFundAction extends Action {
 			}
 
 			// Any validation errors?
+			
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				return "e_createFund.jsp";
 			}
-
+			
+			if(fundDAO.checkFundByName(form.getFundname())){
+				errors.add("the fund Name is already existed");
+				return "e_createFund.jsp";
+			}
+			
+			if(fundDAO.checkFundByTicker(form.getSymbol())){
+				errors.add("the fund ticker is already existed");
+				return "e_createFund.jsp";
+			}
 			// Look up the user
 			FundBean fb = new FundBean();
 			fb.setName(form.getFundname());
