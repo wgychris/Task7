@@ -20,7 +20,8 @@
 		style="position: relative; float: left; margin-left: 100px;">
 		<label id="fundname">Fund Name : </label><br /> <label>${fund.name}
 		</label><br /> <label id="price">Last price : </label><br /> <label>$</label>
-		<fmt:formatNumber type="number" pattern="###,##0.00" value="${price/100}" />
+		<fmt:formatNumber type="number" pattern="###,##0.00"
+			value="${price/100}" />
 		<br /> <label id="shares">Shares : </label><br /> <label></label>
 		<fmt:formatNumber type="number" pattern="###,##0.000"
 			value="${position.shares/1000}" />
