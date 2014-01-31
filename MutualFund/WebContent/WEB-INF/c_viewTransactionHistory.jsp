@@ -34,7 +34,7 @@
 				<td align="right">-</td>
 			</c:if>
 			<td>${transaction.transaction_type}</td>
-			<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
+			<td align="right">$<fmt:formatNumber type="number" pattern="###,##0.00"
 					value="${transaction.amount/100}" /></td>
 		</tr>
 	</c:forEach>

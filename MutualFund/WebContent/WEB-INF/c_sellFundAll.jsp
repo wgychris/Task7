@@ -24,9 +24,9 @@
 				<td>${userFund.symbol}</td>
 				<td align="right"><fmt:formatNumber type="number" pattern="###,##0.000"
 						value="${userFund.shares/1000}" /></td>
-				<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
+				<td align="right">$<fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${userFund.price/100}" /></td>
-				<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
+				<td align="right">$<fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${userFund.price * userFund.shares/100000}" /></td>
 				<td align="right"><a type="button" class="btn btn-default"
 					href="c_sellFund.do?name=${userFund.name}&price=${userFund.price}">Sell</a></td>
