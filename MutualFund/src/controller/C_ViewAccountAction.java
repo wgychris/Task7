@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import model.CustomerDAO;
 import model.FundDAO;
 import model.FundPriceHistoryDAO;
 import model.Model;
@@ -29,12 +31,15 @@ public class C_ViewAccountAction extends Action {
 	private FundDAO fundDAO;
 	private PositionDAO positionDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
+	private CustomerDAO customerDAO;
 
 	// ini DAOs
 	public C_ViewAccountAction(Model model) {
 		positionDAO = model.getPositionDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		fundDAO = model.getFundDAO();
+		customerDAO=model.getCustomerDAO();
+		
 	}
 
 	@Override
@@ -48,10 +53,15 @@ public class C_ViewAccountAction extends Action {
 		request.setAttribute("errors", errors);
 		try {
 
-			CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
-					"customer");
-			request.setAttribute("user", cb);
+			//CustomerBean cb = (CustomerBean) request.getSession().getAttribute(
+					//"customer");
 			Transaction.begin();
+			HttpSession session = request.getSession();
+			CustomerBean customer = (CustomerBean) session
+					.getAttribute("customer");
+			int id=customer.getCustomer_id();
+			CustomerBean cb=customerDAO.getCustomerInfo(id);
+			request.setAttribute("user", cb);
 			PositionBean[] pBean = positionDAO
 					.getAllPositionsByCustomerIdBeans(cb.getCustomer_id());
 			ArrayList<LastFundBean> list = new ArrayList<LastFundBean>();
