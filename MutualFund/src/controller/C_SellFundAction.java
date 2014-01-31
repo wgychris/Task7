@@ -55,14 +55,13 @@ public class C_SellFundAction extends Action {
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				Transaction.begin();
 				name = request.getParameter("name");
 				price = request.getParameter("price");
 				if (name == null || name == "" || price == null || price == "") {
 					errors.add("Please choose a fund to sell");
 					return "c_sellFundAll.jsp";
 				}
-				
+				Transaction.begin();
 				FundBean fundBean = (FundBean) fundDAO.getFundByName(name);
 				CustomerBean c = (CustomerBean) request.getSession().getAttribute("customer");
 				PositionBean positionBean = (PositionBean) positionDAO.getPosition(
@@ -70,20 +69,8 @@ public class C_SellFundAction extends Action {
 				//first time we get here, put into session immediatelly
 				request.getSession().setAttribute("price", price);
 				request.getSession().setAttribute("name", name);
-				//next time we revisit the page, we retrive info from session
-				HttpSession session = request.getSession();
-				name = (String) session.getAttribute("name");
-				price = (String) session.getAttribute("price");
-				
-				//set fundBean c position from by name from session
-				fundBean = (FundBean) fundDAO.getFundByName(name);
-				c = (CustomerBean) session.getAttribute("customer");
-				positionBean = (PositionBean) positionDAO.getPosition(
-						c.getCustomer_id(), fundBean.getFund_id());
-				
-				
-				request.setAttribute("fund", fundBean);
-				request.setAttribute("position", positionBean);
+				request.getSession().setAttribute("fund", fundBean);
+				request.getSession().setAttribute("position", positionBean);
 				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
@@ -101,13 +88,14 @@ public class C_SellFundAction extends Action {
 			CustomerBean c = (CustomerBean) session.getAttribute("customer");
 			PositionBean positionBean = (PositionBean) positionDAO.getPosition(
 					c.getCustomer_id(), fundBean.getFund_id());
+			
 			long tmpShares = positionBean.getTempshares();
 			long inputShares = dataConversion
 					.convertFromStringToThreeDigitLong(form.getShare());
 			
 			if (inputShares > tmpShares) {
 				errors.add("Number of shares should not be greater than "
-						+ tmpShares);
+						+ tmpShares/1000);
 				Transaction.commit();
 				return "c_sellFund.jsp";
 			}
@@ -120,6 +108,8 @@ public class C_SellFundAction extends Action {
 			positionBean.setTempshares(tmpShares - inputShares);// should use ;
 			positionDAO.update(positionBean);
 			
+			request.getSession().setAttribute("fund", fundBean);
+			request.getSession().setAttribute("position", positionBean);
 			request.setAttribute("message", "fund has been sold");
 			Transaction.commit();
 			return "c_success.jsp";

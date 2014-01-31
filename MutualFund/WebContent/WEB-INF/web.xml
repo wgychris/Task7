@@ -24,34 +24,8 @@
 		</init-param>
 	</servlet>
 
-	<servlet>
-		<servlet-name>controller</servlet-name>
-		<servlet-class>controller.Controller</servlet-class>
-		<init-param>
-			<param-name>jdbcDriverName</param-name>
-			<param-value>   com.mysql.jdbc.Driver   </param-value>
-		</init-param>
-		<init-param>
-			<param-name>jdbcURL</param-name>
-			<param-value>   jdbc:mysql:///mutual    </param-value>
-
-			<!-- <param-value> jdbc:mysql://aa1tacu8b2o73o8.caqnzxxu2pxb.us-east-1.rds.amazonaws.com:3306/ebdb</param-value> -->
-		</init-param>
-	</servlet>
-	<servlet>
-		<servlet-name>controller</servlet-name>
-		<servlet-class>controller.Controller</servlet-class>
-		<init-param>
-			<param-name>jdbcDriverName</param-name>
-			<param-value>   com.mysql.jdbc.Driver   </param-value>
-		</init-param>
-		<init-param>
-			<param-name>jdbcURL</param-name>
-			<param-value> jdbc:mysql:///mutual </param-value>
-
-			<!-- <param-value> jdbc:mysql://aa1tacu8b2o73o8.caqnzxxu2pxb.us-east-1.rds.amazonaws.com:3306/ebdb</param-value> -->
-		</init-param>
-	</servlet>
+	
+	
 
 	<servlet-mapping>
 		<servlet-name>controller</servlet-name>

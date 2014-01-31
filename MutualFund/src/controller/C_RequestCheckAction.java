@@ -65,7 +65,7 @@ public class C_RequestCheckAction extends Action {
 					.convertFromStringToTwoDigitLong(form.getCheckAmt());
 			long tmpCash = c.getTempcash();
 			if (inpuntAmount > tmpCash) {
-				errors.add("Amount should not be greater than " + tmpCash);
+				errors.add("Amount should not be greater than current cash");
 				Transaction.commit();
 				return "c_requestCheck.jsp";
 			}
