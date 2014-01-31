@@ -34,23 +34,21 @@
 				<td><input type="text" name="address2" value=""/></td>
 			</tr>
 			<tr>
-				<td> City: *</td>
+				<td> City: </td>
 				<td><input type="text" name="city" value=""/></td>
 			</tr>
 			<tr>
-				<td> State: *</td>
+				<td> State: </td>
 				<td><input type="text" name="state" value=""/></td>
 			</tr>
 			<tr>
-				<td> Zip: *</td>
+				<td> Zip: </td>
 				<td><input type="text" name="zipCode" value=""/></td>
 			</tr>
 			<tr>
-				<td> Cash: </td>
+				<td> Cash: *</td>
 				<td><input type="text" name="cash" value=""/></td>
 			</tr>
-			<tr><td>&nbsp;  <td></tr>
-			<tr><td>&nbsp;  <td></tr>
 		</table>	
 	
 				<button type="submit" class="btn btn-primary btn-lg active">Submit</button>

@@ -11,7 +11,7 @@
 
 <div>
 	<h4>Customer Info</h4>
-	<table  class="table table-striped">
+	<table class="table table-striped">
 		<tr>
 			<td>Customer ID:</td>
 			<td>${user.customer_id}</td>
@@ -50,7 +50,7 @@
 		</tr>
 		<tr>
 			<td>Cash Balance:</td>
-			<td><fmt:formatNumber type="number" pattern="###,##0.00"
+			<td>$<fmt:formatNumber type="number" pattern="###,##0.00"
 					value="${user.cash/100}" /></td>
 		</tr>
 	</table>
@@ -66,19 +66,20 @@
 			<thead>
 				<th>Fund name</th>
 				<th>Fund ticker</th>
-				<th>Shares</th>
-				<th>Last price</th>
-				<th>Value</th>
+				<th class="text-right">Shares</th>
+				<th class="text-right">Last price</th>
+				<th class="text-right">Value</th>
 			</thead>
 			<c:forEach items="${requestScope.userFundList}" var="userFund">
 				<tr>
 					<td>${userFund.name}</td>
 					<td>${userFund.symbol}</td>
-					<td><fmt:formatNumber type="number" pattern="###,##0.000"
-							value="${userFund.shares/1000}" /></td>
-					<td><fmt:formatNumber type="number" pattern="###,##0.00"
-							value="${userFund.price/100}" /></td>
-					<td><fmt:formatNumber type="number" pattern="###,##0.00"
+					<td align="right"><fmt:formatNumber type="number"
+							pattern="###,##0.000" value="${userFund.shares/1000}" /></td>
+					<td align="right">$<fmt:formatNumber type="number"
+							pattern="###,##0.00" value="${userFund.price/100}" /></td>
+					<td align="right">$<fmt:formatNumber type="number"
+							pattern="###,##0.00"
 							value="${userFund.price/100 * userFund.shares/1000}" /></td>
 				</tr>
 			</c:forEach>
