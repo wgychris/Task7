@@ -31,8 +31,13 @@
 				<td>${transaction.name}</td>
 				<td>${transaction.symbol}</td>
 				<td>${transaction.execute_date}</td>
-				<td><fmt:formatNumber type="number" pattern="###,##0.000"
-						value="${transaction.shares/1000}" /></td>
+				<c:if test="${transaction.shares != 0}">
+					<td><fmt:formatNumber type="number" pattern="###,##0.000"
+							value="${transaction.shares/1000}" /></td>
+				</c:if>
+				<c:if test="${transaction.shares == 0}">
+					<td>-</td>
+				</c:if>
 				<td>${transaction.transaction_type}</td>
 				<td><fmt:formatNumber type="number" pattern="###,##0.00"
 						value="${transaction.amount/100}" /></td>

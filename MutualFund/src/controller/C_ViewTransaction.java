@@ -57,55 +57,29 @@ public class C_ViewTransaction extends Action {
 			Transaction.begin();
 			TransactionBean[] tbarray = transactionDAO
 					.getTransactionByCustomerId(customer_id);
-			// TransactionBean[] tbarray =
-			// transactionDAO.getTransactionByCustomerId(1); //test user id is 1
-			System.out.print("-1");
-			//System.out.println(tbarray[0].getTransaction_id());
 
 			int length = 0;
-			if(transactionDAO.getTransactionByCustomerId(customer_id) != null){
-				 length = transactionDAO.getTransactionByCustomerId(customer_id).length;
+			if (tbarray != null) {
+				length = tbarray.length;
 			}
 			// int length = transactionDAO.getTransactionByCustomerId(1).length;
 			System.out.println("length is " + length);
 			ArrayList<TempTransaction> al = new ArrayList<TempTransaction>();
 			System.out.print("1");
 			for (int i = 0; i < length; i++) {
-				TempTransaction tt = new TempTransaction(); // need to create
-															// new object for
-															// each loop!!!
-				// int fundid =
-				// transactionDAO.getTransactionByCustomerId(1)[i].getFund_id();
-				System.out.print("2");
-				int fundid = transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getFund_id();
-				System.out.println("fundid is" + fundid);
-				System.out.print("3");
-				tt.setAmount(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getAmount());
-				tt.setShares(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i].getShares());
-				tt.setCustomer_id(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getCustomer_id());
-				if ((transactionDAO.getTransactionByCustomerId(customer_id)[i]
-						.getExecute_date()) == null) {
+				TempTransaction tt = new TempTransaction();
+				int fundid = tbarray[i].getFund_id();
+				tt.setAmount(tbarray[i].getAmount());
+				tt.setCustomer_id(tbarray[i].getCustomer_id());
+				tt.setShares(tbarray[i].getShares());
+				if ((tbarray[i].getExecute_date()) == null) {
 					tt.setExecute_date("Pending");
 				} else {
-					tt.setExecute_date((transactionDAO
-							.getTransactionByCustomerId(customer_id)[i]
-							.getExecute_date()));
+					tt.setExecute_date(tbarray[i].getExecute_date());
 				}
-				tt.setFund_id((transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getFund_id()));
-				tt.setTransaction_id(transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getTransaction_id());
-				tt.setTransaction_type((transactionDAO
-						.getTransactionByCustomerId(customer_id)[i]
-						.getTransaction_type()));
+				tt.setFund_id(tbarray[i].getFund_id());
+				tt.setTransaction_id(tbarray[i].getTransaction_id());
+				tt.setTransaction_type(tbarray[i].getTransaction_type());
 				if (tt.getFund_id() == 0) {
 					tt.setName("-");
 					tt.setSymbol("-");

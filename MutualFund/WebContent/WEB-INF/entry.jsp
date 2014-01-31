@@ -5,7 +5,7 @@
 <link href="css/main.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<title>Mutual Fund</title>
+<title>Carnegie Financial Services</title>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 			<td valign="top"><jsp:include page="error-list.jsp" />
 				<div class="text-center">
 					<div class="page-header">
-						<h1>Carnegie Financial Services</h1>
+						<h1>Welcome to CFS</h1>
 						<br> <br>
 						<h4 class="form-signin-heading">Please choose your entrance</h4>
 					</div>
