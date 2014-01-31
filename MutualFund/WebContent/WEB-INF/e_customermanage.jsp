@@ -1,4 +1,6 @@
 
+<%@page import="databeans.CustomerBean"%>
+<%@page import="com.apple.eawt.AppEvent.UserSessionEvent"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="template-top2.jsp" />
@@ -79,55 +81,58 @@
 		</form>
 		<div class="tfclear"></div>
 	</div>
-
-	<table class="table table-hover">
-		<c:if test="${requestScope.users!= null}">
+	<%
+	CustomerBean[] users=(CustomerBean[])request.getAttribute("users");
+	if(request.getAttribute("users")!=null && users.length!=0){ %>
+		<table class="table table-hover">
 			<thead>
-				<th>C-ID</th>
-				<th>UserName</th>
-				<th>FirstName</th>
-				<th>LastName</th>
+				<th>CustomerID</th>
+				<th>User name</th>
+				<th>First name</th>
+				<th>Last name</th>
 				<th class="text-right">Cash</th>
-				<th class="text-right">Avaliable Cash</th>
-				<th>ChangePassword</th>
-				<th>ViewAccount</th>
-				<th>TransactionHistory</th>
+				<th class="text-right">Available cash</th>
+				<th>Change password</th>
+				<th>View account</th>
+				<th>Transaction history</th>
 			</thead>
-			<c:forEach items="${users}" var="user">
-				<tr>
+			<%
+			for(CustomerBean user:users){
+			%>
+			<tr>
 
-					<td>${users.customer_id}</td>
-					<td>${users.username}</td>
-					<td>${users.firstname}</td>
-					<td>${users.lastname}</td>
-					<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
-							value="${users.cash/100}" /></td>
-					<td align="right"><fmt:formatNumber type="number" pattern="###,##0.00"
-							value="${users.tempcash/100}" /></td>
-					<th>
-						<form action="e_reset-pfc.do" method="post">
-							<input type="hidden" name="username" value="${users.username }" />
-							<input type="submit" value="ChangePassword" class="tfbutton">
-						</form>
-					</th>
+				<td><%=user.getCustomer_id() %></td>
+				<td><%=user.getUsername() %></td>
+				<td><%=user.getFirstname() %></td>
+				<td><%=user.getLastname() %></td>
+				<td align="right"><fmt:formatNumber type="number"
+						pattern="###,##0.00" value="<%=user.getCash()/100 %>" /></td>
+				<td align="right"><fmt:formatNumber type="number"
+						pattern="###,##0.00" value="<%=user.getTempcash()/100 %>" /></td>
+				<th>
+					<form action="e_reset-pfc.do" method="post">
+						<input type="hidden" name="username" value="<%=user.getUsername() %>" />
+						<input type="submit" value="ChangePassword" class="tfbutton">
+					</form>
+				</th>
 
-					<th>
-						<form action="e_viewAllAccount.do" method="post">
-							<input type="hidden" name="username" value="${users.username}" />
-							<input type="submit" value="ViewAccount" class="tfbutton">
-						</form>
-					</th>
+				<th>
+					<form action="e_viewAllAccount.do" method="post">
+						<input type="hidden" name="username" value="<%=user.getUsername() %>" />
+						<input type="submit" value="ViewAccount" class="tfbutton">
+					</form>
+				</th>
 
-					<th>
-						<form action="e_viewTransactionHistory.do" method="post">
-							<input type="hidden" name="username" value="${ users.username }" />
-							<input type="submit" value="TransactionHistory" class="tfbutton">
-						</form>
-					</th>
+				<th>
+					<form action="e_viewTransactionHistory.do" method="post">
+						<input type="hidden" name="username" value="<%=user.getUsername() %>" />
+						<input type="submit" value="TransactionHistory" class="tfbutton">
+					</form>
+				</th>
 
-				</tr>
-			</c:forEach>
-		</c:if>
-	</table>
+			</tr>
+			<%} %>
+		</table>
+	<%} %>	
 </div>
 <jsp:include page="template-bottom.jsp" />

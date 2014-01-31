@@ -20,6 +20,8 @@ import model.TransactionDAO;
 
 import org.genericdao.*;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 public class E_CustomerManage extends Action {
 	private FormBeanFactory<SearchCustomerName> formBeanFactory = FormBeanFactory
 			.getInstance(SearchCustomerName.class);
@@ -38,7 +40,6 @@ public class E_CustomerManage extends Action {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "e_customermanage.do";
 	}
 
@@ -53,6 +54,7 @@ public class E_CustomerManage extends Action {
 
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
+				//request.getSession().setAttribute("users", new CustomerBean());
 				return "e_customermanage.jsp";
 			}
 			// check any other errors from JSP
@@ -63,24 +65,28 @@ public class E_CustomerManage extends Action {
 			// check if the customer username exist
 			// return -1 means this user not existed
 			Transaction.begin();
-			int customer_id = customerDAO.getCustomerId(form.getUsername());
+			//int customer_id = customerDAO.getCustomerId(form.getUsername());
 
-			// CustomerBean [] cbs = customerDAO.getAllCustomers();
-			if (customer_id == -1) {
+			 CustomerBean [] cbs = customerDAO.getRelateCustomers(form.getUsername());
+			 System.out.println(cbs.length);
+			 for(CustomerBean c:cbs){
+				 System.out.println(c.getFirstname());
+			 }
+			/*if (customer_id == -1) {
 				errors.add("Invalid User Name");
 				Transaction.commit();
 				return "e_customermanage.jsp";
 			}
-			System.out.println(form.getUsername());
-			CustomerBean cb = customerDAO.read(customer_id);
-			System.out.println(cb.getUsername() + "by bean");
-
+			CustomerBean cb = customerDAO.read(customer_id);*/
+			 if(cbs.length==0){
+				 errors.add("No related user");
+				return "e_customermanage.jsp";
+			 }
 			/*
 			 * send customer bean to jsp as "users" could add other params like
 			 * first name, last name
 			 */
-			request.setAttribute("users", cb);
-			// request.setAttribute("users", cbs);
+			request.setAttribute("users", cbs);
 			Transaction.commit();
 			return "e_customermanage.jsp";
 		} catch (RollbackException e) {
