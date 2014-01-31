@@ -4,7 +4,7 @@
 	<meta http-equiv="pragma" content="no-cache">
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<title>Mutual Fund</title>
+	<title>Carnegie Financial Services</title>
 </head>
 
 <body>

@@ -103,6 +103,7 @@ public class C_BuyFundAction extends Action {
 			customer.setTempcash(customer.getTempcash() - inputAmount);
 //			 customerDAO.updataTempCash(customer.getCustomer_id(),
 //			 customer.getTempcash() - inputAmount);
+			customerDAO.update(customer);
 			transactionDAO.create(t);
 
 			request.setAttribute("message", "new fund has been bought");
