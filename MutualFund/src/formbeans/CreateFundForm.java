@@ -36,6 +36,11 @@ public class CreateFundForm extends FormBean {
 		if (symbol == null || symbol.length() == 0) {
 			errors.add("Ticker name is required");
 		}
+		
+		if (symbol == null || symbol.length() > 5) {
+			errors.add("Length of Ticker should not be greater than 5");
+		}
+		
 		if (fundname.matches(".*[<>\"].*") ) {
 			errors.add("Fund name may not contain angle brackets or quotes");
 		}

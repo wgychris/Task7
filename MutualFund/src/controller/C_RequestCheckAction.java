@@ -76,7 +76,7 @@ public class C_RequestCheckAction extends Action {
 			System.out.println(c.getTempcash());
 			tb.setTransaction_type("request");
 			tb.setAmount(inpuntAmount);
-			tb.setCustomer_id(1);
+			tb.setCustomer_id(c.getCustomer_id());
 			transactionDAO.createNewTransaction(tb);
 			customerDAO.update(c);
 			request.setAttribute("message", "the transaction is in process");

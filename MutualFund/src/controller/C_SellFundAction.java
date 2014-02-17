@@ -94,8 +94,7 @@ public class C_SellFundAction extends Action {
 					.convertFromStringToThreeDigitLong(form.getShare());
 			
 			if (inputShares > tmpShares) {
-				errors.add("Number of shares should not be greater than "
-						+ tmpShares/1000);
+				errors.add("Number of shares should not be greater than available shares");
 				Transaction.commit();
 				return "c_sellFund.jsp";
 			}

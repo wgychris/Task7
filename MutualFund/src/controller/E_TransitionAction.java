@@ -91,26 +91,31 @@ public class E_TransitionAction extends Action {
 				fundsWithPrice[i] = fw;
 			}
 			request.setAttribute("funds", fundsWithPrice);
-			TransactionBean[] temp = transactionDAO.getAllTransactions();
-			int count;
-			for (count = 0; count < transactionDAO.getCount(); count++) {
-				if (temp[count].getExecute_date() == null) {
-					break;
-				}
-			}
-			String lastdate;
-			if (count == 0) {
-				lastdate = "no last trading day";
-			} else {
-				lastdate = temp[count - 1].getExecute_date();
-			}
+//			TransactionBean[] temp = transactionDAO.getAllTransactions();
+//			int count;
+//			for (count = 0; count < transactionDAO.getCount(); count++) {
+//				if (temp[count].getExecute_date() == null) {
+//					break;
+//				}
+//			}
+//			String lastdate;
+//			if (count == 0) {
+//				lastdate = "no last trading day";
+//			} else {
+//				lastdate = temp[count - 1].getExecute_date();
+//			}
 			
 			//check number of items in the fundpricehistory table, return the last indext.
 			//its date is the last trading day.
 			//becuse each transition day the pricehistory table will chang, transaction table may not.
 			int itemcount = fundPriceHistoryDAO.getCount();
-			String lastpricedate = fundPriceHistoryDAO.getAllFundPriceHistory()[itemcount-1].getDate();
-			request.setAttribute("lastdate", lastpricedate);
+			if(itemcount==0){
+				request.setAttribute("lastdate", "");
+			}else{
+				String lastpricedate = fundPriceHistoryDAO.getAllFundPriceHistory()[itemcount-1].getDate();
+				request.setAttribute("lastdate", lastpricedate);
+			}
+			
 			
 			// If no params were passed, return with no errors so that the form
 			// will be presented (we assume for the first time).
