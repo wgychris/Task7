@@ -64,6 +64,8 @@ public class C_RequestCheckAction extends Action {
 			long inpuntAmount = dataConversion
 					.convertFromStringToTwoDigitLong(form.getCheckAmt());
 			long tmpCash = c.getTempcash();
+			System.out.println(tmpCash);
+			System.out.println(inpuntAmount);
 			if (inpuntAmount > tmpCash) {
 				errors.add("Amount should not be greater than current cash");
 				Transaction.commit();
@@ -71,10 +73,12 @@ public class C_RequestCheckAction extends Action {
 			}
 			TransactionBean tb = new TransactionBean();
 			c.setTempcash(tmpCash - inpuntAmount);
+			System.out.println(c.getTempcash());
 			tb.setTransaction_type("request");
 			tb.setAmount(inpuntAmount);
 			tb.setCustomer_id(1);
 			transactionDAO.createNewTransaction(tb);
+			customerDAO.update(c);
 			request.setAttribute("message", "the transaction is in process");
 			session.setAttribute("customer", c);
 			Transaction.commit();

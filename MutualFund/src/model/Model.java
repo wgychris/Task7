@@ -24,7 +24,7 @@ public class Model {
 			String jdbcDriver = config.getInitParameter("jdbcDriverName");
 			String jdbcURL    = config.getInitParameter("jdbcURL");
 			
-			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL+"?user=yusiz&password=leoryzu521");
+			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL);
 			//
 			cDAO  = new CustomerDAO("customer", pool);
 			eDAO = new EmployeeDAO("employee",pool);
